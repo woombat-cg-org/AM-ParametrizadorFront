@@ -1,0 +1,110 @@
+$p: hsl(213deg 85% 97%)
+$s: hsl(233deg 36% 38%)
+
+@mixin screen
+  max-height: 650px
+  min-height: 650px
+  width: 350px
+  background: #39415b
+  padding: 10px
+  display: flex
+  flex-direction: column
+  border-radius: 15px
+  box-shadow: 0 0 2em hsl(231deg 62% 94%)
+
+.login-principal
+  user-select: none
+  overflow-y: hidden
+  display: flex
+  justify-content: center
+  align-items: center
+  background: #F0F0F2
+  height: 100vh
+
+.screen-1
+  @include screen
+  gap: 1em
+  .logo
+    padding: 10px
+    width: 100%
+    display: flex
+    justify-content: center
+    margin-bottom: 40px
+    img
+      width: 230px
+
+  .email
+    background: #F0F0F2
+    padding: 1em
+    display: flex
+    flex-direction: column
+    gap: 0.3em
+    border-radius: 10px
+    color: hsl(0deg 0% 30%)
+    margin-top: -3em
+
+    label 
+      font-size: 16px
+
+    input
+      outline: none
+      border: none
+      background-color: #F0F0F2
+      &::placeholder
+        color: hsl(0deg 0% 0%)
+        font-size: 0.9em
+
+    ion-icon
+      color: hsl(0deg 0% 30%)
+      margin-bottom: -0.2em
+      margin-right: 10px
+
+  .password
+    background: #F0F0F2
+    padding: 1em
+    display: flex
+    flex-direction: column
+    gap: 0.3em
+    border-radius: 10px
+    color: hsl(0deg 0% 30%)
+
+    label 
+      font-size: 16px
+
+    input
+      outline: none
+      border: none
+      background-color: #F0F0F2
+      &::placeholder
+        color: hsl(0deg 0% 0%)
+        font-size: 0.9em
+
+    ion-icon
+      color: hsl(0deg 0% 30%)
+      margin-bottom: -0.2em
+      margin-right: 10px
+
+    .show-hide
+      margin-right: -5em
+
+  .login
+    padding: 1em
+    background: #F0F0F2
+    color: hsl(0deg 0% 30%)
+    border: none
+    border-radius: 10px
+    font-weight: 600
+
+  .footer
+    text-align: center
+    font-size: 0.7em
+    color: hsl(0deg 0% 37%)
+    gap: 14em
+    padding-bottom: 10em
+
+    span
+      color: #F0F0F2
+      cursor: pointer
+
+button
+  cursor: pointer
