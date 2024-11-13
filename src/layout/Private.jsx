@@ -1,10 +1,11 @@
 import { Outlet, Navigate } from 'react-router-dom'
+import useUser from '../hooks/useUser'
 
 const Private = () => {
 
-    const user = false
+    const { info_user } = useUser()
 
-    return <>{user ? <Outlet /> : <Navigate to="/inicio-sesion" />}</>
+    return <>{info_user ? <Outlet /> : <Navigate to="/inicio-sesion" />}</>
 }
 
 export default Private

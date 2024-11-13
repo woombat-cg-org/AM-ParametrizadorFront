@@ -1,8 +1,14 @@
 import { useState } from 'react'
+import { Navigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import LogoAM from '../images/amlogo.png'
+import useUser from '../hooks/useUser'
 
 const FormLogin = () => {
+
+  const { info_user } = useUser()
+
+  console.log(info_user)
 
   const data = {
     user: "",
@@ -30,6 +36,8 @@ const FormLogin = () => {
 
     setDataForm(data)
   }
+
+  if(info_user != undefined) return <Navigate to="/" />
 
   return (
     <form 
