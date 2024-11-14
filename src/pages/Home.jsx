@@ -1,10 +1,11 @@
 import Navbar from '../components/Navbar/Navbar'
+import NavUser from '../components/NavUser/NavUser'
 
 const Home = () => {
   return (
     <div className="home">
       <Navbar />
-      <div>fuera del navbar</div>
+      <NavUser />
     </div>
   )
 }
