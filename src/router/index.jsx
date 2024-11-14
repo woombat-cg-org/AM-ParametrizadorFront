@@ -3,6 +3,7 @@ import Private from '../layout/Private'
 import NotFound from '../pages/NotFound'
 import Login from '../pages/Login'
 import Home from '../pages/Home'
+import Config from '../pages/Config'
 
 export const router = createBrowserRouter([
     {
@@ -16,6 +17,10 @@ export const router = createBrowserRouter([
             {
                 index: true,
                 element: <Home />,
+            },
+            {
+                path: "/configuraciones",
+                element: <Config />
             }
         ]
     },

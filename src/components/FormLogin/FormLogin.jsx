@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import LogoAM from '../images/amlogo.png'
-import useUser from '../hooks/useUser'
+import LogoAM from '../../images/amlogo.png'
+import useUser from '../../hooks/useUser'
 
 const FormLogin = () => {
 

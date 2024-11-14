@@ -18,7 +18,7 @@ const App = () => {
 
   const [data, setData] = useState(undefined)
 
-  /* const data2 = {
+  const data2 = {
     user: "Jhon Giron",
     rol: "user"
   }
@@ -32,8 +32,7 @@ const App = () => {
       }
     }
     getData()
-  }, []) */
-
+  }, [])
 
   const info_user = useMemo(
     () => ({

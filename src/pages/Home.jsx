@@ -1,7 +1,10 @@
+import Navbar from '../components/Navbar/Navbar'
+
 const Home = () => {
   return (
-    <div>
-      Panel Pricipal
+    <div className="home">
+      <Navbar />
+      <div>fuera del navbar</div>
     </div>
   )
 }
