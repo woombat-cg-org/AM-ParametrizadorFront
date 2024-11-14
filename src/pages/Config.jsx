@@ -1,9 +1,11 @@
-import React from 'react'
+import Navbar from '../components/Navbar/Navbar'
+import NavUser from '../components/NavUser/NavUser'
 
 const Config = () => {
   return (
     <div>
-      This is configuraciones
+      <Navbar />
+      <NavUser />
     </div>
   )
 }
