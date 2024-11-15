@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import UserContext from './context/UserContext'
 import './sass/index.sass'
 import { router } from './router'
+import { Helmet } from 'react-helmet'
 
 const App = () => {
   useEffect(() => {
@@ -42,6 +43,9 @@ const App = () => {
 
   return (
     <UserContext.Provider value={info_user}>
+      <Helmet>
+        <title>AM Parametrizador</title>
+      </Helmet>
       <RouterProvider router={router} />
       <ToastContainer
         position="top-right"
