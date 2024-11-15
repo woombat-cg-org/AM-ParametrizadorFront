@@ -1,0 +1,23 @@
+{
+    "fuentes": [
+        {
+            "codigo": 0,
+            "nombre_fuente": "CEFINAN",
+            "creada_por": "Jhon Giron",
+            "modificada_por": "Jhon Giron",
+            "ultima_modificacion": "14/11/2024, 4:23:32 p.m."
+        },{
+            "codigo": 1,
+            "nombre_fuente": "CEFIINDU",
+            "creada_por": "Jhon Giron",
+            "modificada_por": "",
+            "ultima_modificacion": "13/11/2024, 4:23:32 p.m."
+        },{
+            "codigo": 2,
+            "nombre_fuente": "INFOVIA",
+            "creada_por": "Jhon Giron",
+            "modificada_por": "",
+            "ultima_modificacion": "12/11/2024, 4:23:32 p.m."
+        }
+    ]
+}
