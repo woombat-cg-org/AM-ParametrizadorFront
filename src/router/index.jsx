@@ -4,6 +4,7 @@ import NotFound from '../pages/NotFound'
 import Login from '../pages/Login'
 import Home from '../pages/Home'
 import Config from '../pages/Config'
+import Fuente from '../pages/Fuente'
 
 export const router = createBrowserRouter([
     {
@@ -21,6 +22,10 @@ export const router = createBrowserRouter([
             {
                 path: "/configuraciones",
                 element: <Config />
+            },
+            {
+                path: "/nueva-fuente",
+                element: <Fuente />
             }
         ]
     },

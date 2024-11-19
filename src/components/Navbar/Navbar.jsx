@@ -15,6 +15,11 @@ const Navbar = () => {
       </div>
 
       <nav className="nav-bar-links">
+        {
+          location.pathname === "/nueva-fuente" && (
+            <Link to="/" className={isActive('/nueva-fuente')}> <ion-icon name="newspaper-outline" style={{ marginRight: '8px', fontSize: '20px' }}></ion-icon> Fuente Nueva</Link>
+          )
+        }
         <Link to="/" className={isActive('/')}> <ion-icon name="library-outline" style={{ marginRight: '8px', fontSize: '20px' }}></ion-icon> Tabla de Fuentes</Link>
         <Link to="/configuraciones" className={isActive('/configuraciones')}> <ion-icon name="cog-outline" style={{ marginRight: '8px', fontSize: '20px' }}></ion-icon> Configuraciones</Link>
       </nav>

@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import API from '../../API.json'
 import Filtro from '../Filtro/Filtro'
 
 const TableList = () => {
 
+    const navigate = useNavigate()
     const [fuentes, setFuentes] = useState(undefined)
     let datoFuente
     if(fuentes === undefined) {
@@ -45,7 +47,7 @@ const TableList = () => {
     }
 
     const handleNuevaFuente = () => {
-        console.log("Agregar nueva fuente")
+        navigate('/nueva-fuente')
     }
 
     const handleFilterFuente = (fuente) => {
