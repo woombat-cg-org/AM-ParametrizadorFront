@@ -3,9 +3,30 @@
     width: 100%
 
     &_buttons
-        margin-top: 15px
+        margin-top: 20px
         display: flex
         justify-content: space-between
+
+        button
+            &:first-child
+                background-color: #324960
+                text-transform: uppercase
+                color: white
+                padding: 7px
+                font-weight: bold
+                border-radius: 4px
+                border: none
+                font-size: 10px
+
+            &:last-child
+                background-color: #324960
+                text-transform: uppercase
+                color: white
+                padding: 7px
+                font-weight: bold
+                border-radius: 4px
+                border: none
+                font-size: 10px
 
     h2
         color: #43586e
@@ -20,6 +41,31 @@
         gap: 10px
         overflow-y: auto
         max-height: 450px
+
+        &::-webkit-scrollbar
+            width: 8px
+
+        &::-webkit-scrollbar-thumb
+            background: #324960
+            border-radius: 2px
+
+        &::-webkit-scrollbar-thumb:hover
+            background: #43586e
+        
+        &::-webkit-scrollbar-track
+            background: rgba(0, 0, 0, 0.05)
+
+    &_2
+        width: 100%
+        margin-top: 5px
+        display: grid
+        grid-template-columns: repeat(2, 1fr)
+        gap: 10px
+        overflow-y: auto
+        max-height: 450px
+
+        & > :last-child
+            grid-column: span 2
 
         &::-webkit-scrollbar
             width: 8px
@@ -57,3 +103,45 @@
             
             &:focus
                 outline: none
+
+    &_time
+        background-color: white
+        padding: 20px 10px
+        width: 100%
+        display: flex
+        align-items: center
+        border-radius: 2px
+        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1)
+
+        label
+            font-size: 13px
+            width: 150px
+            font-weight: bold
+
+        textarea
+            min-height: 290px
+            max-height: 290px
+            overflow-y: auto
+            resize: none
+
+        input[type="time"], textarea
+            background-color: #F0F0F2
+            padding: 6px
+            border: 1px solid rgba(0, 0, 0, 0.2)
+            border-radius: 4px
+            width: 100%
+            
+            &:focus
+                outline: none
+        &_days
+            width: 100%
+
+            input[type="button"]
+                background-color: #F0F0F2
+                margin: 0px 4px 5px 0px
+                padding: 6px
+                border: 1px solid rgba(0, 0, 0, 0.1)
+                border-radius: 4px
+
+                &:hover
+                    cursor: pointer

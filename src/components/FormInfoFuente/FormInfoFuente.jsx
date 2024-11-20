@@ -4,7 +4,7 @@ import InfoDos from './InfoDos'
 import InfoTres from './InfoTres'
 import InfoCuatro from './InfoCuatro'
 
-const FormInfoFuente = ({tiempo}) => {
+const FormInfoFuente = ({tiempo, setTiempo}) => {
 
     const tipo_fuente = [
         {id: 0, name: "-- Seleccione una Opción --", value: "none"},
@@ -14,6 +14,14 @@ const FormInfoFuente = ({tiempo}) => {
     ]
 
     const [tipoFuente, setTipoFuente] = useState(tipo_fuente)
+
+    const handleTiempo = (tipo) => {
+        if(tipo === "avanzar") {
+            setTiempo(tiempo + 1)
+        } else if(tipo === "retroceder") {
+            setTiempo(tiempo - 1)
+        }
+    }
 
     if(tipoFuente === undefined) return (<h1> Cargando</h1>)
 
@@ -32,26 +40,45 @@ const FormInfoFuente = ({tiempo}) => {
         }
         {
             tiempo === 2 && (
-                <InfoDos />
+                <>
+                    <h2>Ejecución Fuente</h2>
+                    <InfoDos />
+                </>
             )
         }
         {
             tiempo === 3 && (
-                <InfoTres />
+                <>
+                    <h2>Campos Fuente</h2>
+                    <InfoTres />
+                </>
             )
         }
         {
             tiempo === 4 && (
-                <InfoCuatro />
+                <>
+                    <h2>Información General Fuente</h2>
+                    <InfoCuatro />
+                </>
             )
         }
         <div className="form_info_fuente_buttons">
-            <button
-                type="button"
-            >Retroceder</button>
-            <button
-                type="button"
-            >Avanzar</button>
+            {
+                tiempo >= 2 && (
+                    <button
+                        type="button"
+                        onClick={() => handleTiempo("retroceder")}
+                    >Retroceder</button>
+                )
+            }
+            {
+                tiempo < 4 && (
+                    <button
+                        type="button"
+                        onClick={() => handleTiempo("avanzar")}
+                    >Avanzar</button>
+                )
+            }
         </div>
     </div>
   )

@@ -146,7 +146,7 @@ const InfoUno = ({tipoFuente}) => {
         <input type="checkbox" name="" id="" />
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default InfoUno
