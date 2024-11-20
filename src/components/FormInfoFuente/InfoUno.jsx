@@ -24,10 +24,6 @@ const InfoUno = ({tipoFuente}) => {
         <input type="text" name="" id="" />
       </div>
       <div className="form_info_fuente_fuente">
-        <label htmlFor="">Cron-tab</label>
-        <input type="text" name="" id="" />
-      </div>
-      <div className="form_info_fuente_fuente">
         <label htmlFor="">Periodicidad</label>
         <select name="select">
           {tipoFuente.map((item) => (
@@ -144,10 +140,6 @@ const InfoUno = ({tipoFuente}) => {
             </option>
           ))}
         </select>
-      </div>
-      <div className="form_info_fuente_fuente">
-        <label htmlFor="">Condicion Filtro</label>
-        <input type="text" name="" id="" />
       </div>
       <div className="form_info_fuente_fuente">
         <label htmlFor="">Activo</label>
