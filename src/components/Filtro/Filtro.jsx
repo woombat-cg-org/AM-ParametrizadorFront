@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-const Filtro = ({handleFilterFuente}) => {
+const Filtro = ({handleFilterFuente, nombre = "Buscar Fuente..."}) => {
 
     const [busqueda, setbusqueda] = useState('')
 
@@ -15,7 +15,7 @@ const Filtro = ({handleFilterFuente}) => {
   return (
     <div className="filtro_buscar">
         <input 
-            placeholder="Buscar Fuente..." 
+            placeholder={nombre}
             type="text"
             onChange={handleBusqueda}
         />

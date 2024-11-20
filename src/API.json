@@ -1,4 +1,38 @@
 {
+    "campos": [
+        {
+            "consecutivo": 0,
+            "nombre_campo": "STATUSINICIO",
+            "tipo_dato": "STRING",
+            "logitud": 50,
+            "particion": "X",
+            "anonimizar": "X"
+        },
+        {
+            "consecutivo": 1,
+            "nombre_campo": "STATUSFIN",
+            "tipo_dato": "STRING",
+            "logitud": 50,
+            "particion": "",
+            "anonimizar": ""
+        },
+        {
+            "consecutivo": 3,
+            "nombre_campo": "CDITNOMBRE",
+            "tipo_dato": "STRING",
+            "logitud": 50,
+            "particion": "",
+            "anonimizar": ""
+        },
+        {
+            "consecutivo": 4,
+            "nombre_campo": "FECHA_INICIAL",
+            "tipo_dato": "TIMESTAMP",
+            "logitud": 20,
+            "particion": "",
+            "anonimizar": ""
+        }
+    ],
     "fuentes": [
         {
             "codigo": 0,

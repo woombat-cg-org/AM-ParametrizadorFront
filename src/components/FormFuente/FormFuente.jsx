@@ -4,7 +4,7 @@ import FormInfoFuente from '../FormInfoFuente/FormInfoFuente'
 
 const FormFuente = () => {
 
-  const [tiempo, setTiempo] = useState(2)
+  const [tiempo, setTiempo] = useState(1)
 
   return (
     <div className="table_list">

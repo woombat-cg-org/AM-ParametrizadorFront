@@ -80,6 +80,9 @@
         &::-webkit-scrollbar-track
             background: rgba(0, 0, 0, 0.05)
 
+    &_3
+        width: 100%
+
     &_fuente
         background-color: white
         padding: 20px 10px
@@ -145,3 +148,176 @@
 
                 &:hover
                     cursor: pointer
+
+
+
+
+
+
+
+.info_table_list
+    .info-table-pages
+        margin-top: 10px
+        display: flex
+        align-items: center
+        justify-content: space-between
+
+        p
+            font-size: 13px
+            font-weight: bold
+    
+    .info-table-pages_page
+      button
+        padding: 5px
+        margin-left: 5px
+        border: none
+        background-color: #324960
+        color: white
+        font-weight: bold
+        border-radius: 3px
+        font-size: 12px
+
+    .info_table_filter
+      margin: 10px 0px
+      display: flex
+      justify-content: space-between
+      align-items: center
+
+      button
+        padding: 10px
+        border-radius: 5px
+        border: none
+        background-color: #324960
+        color: white
+        font-weight: normal
+        font-size: 12px
+        transition: 1s ease all
+
+        &:hover
+          font-weight: bold
+          transition: 1s ease all
+
+.info-table-wrapper
+  box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.1)
+  max-height: 360px
+  overflow-y: auto
+  position: relative
+
+  &::-webkit-scrollbar
+    width: 8px
+
+  &::-webkit-scrollbar-thumb
+    background: #324960
+    border-radius: 2px
+
+  &::-webkit-scrollbar-thumb:hover
+    background: #43586e
+  
+  &::-webkit-scrollbar-track
+    background: rgba(0, 0, 0, 0.05)
+
+.fl-table
+  border-radius: 5px
+  font-size: 12px
+  font-weight: normal
+  border: none
+  border-collapse: collapse
+  width: 100%
+  max-width: 100%
+  white-space: nowrap
+  background-color: white
+
+  td, th
+    text-align: center
+    padding: 8px
+
+  td
+    border-right: 1px solid #f8f8f8
+    font-size: 12px
+
+    span
+      font-size: 17px
+
+      &:hover
+        cursor: pointer
+
+  thead
+    position: sticky
+    top: 0
+    z-index: 2
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1)
+    th
+      color: #ffffff
+      background: #4FC3A1
+
+      &:nth-child(odd)
+        color: #ffffff
+        background: #324960
+
+  tr:nth-child(even)
+    background: #F8F8F8
+
+/* Responsive */
+
+@media (max-width: 767px)
+  .fl-table
+    display: block
+    width: 100%
+
+  .info-table-wrapper:before
+    content: "Scroll horizontally >"
+    display: block
+    text-align: right
+    font-size: 11px
+    color: white
+    padding: 0 0 10px
+
+  .fl-table
+    thead, tbody, thead th
+      display: block
+
+    thead th:last-child
+      border-bottom: none
+
+    thead
+      float: left
+
+    tbody
+      width: auto
+      position: relative
+      overflow-x: auto
+
+    td, th
+      padding: 20px .625em .625em .625em
+      height: 60px
+      vertical-align: middle
+      box-sizing: border-box
+      overflow-x: hidden
+      overflow-y: auto
+      width: 120px
+      font-size: 13px
+      text-overflow: ellipsis
+
+    thead th
+      text-align: left
+      border-bottom: 1px solid #f7f7f9
+
+    tbody tr
+      display: table-cell
+
+    tbody tr:nth-child(odd)
+      background: none
+
+    tr:nth-child(even)
+      background: transparent
+
+    tr td:nth-child(odd)
+      background: #F8F8F8
+      border-right: 1px solid #E6E4E4
+
+    tr td:nth-child(even)
+      border-right: 1px solid #E6E4E4
+
+    tbody td
+      display: block
+      text-align: center

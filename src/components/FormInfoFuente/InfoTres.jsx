@@ -1,9 +1,10 @@
 import React from 'react'
+import InfoTable from './InfoTable'
 
 const InfoTres = () => {
   return (
-    <div>
-      Info3
+    <div className="form_info_fuente_3">
+      <InfoTable />
     </div>
   )
 }

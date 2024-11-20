@@ -68,7 +68,7 @@ const FormInfoFuente = ({tiempo, setTiempo}) => {
                     <button
                         type="button"
                         onClick={() => handleTiempo("retroceder")}
-                    >Retroceder</button>
+                    >Volver</button>
                 )
             }
             {
@@ -76,7 +76,7 @@ const FormInfoFuente = ({tiempo, setTiempo}) => {
                     <button
                         type="button"
                         onClick={() => handleTiempo("avanzar")}
-                    >Avanzar</button>
+                    >Siguiente</button>
                 )
             }
         </div>

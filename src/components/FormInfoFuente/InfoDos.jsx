@@ -19,7 +19,7 @@ const InfoDos = () => {
       </div>
       <div className="form_info_fuente_time">
         <label htmlFor="">Condición Filtro</label>
-          <textarea rows="4" cols="50" placeholder="Ingresa la query aqui"></textarea>
+          <textarea rows="4" cols="50" placeholder="WHERE"></textarea>
       </div>
     </div>
   )
