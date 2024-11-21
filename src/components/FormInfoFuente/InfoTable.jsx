@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react'
 import Modal from 'react-modal'
 import API from '../../API.json'
 import Filtro from '../Filtro/Filtro'
+import InfoCampos from './InfoCampos'
 
 const InfoTable = () => {
 
     const [fuentes, setFuentes] = useState(undefined)
+    const [modal, setModal] = useState(false)
     let datoFuente
     if(fuentes === undefined) {
         datoFuente = []
@@ -61,7 +63,7 @@ const InfoTable = () => {
     const customStyles = {
         overlay: {
             zIndex: 1000,
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)'
         },
         content: {
             top: '50%',
@@ -69,8 +71,16 @@ const InfoTable = () => {
             right: 'auto',
             bottom: 'auto',
             marginRight: '-50%',
-            transform: 'translate(-50%, -50%)'
+            transform: 'translate(-50%, -50%)',
+            width: '550px',
+            maxWidth: '550px',
+            minHeight: '600px',
+            maxHeight: '600px'
         }
+    }
+
+    const handleGuardar = () => {
+        setModal(false)
     }
 
     if(!fuentes) return <h1>Hola</h1>
@@ -87,6 +97,7 @@ const InfoTable = () => {
                 }
                 <button
                     type="button"
+                    onClick={() => setModal(true)}
                 >Agregar Nuevo Campo</button>
             </div>
             <div className="info-table-wrapper">
@@ -144,11 +155,20 @@ const InfoTable = () => {
             </div>
         </div>
         <Modal
-            isOpen={false}
+            isOpen={modal}
             style={customStyles}
-            contentLabel="Example Modal"
         >
-            Hola mundo
+            <InfoCampos />
+            <div className="container_campos_bottons">
+                <button
+                    type="button"
+                    onClick={() => setModal(false)}
+                >Cancelar</button>
+                <button
+                    type="button"
+                    onClick={() => handleGuardar()}
+                >Guardar</button>
+            </div>
         </Modal>
     </>
   )
