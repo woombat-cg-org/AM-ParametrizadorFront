@@ -1,26 +1,42 @@
 import { useState } from 'react'
+import { toast } from 'react-toastify'
 import InfoUno from './InfoUno'
 import InfoDos from './InfoDos'
 import InfoTres from './InfoTres'
 import InfoCuatro from './InfoCuatro'
 
-const FormInfoFuente = ({tiempo, setTiempo}) => {
+const FormInfoFuente = ({tiempo, setTiempo, paramFuente, setParamFuente}) => {
 
-    const tipo_fuente = [
+    const tipos_fuente = [
         {id: 0, name: "-- Seleccione una Opción --", value: "none"},
         {id: 1, name: "SQL", value: "SQL"},
         {id: 2, name: "NAS", value: "NAS"},
         {id: 3, name: "HDFS", value: "HDFS"}
     ]
 
-    const [tipoFuente, setTipoFuente] = useState(tipo_fuente)
+    const [tipoFuente, setTipoFuente] = useState(tipos_fuente)
+
+    const { info_fuente } = paramFuente
+    const { descripcion, titulo, palabras_clave, base_datos_origen, tabla_origen, ruta_archivo_origen, tipo_fuente, periodicidad, id_dependencia, id_subdependencia, id_tema, tipo_ingesta, controlador, delimitador_archivo, directorio_salida_parquet, directorio_salida_publicacion, flag_encabezado_archivo, flag_anonimizar_campos, flag_aplicar_funciones, flag_particionada, flag_publicacion, flag_activo } = info_fuente
 
     const handleTiempo = (tipo) => {
+        
+        if(!tipo_fuente || !titulo || !palabras_clave || !periodicidad) {
+            console.log('Error')
+            toast.error('Heeey! Te faltan campos por llenar...')
+            return
+        }
+
         if(tipo === "avanzar") {
-            setTiempo(tiempo + 1)
+            if(tiempo === 4 ) {
+                console.log("Otra accion")
+            } else {
+                setTiempo(tiempo + 1)
+            }
         } else if(tipo === "retroceder") {
             setTiempo(tiempo - 1)
         }
+
     }
 
     if(tipoFuente === undefined) return (<h1> Cargando</h1>)
@@ -32,6 +48,8 @@ const FormInfoFuente = ({tiempo, setTiempo}) => {
                 <>
                     <h2>Información Fuente</h2>
                     <InfoUno 
+                        paramFuente={paramFuente}
+                        setParamFuente={setParamFuente}
                         tipoFuente={tipoFuente}
                     />
                 </>
@@ -72,11 +90,11 @@ const FormInfoFuente = ({tiempo, setTiempo}) => {
                 )
             }
             {
-                tiempo < 4 && (
+                tiempo <= 4 && (
                     <button
                         type="button"
                         onClick={() => handleTiempo("avanzar")}
-                    >Siguiente</button>
+                    >Guardar</button>
                 )
             }
         </div>

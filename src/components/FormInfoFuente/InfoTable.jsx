@@ -6,6 +6,8 @@ import InfoCampos from './InfoCampos'
 
 const InfoTable = () => {
 
+    Modal.setAppElement('#root');
+
     const [fuentes, setFuentes] = useState(undefined)
     const [modal, setModal] = useState(false)
     let datoFuente
