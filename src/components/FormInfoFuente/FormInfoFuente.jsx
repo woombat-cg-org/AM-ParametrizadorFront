@@ -1,14 +1,17 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import InfoUno from './InfoUno'
 import InfoDos from './InfoDos'
 import InfoTres from './InfoTres'
 import InfoCuatro from './InfoCuatro'
 
-const FormInfoFuente = ({tiempo, setTiempo, paramFuente, setParamFuente}) => {
+const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_info }) => {
+
+    const navigate = useNavigate()
 
     const tipos_fuente = [
-        {id: 0, name: "-- Seleccione una Opción --", value: "none"},
+        {id: 0, name: "-- Seleccione una Opción --", value: ""},
         {id: 1, name: "SQL", value: "SQL"},
         {id: 2, name: "NAS", value: "NAS"},
         {id: 3, name: "HDFS", value: "HDFS"}
@@ -16,17 +19,28 @@ const FormInfoFuente = ({tiempo, setTiempo, paramFuente, setParamFuente}) => {
 
     const [tipoFuente, setTipoFuente] = useState(tipos_fuente)
 
+    // Destructuring
     const { info_fuente } = paramFuente
-    const { descripcion, titulo, palabras_clave, base_datos_origen, tabla_origen, ruta_archivo_origen, tipo_fuente, periodicidad, id_dependencia, id_subdependencia, id_tema, tipo_ingesta, controlador, delimitador_archivo, directorio_salida_parquet, directorio_salida_publicacion, flag_encabezado_archivo, flag_anonimizar_campos, flag_aplicar_funciones, flag_particionada, flag_publicacion, flag_activo } = info_fuente
+    const { titulo, palabras_clave, tipo_fuente, id_dependencia, id_subdependencia, id_tema, controlador } = info_fuente
 
     const handleTiempo = (tipo) => {
+
+        // Cancelar la Creacion o Edicion de Fuente
+        if(tipo === "cancelar") {
+            setParamFuente(param_info)
+            setTiempo(1)
+            navigate('/')
+            return
+        }
         
-        if(!tipo_fuente || !titulo || !palabras_clave || !periodicidad) {
+        // InfoUno Validacion de Datos
+        if(!tipo_fuente || !titulo || !palabras_clave || !id_dependencia || !id_subdependencia || !id_tema || !controlador) {
             console.log('Error')
-            toast.error('Heeey! Te faltan campos por llenar...')
+            toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente.')
             return
         }
 
+        // Logica de Paginacion
         if(tipo === "avanzar") {
             if(tiempo === 4 ) {
                 console.log("Otra accion")
@@ -87,6 +101,14 @@ const FormInfoFuente = ({tiempo, setTiempo, paramFuente, setParamFuente}) => {
                         type="button"
                         onClick={() => handleTiempo("retroceder")}
                     >Volver</button>
+                )
+            }
+            {
+                tiempo == 1 && (
+                    <button
+                        type="button"
+                        onClick={() => handleTiempo("cancelar")}
+                    >Cancelar</button>
                 )
             }
             {

@@ -1,8 +1,10 @@
-const InfoUno = ({tipoFuente, paramFuente, setParamFuente}) => {
+const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
 
+   // Destructuring
   const { info_fuente } = paramFuente
-  const { descripcion, titulo, palabras_clave, base_datos_origen, tabla_origen, ruta_archivo_origen, tipo_fuente, periodicidad, id_dependencia, id_subdependencia, id_tema, tipo_ingesta, controlador, delimitador_archivo, directorio_salida_parquet, directorio_salida_publicacion, flag_encabezado_archivo, flag_anonimizar_campos, flag_aplicar_funciones, flag_particionada, flag_publicacion, flag_activo } = info_fuente
+  const { descripcion, titulo, palabras_clave, base_datos_origen, tabla_origen, ruta_archivo_origen, tipo_fuente, periodicidad, id_dependencia, id_subdependencia, id_tema, tipo_ingesta, controlador, delimitador_archivo, directorio_salida_parquet, directorio_salida_publicacion, flag_encabezado_archivo, flag_anonimizar_campos, flag_aplicar_funciones, flag_particionada, flag_publicacion, flag_activo, id_publicacion, licencia_publicacion } = info_fuente
 
+  // Funcion para Tomar los datos del Formulario
   const handleChange = (e) => {
 
     const { name, value, type, checked } = e.target
@@ -16,14 +18,10 @@ const InfoUno = ({tipoFuente, paramFuente, setParamFuente}) => {
     })
   }
 
-  const validarFuente = () => {
-    
-  }
-
   return (
     <div className="form_info_fuente_1">
       <div className="form_info_fuente_fuente">
-        <label htmlFor="">Tipo Fuente</label>
+        <label htmlFor="">* Tipo de Fuente</label>
         <select 
           name="tipo_fuente"
           value={tipo_fuente}
@@ -49,7 +47,7 @@ const InfoUno = ({tipoFuente, paramFuente, setParamFuente}) => {
         />
       </div>
       <div className="form_info_fuente_fuente">
-        <label htmlFor="">Titulo</label>
+        <label htmlFor="">* Titulo</label>
         <input 
           type="text" 
           name="titulo"
@@ -58,7 +56,7 @@ const InfoUno = ({tipoFuente, paramFuente, setParamFuente}) => {
         />
       </div>
       <div className="form_info_fuente_fuente">
-        <label htmlFor="">Palabras Clave</label>
+        <label htmlFor="">* Palabras Clave</label>
         <input 
           type="text" 
           name="palabras_clave"
@@ -81,7 +79,7 @@ const InfoUno = ({tipoFuente, paramFuente, setParamFuente}) => {
         </select>
       </div>
       <div className="form_info_fuente_fuente">
-        <label htmlFor="">ID Dependencia</label>
+        <label htmlFor="">* ID Dependencia</label>
         <select 
           name="id_dependencia"
           value={id_dependencia}
@@ -95,7 +93,7 @@ const InfoUno = ({tipoFuente, paramFuente, setParamFuente}) => {
         </select>
       </div>
       <div className="form_info_fuente_fuente">
-        <label htmlFor="">ID Subdependencia</label>
+        <label htmlFor="">* ID Subdependencia</label>
         <select 
           name="id_subdependencia"
           value={id_subdependencia}
@@ -109,7 +107,7 @@ const InfoUno = ({tipoFuente, paramFuente, setParamFuente}) => {
         </select>
       </div>
       <div className="form_info_fuente_fuente">
-        <label htmlFor="">ID Tema</label>
+        <label htmlFor="">* ID Tema</label>
         <select 
           name="id_tema"
           value={id_tema}
@@ -123,7 +121,7 @@ const InfoUno = ({tipoFuente, paramFuente, setParamFuente}) => {
         </select>
       </div>
       <div className="form_info_fuente_fuente">
-        <label htmlFor="">Tipo Ingesta</label>
+        <label htmlFor="">Tipo de Ingesta</label>
         <select 
           name="tipo_ingesta"
           value={tipo_ingesta}
@@ -137,7 +135,7 @@ const InfoUno = ({tipoFuente, paramFuente, setParamFuente}) => {
         </select>
       </div>
       <div className="form_info_fuente_fuente">
-        <label htmlFor="">Controlador</label>
+        <label htmlFor="">* Controlador</label>
         <select 
           name="controlador"
           value={controlador}
@@ -169,7 +167,7 @@ const InfoUno = ({tipoFuente, paramFuente, setParamFuente}) => {
         />
       </div>
       <div className="form_info_fuente_fuente">
-        <label htmlFor="">Ruta Archivo Origen</label>
+        <label htmlFor="">Ruta de Archivo Origen</label>
         <input 
           type="text" 
           name="ruta_archivo_origen"
@@ -201,7 +199,7 @@ const InfoUno = ({tipoFuente, paramFuente, setParamFuente}) => {
         />
       </div>
       <div className="form_info_fuente_fuente">
-        <label htmlFor="">Salida del Parquet</label>
+        <label htmlFor="">Directorio Salida del Parquet</label>
         <select 
           name="directorio_salida_parquet"
           value={directorio_salida_parquet}
@@ -213,6 +211,24 @@ const InfoUno = ({tipoFuente, paramFuente, setParamFuente}) => {
             </option>
           ))}
         </select>
+      </div>
+      <div className="form_info_fuente_fuente">
+        <label htmlFor="">ID Publicación</label>
+        <input 
+          type="text" 
+          name="id_publicacion"
+          value={id_publicacion}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="form_info_fuente_fuente">
+        <label htmlFor="">Licencia de Publicación</label>
+        <input 
+          type="text" 
+          name="licencia_publicacion"
+          value={licencia_publicacion}
+          onChange={handleChange}
+        />
       </div>
       <div className="form_info_fuente_fuente">
         <label htmlFor="">Anonimizar Campos</label>
@@ -242,7 +258,7 @@ const InfoUno = ({tipoFuente, paramFuente, setParamFuente}) => {
         />
       </div>
       <div className="form_info_fuente_fuente">
-        <label htmlFor="">Publicacion MEDATA</label>
+        <label htmlFor="">Publicación MEData</label>
         <input 
           type="checkbox" 
           name="flag_publicacion"
@@ -251,7 +267,7 @@ const InfoUno = ({tipoFuente, paramFuente, setParamFuente}) => {
         />
       </div>
       <div className="form_info_fuente_fuente">
-        <label htmlFor="">Salida de los Datos MEDATA</label>
+        <label htmlFor="">Salida de los Datos MEData</label>
         <select 
           name="directorio_salida_publicacion"
           value={directorio_salida_publicacion}

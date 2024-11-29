@@ -4,7 +4,7 @@ import FormInfoFuente from '../FormInfoFuente/FormInfoFuente'
 
 const FormFuente = () => {
 
-  const [tiempo, setTiempo] = useState(1)
+  const [tiempo, setTiempo] = useState(2)
 
   const param_info = {
     info_fuente: {
@@ -31,7 +31,9 @@ const FormFuente = () => {
       directorio_salida_publicacion: '',
       flag_activo: false,
       cron_tab: '',
-      condicion_filtro: ''
+      condicion_filtro: '',
+      id_publicacion: '',
+      licencia_publicacion: ''
     },
     campos: []
   }
@@ -49,6 +51,7 @@ const FormFuente = () => {
               setParamFuente={setParamFuente}
               tiempo={tiempo}
               setTiempo={setTiempo}
+              param_info={param_info}
             />
         </div>
     </div>
