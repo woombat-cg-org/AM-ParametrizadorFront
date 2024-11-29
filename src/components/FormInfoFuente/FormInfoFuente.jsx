@@ -21,7 +21,7 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
 
     // Destructuring
     const { info_fuente } = paramFuente
-    const { titulo, palabras_clave, tipo_fuente, id_dependencia, id_subdependencia, id_tema, controlador } = info_fuente
+    const { titulo, palabras_clave, tipo_fuente, id_dependencia, id_subdependencia, id_tema, controlador, cron_tab } = info_fuente
 
     const handleTiempo = (tipo) => {
 
@@ -32,12 +32,23 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
             navigate('/')
             return
         }
-        
-        // InfoUno Validacion de Datos
-        if(!tipo_fuente || !titulo || !palabras_clave || !id_dependencia || !id_subdependencia || !id_tema || !controlador) {
-            console.log('Error')
-            toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente.')
+
+        if(tipo === "retroceder") {
+            setTiempo(tiempo - 1)
             return
+        }
+        
+        if(tiempo === 1) {
+            // InfoUno Validacion de Datos
+            if(!tipo_fuente || !titulo || !palabras_clave || !id_dependencia || !id_subdependencia || !id_tema || !controlador) {
+                toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente.')
+                return
+            }
+        } else if (tiempo === 2) {
+            if(!cron_tab) {
+                toast.error('Los dias y la hora de ejecucion de la fuente son obligatorios.')
+                return
+            }
         }
 
         // Logica de Paginacion
@@ -47,8 +58,6 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
             } else {
                 setTiempo(tiempo + 1)
             }
-        } else if(tipo === "retroceder") {
-            setTiempo(tiempo - 1)
         }
 
     }
@@ -74,7 +83,10 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
             tiempo === 2 && (
                 <>
                     <h2>Ejecución Fuente</h2>
-                    <InfoDos />
+                    <InfoDos 
+                        paramFuente={paramFuente}
+                        setParamFuente={setParamFuente}
+                    />
                 </>
             )
         }
@@ -82,7 +94,10 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
             tiempo === 3 && (
                 <>
                     <h2>Campos Fuente</h2>
-                    <InfoTres />
+                    <InfoTres 
+                        paramFuente={paramFuente}
+                        setParamFuente={setParamFuente}
+                    />
                 </>
             )
         }

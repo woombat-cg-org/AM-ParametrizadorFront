@@ -4,7 +4,7 @@ import FormInfoFuente from '../FormInfoFuente/FormInfoFuente'
 
 const FormFuente = () => {
 
-  const [tiempo, setTiempo] = useState(2)
+  const [tiempo, setTiempo] = useState(3)
 
   const param_info = {
     info_fuente: {

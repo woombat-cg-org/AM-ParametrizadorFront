@@ -4,7 +4,7 @@ import API from '../../API.json'
 import Filtro from '../Filtro/Filtro'
 import InfoCampos from './InfoCampos'
 
-const InfoTable = () => {
+const InfoTable = ({ paramFuente, setParamFuente }) => {
 
     Modal.setAppElement('#root');
 
@@ -22,7 +22,7 @@ const InfoTable = () => {
     useEffect(() => {
         const getData = () =>  {
             try {
-                setFuentes(API.campos)
+                setFuentes([])
             } catch (error) {
                 console.log(error)
             }
@@ -92,7 +92,7 @@ const InfoTable = () => {
         <div className="info_table_list">
             <div className="info_table_filter">
                 {
-                    fuentes && <Filtro 
+                    currentItems?.length > 1 && <Filtro 
                         nombre="Buscar Campo..."
                         handleFilterFuente={handleFilterFuente}
                     />
@@ -160,7 +160,10 @@ const InfoTable = () => {
             isOpen={modal}
             style={customStyles}
         >
-            <InfoCampos />
+            <InfoCampos 
+                paramFuente={paramFuente}
+                setParamFuente={setParamFuente}
+            />
             <div className="container_campos_bottons">
                 <button
                     type="button"

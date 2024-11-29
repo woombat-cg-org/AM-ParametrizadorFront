@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
 
-// Función para convertir a crontab y decodificar un crontab
+// Función para convertir días y hora en crontab
 const useCrontab = () => {
-  // Generar crontab desde días, hora y filtro
-  const generateCrontab = (dias, hora, filtro) => {
+  const generateCrontab = (dias, hora) => {
     const dayMap = {
       Lunes: '1',
       Martes: '2',
@@ -16,82 +15,118 @@ const useCrontab = () => {
 
     const days = dias.map((dia) => dayMap[dia]).join(',')
     const [hours, minutes] = hora.split(':')
-    const baseCrontab = `${minutes} ${hours} * * ${days}`
-    return filtro ? `${baseCrontab} # ${filtro}` : baseCrontab
+    return `${minutes} ${hours} * * ${days}`
   }
 
-  // Decodificar crontab a días, hora y filtro
   const decodeCrontab = (crontab) => {
-    const [schedule, ...filterParts] = crontab.split('#')
-    const [minutes, hours, , , days] = schedule.trim().split(' ')
-
+    const [minutes, hours, , , days] = crontab.trim().split(' ')
     const reverseDayMap = {
-      '1': 'Lunes',
-      '2': 'Martes',
-      '3': 'Miércoles',
-      '4': 'Jueves',
-      '5': 'Viernes',
-      '6': 'Sábado',
-      '0': 'Domingo',
+        '1': 'Lunes',
+        '2': 'Martes',
+        '3': 'Miércoles',
+        '4': 'Jueves',
+        '5': 'Viernes',
+        '6': 'Sábado',
+        '0': 'Domingo',
     }
 
-    const dias = days.split(',').map((day) => reverseDayMap[day])
+    const diasArray = days.split(',').map((day) => reverseDayMap[day])
+    const dias = diasArray.join(', ')
     const hora = `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}`
-    const filtro = filterParts.length ? filterParts.join('#').trim() : ''
-    return { dias, hora, filtro }
+    return { dias, hora }
   }
 
   return { generateCrontab, decodeCrontab }
 }
 
-const InfoDos = () => {
+const InfoDos = ({ paramFuente, setParamFuente }) => {
+
   const data = {
     dias_ejecucion: '',
     hora_ejecucion: '',
-    filtro: '',
+    filtro: ''
   }
 
   const [cront, setCront] = useState(data)
   const { dias_ejecucion, hora_ejecucion, filtro } = cront
 
+  const [crontab, setCrontab] = useState('')
   const { generateCrontab, decodeCrontab } = useCrontab()
 
-  // Manejar la selección de días
+  const weekDaysOrder = [
+    'Lunes',
+    'Martes',
+    'Miércoles',
+    'Jueves',
+    'Viernes',
+    'Sábado',
+    'Domingo',
+  ]
+
+  // Manejar la selección de días y reordenar
   const toggleDay = (day) => {
     const diasArray = dias_ejecucion ? dias_ejecucion.split(', ') : []
 
+    let updatedDias
     if (diasArray.includes(day)) {
-      const updatedDias = diasArray.filter((d) => d !== day)
-      setCront({ ...cront, dias_ejecucion: updatedDias.join(', ') })
+      updatedDias = diasArray.filter((d) => d !== day)
     } else {
-      const updatedDias = [...diasArray, day]
-      setCront({ ...cront, dias_ejecucion: updatedDias.join(', ') })
+      updatedDias = [...diasArray, day]
     }
+
+    // Reordenar días seleccionados
+    updatedDias.sort((a, b) => weekDaysOrder.indexOf(a) - weekDaysOrder.indexOf(b))
+
+    setCront({ ...cront, dias_ejecucion: updatedDias.join(', ') })
   }
 
   // Clase dinámica para los botones
   const getButtonClass = (day) =>
     dias_ejecucion.includes(day) ? 'selected' : ''
 
-  // Efecto para generar crontab automáticamente
+  // Generar automáticamente el crontab
   useEffect(() => {
     const diasArray = dias_ejecucion ? dias_ejecucion.split(', ') : []
     if (hora_ejecucion && diasArray.length > 0) {
-      const crontab = generateCrontab(diasArray, hora_ejecucion, filtro)
-      console.log('Crontab generado automáticamente:', crontab)
-
-      // Decodificar y mostrar para verificación
-      const decoded = decodeCrontab(crontab)
-      console.log('Decodificación del crontab:', decoded)
+      const crontab = generateCrontab(diasArray, hora_ejecucion)
+      setCrontab(crontab)
+    } else {
+      setCrontab('')
     }
-  }, [dias_ejecucion, hora_ejecucion, filtro, generateCrontab, decodeCrontab])
+  }, [dias_ejecucion, hora_ejecucion])
+
+  useEffect(() => {
+    if(crontab) {
+      setParamFuente({
+        ...paramFuente,
+        info_fuente: {
+          ...paramFuente.info_fuente,
+          cron_tab: crontab
+        }
+      })
+    }
+  }, [crontab])
+
+  const { info_fuente } = paramFuente
+  const { cron_tab, condicion_filtro } = info_fuente
+
+  useEffect(() => {
+    if(cron_tab) {
+      const crontab = decodeCrontab(cron_tab)
+      setCront({
+        ...cront,
+        dias_ejecucion: crontab.dias,
+        hora_ejecucion: crontab.hora
+      })
+    }
+  }, [cron_tab])
 
   return (
     <div className="form_info_fuente_2">
       <div className="form_info_fuente_time">
         <label htmlFor="">Día Ejecución</label>
         <div className="form_info_fuente_time_days">
-          {['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'].map((day) => (
+          {weekDaysOrder.map((day) => (
             <input
               key={day}
               type="button"
@@ -118,10 +153,10 @@ const InfoDos = () => {
         <textarea
           rows="4"
           cols="50"
-          name="filtro"
+          name="condicion_filtro"
           placeholder="WHERE"
-          value={filtro}
-          onChange={(e) => setCront({ ...cront, filtro: e.target.value })}
+          value={condicion_filtro}
+          onChange={(e) => setParamFuente({ ...paramFuente, info_fuente: {...paramFuente.info_fuente, [e.target.name]: e.target.value} })}
         ></textarea>
       </div>
     </div>
