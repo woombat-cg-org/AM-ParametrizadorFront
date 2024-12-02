@@ -1,13 +1,15 @@
 import { useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 import FormNavegacion from '../FormNavegacion/FormNavegacion'
 import FormInfoFuente from '../FormInfoFuente/FormInfoFuente'
 
 const FormFuente = () => {
 
-  const [tiempo, setTiempo] = useState(3)
+  const [tiempo, setTiempo] = useState(1)
 
   const param_info = {
     info_fuente: {
+      id_fuente: uuidv4(),
       tipo_fuente: '',
       descripcion: '',
       titulo: '',

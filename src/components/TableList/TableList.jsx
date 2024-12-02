@@ -43,7 +43,7 @@ const TableList = () => {
     }
 
     const handleDelete = (fuente) => {
-        console.log(fuente)
+        // ToDo: Peticion DELETE para eliminar la fuente
     }
 
     const handleNuevaFuente = () => {

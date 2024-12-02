@@ -244,7 +244,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
         <input 
           type="checkbox" 
           name="flag_aplicar_funciones"
-          value={flag_aplicar_funciones}
+          checked={flag_aplicar_funciones}
           onChange={handleChange}
         />
       </div>
@@ -253,7 +253,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
         <input 
           type="checkbox" 
           name="flag_particionada"
-          value={flag_particionada}
+          checked={flag_particionada}
           onChange={handleChange}
         />
       </div>
@@ -262,7 +262,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
         <input 
           type="checkbox" 
           name="flag_publicacion"
-          value={flag_publicacion}
+          checked={flag_publicacion}
           onChange={handleChange}
         />
       </div>
@@ -285,7 +285,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
         <input 
           type="checkbox" 
           name="flag_activo"
-          value={flag_activo}
+          checked={flag_activo}
           onChange={handleChange}
         />
       </div>

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import useUser from '../../hooks/useUser'
 import { toast } from 'react-toastify'
 import InfoUno from './InfoUno'
 import InfoDos from './InfoDos'
@@ -9,6 +10,7 @@ import InfoCuatro from './InfoCuatro'
 const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_info }) => {
 
     const navigate = useNavigate()
+    const { info_user } = useUser()
 
     const tipos_fuente = [
         {id: 0, name: "-- Seleccione una Opción --", value: ""},
@@ -20,7 +22,7 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
     const [tipoFuente, setTipoFuente] = useState(tipos_fuente)
 
     // Destructuring
-    const { info_fuente } = paramFuente
+    const { info_fuente, campos } = paramFuente
     const { titulo, palabras_clave, tipo_fuente, id_dependencia, id_subdependencia, id_tema, controlador, cron_tab } = info_fuente
 
     const handleTiempo = (tipo) => {
@@ -49,12 +51,23 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
                 toast.error('Los dias y la hora de ejecucion de la fuente son obligatorios.')
                 return
             }
+        } else if (tiempo === 3) {
+           if(campos.length === 0) {
+            toast.error('Debe existir al menos una columna para poder avanzar.')
+            return
+           }
         }
 
         // Logica de Paginacion
         if(tipo === "avanzar") {
             if(tiempo === 4 ) {
-                console.log("Otra accion")
+                // Guardar datos
+                setParamFuente({
+                    ...paramFuente,
+                    creado_por: info_user.user,
+                    editado_por: info_user.user
+                })
+                
             } else {
                 setTiempo(tiempo + 1)
             }
@@ -105,7 +118,9 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
             tiempo === 4 && (
                 <>
                     <h2>Información General Fuente</h2>
-                    <InfoCuatro />
+                    <InfoCuatro 
+                        paramFuente={paramFuente}
+                    />
                 </>
             )
         }

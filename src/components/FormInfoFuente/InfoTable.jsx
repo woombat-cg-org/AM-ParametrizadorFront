@@ -6,9 +6,11 @@ import InfoCampos from './InfoCampos'
 
 const InfoTable = ({ paramFuente, setParamFuente }) => {
 
-    Modal.setAppElement('#root');
+    Modal.setAppElement('#root')
 
+    const { campos } = paramFuente
     const [fuentes, setFuentes] = useState(undefined)
+    const [editCampo, setEditCampo] = useState(undefined)
     const [modal, setModal] = useState(false)
     let datoFuente
     if(fuentes === undefined) {
@@ -22,13 +24,14 @@ const InfoTable = ({ paramFuente, setParamFuente }) => {
     useEffect(() => {
         const getData = () =>  {
             try {
-                setFuentes([])
+                setFuentes(campos)
+                setCopiaFuentes(campos)
             } catch (error) {
                 console.log(error)
             }
         }
         getData()
-    }, [])
+    }, [campos])
 
     const itemsPerPage = 10
     const totalPages = Math.ceil(copiaFuentes.length / itemsPerPage)
@@ -41,13 +44,17 @@ const InfoTable = ({ paramFuente, setParamFuente }) => {
         setCurrentPage(newPage)
     }
 
-    const handleEdit = (fuente) => {
-        console.log(fuente)
+    const handleEdit = (columna) => {
+        setModal(true)
+        setEditCampo(columna)
     }
 
     const handleDelete = (campo) => {
         const newData = currentItems.filter(item => item.consecutivo !== campo.consecutivo)
-        setCopiaFuentes(newData)
+        setParamFuente({
+            ...paramFuente,
+            campos: newData
+        })
     }
 
     const handleFilterFuente = (fuente) => {
@@ -81,10 +88,6 @@ const InfoTable = ({ paramFuente, setParamFuente }) => {
         }
     }
 
-    const handleGuardar = () => {
-        setModal(false)
-    }
-
     if(!fuentes) return <h1>Hola</h1>
 
   return (
@@ -92,7 +95,7 @@ const InfoTable = ({ paramFuente, setParamFuente }) => {
         <div className="info_table_list">
             <div className="info_table_filter">
                 {
-                    currentItems?.length > 1 && <Filtro 
+                    currentItems?.length >= 1 && <Filtro 
                         nombre="Buscar Campo..."
                         handleFilterFuente={handleFilterFuente}
                     />
@@ -109,7 +112,7 @@ const InfoTable = ({ paramFuente, setParamFuente }) => {
                         <th>Consecutivo</th>
                         <th>Nombre Campo</th>
                         <th>Tipo de Dato</th>
-                        <th>Logitud</th>
+                        <th>Longitud</th>
                         <th>Campo Particion</th>
                         <th>Anonimizar</th>
                         <th>Acciones</th>
@@ -122,10 +125,10 @@ const InfoTable = ({ paramFuente, setParamFuente }) => {
                                 <tr key={item.consecutivo}>
                                     <td>{item.consecutivo}</td>
                                     <td>{item.nombre_campo}</td>
-                                    <td>{item.tipo_dato}</td>
-                                    <td>{item.logitud}</td>
-                                    <td>{item.particion}</td>
-                                    <td>{item.anonimizar}</td>
+                                    <td>{item.tipo_dato_destino}</td>
+                                    <td>{item.longitud}</td>
+                                    <td>{`${item.flag_campo_particion ? "X" : ""}`}</td>
+                                    <td>{`${item.flag_anonimizar ? "X" : ""}`}</td>
                                     <td>
                                         <span
                                             onClick={() => handleEdit({...item})}
@@ -163,17 +166,10 @@ const InfoTable = ({ paramFuente, setParamFuente }) => {
             <InfoCampos 
                 paramFuente={paramFuente}
                 setParamFuente={setParamFuente}
+                setModal={setModal}
+                datos_campo={editCampo}
+                setEditCampo={setEditCampo}
             />
-            <div className="container_campos_bottons">
-                <button
-                    type="button"
-                    onClick={() => setModal(false)}
-                >Cancelar</button>
-                <button
-                    type="button"
-                    onClick={() => handleGuardar()}
-                >Guardar</button>
-            </div>
         </Modal>
     </>
   )
