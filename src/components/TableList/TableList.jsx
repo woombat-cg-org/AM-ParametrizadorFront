@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import API from '../../API.json'
 import Filtro from '../Filtro/Filtro'
+import { toast } from 'react-toastify'
 
 const TableList = () => {
 
@@ -39,8 +40,9 @@ const TableList = () => {
     }
 
     const handleEdit = (fuente) => {
-        console.log(fuente)
-    }
+        const { codigo } = fuente
+        navigate(`/editar-fuente/${codigo}`)
+    }    
 
     const handleDelete = (fuente) => {
         // ToDo: Peticion DELETE para eliminar la fuente
@@ -81,7 +83,6 @@ const TableList = () => {
             <table className="fl-table">
             <thead>
                 <tr>
-                <th>Codigo</th>
                 <th>Nombre Fuente</th>
                 <th>Ultima Fecha de Modificacion</th>
                 <th>Editada por</th>
@@ -94,7 +95,6 @@ const TableList = () => {
                     currentItems?.length > 0 && (
                         currentItems.map(item => (
                             <tr key={item.codigo}>
-                                <td>{item.codigo}</td>
                                 <td>{item.nombre_fuente}</td>
                                 <td>{item.ultima_modificacion}</td>
                                 <td>{item.modificada_por}</td>

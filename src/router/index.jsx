@@ -26,6 +26,10 @@ export const router = createBrowserRouter([
             {
                 path: "/nueva-fuente",
                 element: <Fuente />
+            },
+            {
+                path: "/editar-fuente/:id",
+                element: <Fuente />
             }
         ]
     },
