@@ -23,7 +23,7 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
 
     // Destructuring
     const { info_fuente, campos } = paramFuente
-    const { titulo, palabras_clave, tipo_fuente, id_dependencia, id_subdependencia, id_tema, controlador, cron_tab } = info_fuente
+    const { nombre_conjunto, tipo_fuente_ingesta, tipo_ingesta, id_dependencia, id_subdependencia, unidad_equipo, descripcion, palabras_clave, id_tematica_mintic, licencia_uso, fecha_inicio_conjunto, fecha_fin_conjunto, frecuencia_actualizacion, directorio_salida_parquet, fuente_datos, ambiente, controlador, base_de_datos, nombre_tabla, esquema, ruta_archivo, nombre_archivo, delimitador_archivo, url_servicio_web, directorio_salida_publicacion, formato_descarga, tipo_conjunto_datos, informacion_contribuye_crecimiento_economico, generacion_valor_agregado, ambito_impacto, informacion_consolidacion_indicadores, demanda_datos, esfuerzo_requerido_publicar, elementos_requeridos_publicar, fuente_datos_priorizacion, calidad_informacion, publicable } = info_fuente
 
     const handleTiempo = (tipo) => {
 
@@ -42,15 +42,45 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
         
         if(tiempo === 1) {
             // InfoUno Validacion de Datos
-            if(!tipo_fuente || !titulo || !palabras_clave || !id_dependencia || !id_subdependencia || !id_tema || !controlador) {
+            if(!nombre_conjunto || !tipo_fuente_ingesta || !tipo_ingesta || !id_dependencia || !id_subdependencia || !unidad_equipo || !descripcion || !palabras_clave || !id_tematica_mintic || !licencia_uso || !fecha_inicio_conjunto || !fecha_fin_conjunto || !frecuencia_actualizacion || !directorio_salida_parquet || !fuente_datos || !ambiente) {
                 toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente.')
                 return
             }
-        } else if (tiempo === 2) {
-            if(!cron_tab) {
-                toast.error('Los dias y la hora de ejecucion de la fuente son obligatorios.')
+
+            // InfoUno Validacion Tipo de Fuente Ingesta
+            if(tipo_fuente_ingesta === 'SQL') {
+                if(!controlador || !base_de_datos || !nombre_tabla || !esquema) {
+                    toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente.')
+                    return
+                }
+            } else if(tipo_fuente_ingesta === 'NAS' || tipo_fuente_ingesta === 'HDFS' || tipo_fuente_ingesta === 'API') {
+                if(!ruta_archivo || !nombre_archivo || !delimitador_archivo) {
+                    toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente.')
+                    return
+                }
+            } else if(tipo_fuente_ingesta === 'API') {
+                if(!url_servicio_web) {
+                    toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente.')
+                    return
+                }
+            }
+
+            // InfoUno Validacion Informacion Publicable
+            if(publicable) {
+                if(!directorio_salida_publicacion || !formato_descarga) {
+                    toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente.')
+                    return
+                }
+            }
+
+            // InfoUno Validacion Priorizacion
+            if(!tipo_conjunto_datos || !informacion_contribuye_crecimiento_economico || !generacion_valor_agregado || !ambito_impacto || !informacion_consolidacion_indicadores || !demanda_datos || !esfuerzo_requerido_publicar || !elementos_requeridos_publicar || !fuente_datos_priorizacion || !calidad_informacion) {
+                toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente.')
                 return
             }
+
+        } else if (tiempo === 2) {
+            console.log('Segunda ventana')
         } else if (tiempo === 3) {
            if(campos.length === 0) {
             toast.error('Debe existir al menos una columna para poder avanzar.')

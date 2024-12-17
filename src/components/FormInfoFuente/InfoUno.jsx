@@ -2,7 +2,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
 
    // Destructuring
   const { info_fuente } = paramFuente
-  const { nombre_conjunto, tipo_fuente_ingesta, tipo_ingesta, id_dependencia, id_subdependencia, unidad_equipo, descripcion, palabras_clave, id_tematica_mintic, grupo, licencia_uso, fecha_inicio_conjunto, fecha_fin_conjunto, frecuencia_Actualizacion, publicable, flag_anonimizar_campos, flag_aplicar_funciones, flag_particionada, directorio_salida_parquet, ambito_geografico, metadatos_geograficos, diccionario_datos, catalogo_objetos, nombre_contacto_proceso, correo_contacto_proceso, nombre_contacto_tecnico, correo_contacto_tecnico, fuente_datos, ambiente, observaciones, flag_activo, controlador, base_de_datos, nombre_tabla, esquema, ruta_archivo, nombre_archivo, delimitador_archivo, flag_encabezado_archivo, hoja_excel, rango_columnas, url_servicio_Web, directorio_salida_publicacion, fecha_publicacion, formato_descarga, tipo_conjunto_datos, informacion_contribuye_crecimiento_economico, generacion_valor_agregado, ambito_impacto, informacion_consolidacion_indicadores, demanda_datos, esfuerzo_requerido_publicar, elementos_requeridos_publicar, fuente_datos_priorizacion, calidad_informacion } = info_fuente
+  const { nombre_conjunto, tipo_fuente_ingesta, tipo_ingesta, id_dependencia, id_subdependencia, unidad_equipo, descripcion, palabras_clave, id_tematica_mintic, grupo, licencia_uso, fecha_inicio_conjunto, fecha_fin_conjunto, frecuencia_Actualizacion, publicable, flag_anonimizar_campos, flag_aplicar_funciones, flag_particionada, directorio_salida_parquet, ambito_geografico, metadatos_geograficos, diccionario_datos, catalogo_objetos, nombre_contacto_proceso, correo_contacto_proceso, nombre_contacto_tecnico, correo_contacto_tecnico, fuente_datos, ambiente, observaciones, flag_activo, controlador, base_de_datos, nombre_tabla, esquema, ruta_archivo, nombre_archivo, delimitador_archivo, flag_encabezado_archivo, hoja_excel, rango_columnas, url_servicio_Web, directorio_salida_publicacion, fecha_publicacion, formato_descarga, tipo_conjunto_datos, informacion_contribuye_crecimiento_economico, generacion_valor_agregado, ambito_impacto, informacion_consolidacion_indicadores, demanda_datos, esfuerzo_requerido_publicar, elementos_requeridos_publicar, fuente_datos_priorizacion, calidad_informacion, flag_excel } = info_fuente
 
   // Funcion para Tomar los datos del Formulario
   const handleChange = (e) => {
@@ -187,7 +187,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
         </select>
       </div>
       <div className="form_info_fuente_fuente">
-        <label htmlFor="publicable">* Publicacion en MEData</label>
+        <label htmlFor="publicable">Publicacion en MEData</label>
         <input 
           type="checkbox" 
           name="publicable"
@@ -196,7 +196,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
         />
       </div>
       <div className="form_info_fuente_fuente">
-        <label htmlFor="flag_anonimizar_campos">* Anonimizar Campos</label>
+        <label htmlFor="flag_anonimizar_campos">Anonimizar Campos</label>
         <input 
           type="checkbox" 
           name="flag_anonimizar_campos"
@@ -205,7 +205,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
         />
       </div>
       <div className="form_info_fuente_fuente">
-        <label htmlFor="flag_aplicar_funciones">* Aplicar Funciones</label>
+        <label htmlFor="flag_aplicar_funciones">Aplicar Funciones</label>
         <input 
           type="checkbox" 
           name="flag_aplicar_funciones"
@@ -214,7 +214,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
         />
       </div>
       <div className="form_info_fuente_fuente">
-        <label htmlFor="flag_particionada">* Fuente Particionada</label>
+        <label htmlFor="flag_particionada">Fuente Particionada</label>
         <input 
           type="checkbox" 
           name="flag_particionada"
@@ -361,7 +361,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
         />
       </div>
       <div className="form_info_fuente_fuente">
-        <label htmlFor="flag_activo">* Actividad de la Fuente</label>
+        <label htmlFor="flag_activo">Actividad de la Fuente</label>
         <input 
           type="checkbox" 
           name="flag_activo"
@@ -438,11 +438,20 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
         </select>
       </div>
       <div className="form_info_fuente_fuente">
-        <label htmlFor="flag_encabezado_archivo">* Encabezado del Archivo</label>
+        <label htmlFor="flag_encabezado_archivo">Encabezado del Archivo</label>
         <input 
           type="checkbox" 
           name="flag_encabezado_archivo"
           checked={flag_encabezado_archivo}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="form_info_fuente_fuente">
+        <label htmlFor="flag_excel">Archivo Excel</label>
+        <input 
+          type="checkbox" 
+          name="flag_excel"
+          checked={flag_excel}
           onChange={handleChange}
         />
       </div>
@@ -473,38 +482,44 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
           onChange={handleChange}
         />
       </div>
-      <div className="form_info_fuente_fuente">
-        <label htmlFor="directorio_salida_publicacion">* Directorio Salida Publicacion</label>
-        <input 
-          type="text" 
-          name="directorio_salida_publicacion"
-          checked={directorio_salida_publicacion}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form_info_fuente_fuente">
-        <label htmlFor="fecha_publicacion">Fecha Publicacion MEData</label>
-        <input 
-          type="date" 
-          name="fecha_publicacion"
-          value={fecha_publicacion}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form_info_fuente_fuente">
-        <label htmlFor="formato_descarga">* Formato de Descarga</label>
-        <select 
-          name="formato_descarga"
-          value={formato_descarga}
-          onChange={handleChange}
-        >
-          {tipoFuente.map((item) => (
-            <option value={item.value} key={item.id}>
-              {item.name}
-            </option>
-          ))}
-        </select>
-      </div>
+      {
+        publicable && (
+          <>
+            <div className="form_info_fuente_fuente">
+              <label htmlFor="directorio_salida_publicacion">* Directorio Salida Publicacion</label>
+              <input 
+                type="text" 
+                name="directorio_salida_publicacion"
+                checked={directorio_salida_publicacion}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form_info_fuente_fuente">
+              <label htmlFor="fecha_publicacion">Fecha Publicacion MEData</label>
+              <input 
+                type="date" 
+                name="fecha_publicacion"
+                value={fecha_publicacion}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form_info_fuente_fuente">
+              <label htmlFor="formato_descarga">* Formato de Descarga</label>
+              <select 
+                name="formato_descarga"
+                value={formato_descarga}
+                onChange={handleChange}
+              >
+                {tipoFuente.map((item) => (
+                  <option value={item.value} key={item.id}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </>
+        )
+      }
       <div className="form_info_fuente_fuente">
         <label htmlFor="tipo_conjunto_datos">* Tipo Conjunto de Datos</label>
         <select 
