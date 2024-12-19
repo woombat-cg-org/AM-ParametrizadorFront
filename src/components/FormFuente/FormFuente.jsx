@@ -5,7 +5,7 @@ import FormInfoFuente from '../FormInfoFuente/FormInfoFuente'
 
 const FormFuente = () => {
 
-  const [tiempo, setTiempo] = useState(1)
+  const [tiempo, setTiempo] = useState(3)
 
   const param_info = {
     info_fuente: {
@@ -13,7 +13,7 @@ const FormFuente = () => {
       nombre_conjunto: '',
       tipo_fuente_ingesta: '',
       tipo_ingesta: '',
-      crontab: '',
+      cron_tab: '',
       id_dependencia: 0,
       id_subdependencia: 0,
       unidad_equipo: '',
@@ -27,6 +27,7 @@ const FormFuente = () => {
       frecuencia_Actualizacion: '',
       publicable: false,
       flag_anonimizar_campos: false,
+      flag_renombrar_campos: false,
       flag_aplicar_funciones: false,
       flag_particionada: false,
       directorio_salida_parquet: '',

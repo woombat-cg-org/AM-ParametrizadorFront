@@ -108,7 +108,7 @@ const InfoDos = ({ paramFuente, setParamFuente }) => {
   }, [crontab])
 
   const { info_fuente } = paramFuente
-  const { cron_tab, condicion_filtro } = info_fuente
+  const { cron_tab, condicion_filtro, tipo_fuente_ingesta } = info_fuente
 
   useEffect(() => {
     if(cron_tab) {
@@ -148,17 +148,38 @@ const InfoDos = ({ paramFuente, setParamFuente }) => {
           }
         />
       </div>
-      <div className="form_info_fuente_time">
-        <label htmlFor="">Condición Filtro</label>
-        <textarea
-          rows="4"
-          cols="50"
-          name="condicion_filtro"
-          placeholder="WHERE"
-          value={condicion_filtro}
-          onChange={(e) => setParamFuente({ ...paramFuente, info_fuente: {...paramFuente.info_fuente, [e.target.name]: e.target.value} })}
-        ></textarea>
-      </div>
+      {
+        tipo_fuente_ingesta === "SQL" ? (
+          <>
+            <div className="form_info_fuente_time">
+              <label htmlFor="">Condición Filtro</label>
+              <textarea
+                rows="4"
+                cols="50"
+                name="condicion_filtro"
+                placeholder="WHERE"
+                value={condicion_filtro}
+                onChange={(e) => setParamFuente({ ...paramFuente, info_fuente: {...paramFuente.info_fuente, [e.target.name]: e.target.value} })}
+              ></textarea>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="form_info_fuente_time">
+              <label htmlFor="">Condición Filtro</label>
+              <textarea
+                rows="4"
+                cols="50"
+                name="condicion_filtro"
+                placeholder="Condición Filtro no disponible para este tipo de fuente."
+                disabled
+                value={condicion_filtro}
+                onChange={(e) => setParamFuente({ ...paramFuente, info_fuente: {...paramFuente.info_fuente, [e.target.name]: e.target.value} })}
+              ></textarea>
+            </div>
+          </>
+      )
+      } 
     </div>
   )
 }

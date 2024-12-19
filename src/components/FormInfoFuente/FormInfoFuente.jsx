@@ -16,14 +16,15 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
         {id: 0, name: "-- Seleccione una Opción --", value: ""},
         {id: 1, name: "SQL", value: "SQL"},
         {id: 2, name: "NAS", value: "NAS"},
-        {id: 3, name: "HDFS", value: "HDFS"}
+        {id: 3, name: "HDFS", value: "HDFS"},
+        {id: 4, name: "API", value: "API"}
     ]
 
     const [tipoFuente, setTipoFuente] = useState(tipos_fuente)
 
     // Destructuring
     const { info_fuente, campos } = paramFuente
-    const { nombre_conjunto, tipo_fuente_ingesta, tipo_ingesta, id_dependencia, id_subdependencia, unidad_equipo, descripcion, palabras_clave, id_tematica_mintic, licencia_uso, fecha_inicio_conjunto, fecha_fin_conjunto, frecuencia_actualizacion, directorio_salida_parquet, fuente_datos, ambiente, controlador, base_de_datos, nombre_tabla, esquema, ruta_archivo, nombre_archivo, delimitador_archivo, url_servicio_web, directorio_salida_publicacion, formato_descarga, tipo_conjunto_datos, informacion_contribuye_crecimiento_economico, generacion_valor_agregado, ambito_impacto, informacion_consolidacion_indicadores, demanda_datos, esfuerzo_requerido_publicar, elementos_requeridos_publicar, fuente_datos_priorizacion, calidad_informacion, publicable } = info_fuente
+    const { nombre_conjunto, tipo_fuente_ingesta, tipo_ingesta, id_dependencia, id_subdependencia, unidad_equipo, descripcion, palabras_clave, id_tematica_mintic, licencia_uso, fecha_inicio_conjunto, fecha_fin_conjunto, frecuencia_actualizacion, directorio_salida_parquet, fuente_datos, ambiente, controlador, base_de_datos, nombre_tabla, esquema, ruta_archivo, nombre_archivo, delimitador_archivo, url_servicio_web, directorio_salida_publicacion, formato_descarga, tipo_conjunto_datos, informacion_contribuye_crecimiento_economico, generacion_valor_agregado, ambito_impacto, informacion_consolidacion_indicadores, demanda_datos, esfuerzo_requerido_publicar, elementos_requeridos_publicar, fuente_datos_priorizacion, calidad_informacion, publicable, cron_tab } = info_fuente
 
     const handleTiempo = (tipo) => {
 
@@ -80,7 +81,10 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
             }
 
         } else if (tiempo === 2) {
-            console.log('Segunda ventana')
+            if(!cron_tab) {
+                toast.error('Es necesario tener un crontab para poder avanzar.')
+                return
+            }
         } else if (tiempo === 3) {
            if(campos.length === 0) {
             toast.error('Debe existir al menos una columna para poder avanzar.')

@@ -2,7 +2,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
 
    // Destructuring
   const { info_fuente } = paramFuente
-  const { nombre_conjunto, tipo_fuente_ingesta, tipo_ingesta, id_dependencia, id_subdependencia, unidad_equipo, descripcion, palabras_clave, id_tematica_mintic, grupo, licencia_uso, fecha_inicio_conjunto, fecha_fin_conjunto, frecuencia_Actualizacion, publicable, flag_anonimizar_campos, flag_aplicar_funciones, flag_particionada, directorio_salida_parquet, ambito_geografico, metadatos_geograficos, diccionario_datos, catalogo_objetos, nombre_contacto_proceso, correo_contacto_proceso, nombre_contacto_tecnico, correo_contacto_tecnico, fuente_datos, ambiente, observaciones, flag_activo, controlador, base_de_datos, nombre_tabla, esquema, ruta_archivo, nombre_archivo, delimitador_archivo, flag_encabezado_archivo, hoja_excel, rango_columnas, url_servicio_Web, directorio_salida_publicacion, fecha_publicacion, formato_descarga, tipo_conjunto_datos, informacion_contribuye_crecimiento_economico, generacion_valor_agregado, ambito_impacto, informacion_consolidacion_indicadores, demanda_datos, esfuerzo_requerido_publicar, elementos_requeridos_publicar, fuente_datos_priorizacion, calidad_informacion, flag_excel } = info_fuente
+  const { nombre_conjunto, tipo_fuente_ingesta, tipo_ingesta, id_dependencia, id_subdependencia, unidad_equipo, descripcion, palabras_clave, id_tematica_mintic, grupo, licencia_uso, fecha_inicio_conjunto, fecha_fin_conjunto, frecuencia_Actualizacion, publicable, flag_anonimizar_campos, flag_renombrar_campos, flag_aplicar_funciones, flag_particionada, directorio_salida_parquet, ambito_geografico, metadatos_geograficos, diccionario_datos, catalogo_objetos, nombre_contacto_proceso, correo_contacto_proceso, nombre_contacto_tecnico, correo_contacto_tecnico, fuente_datos, ambiente, observaciones, flag_activo, controlador, base_de_datos, nombre_tabla, esquema, ruta_archivo, nombre_archivo, delimitador_archivo, flag_encabezado_archivo, hoja_excel, rango_columnas, url_servicio_Web, directorio_salida_publicacion, fecha_publicacion, formato_descarga, tipo_conjunto_datos, informacion_contribuye_crecimiento_economico, generacion_valor_agregado, ambito_impacto, informacion_consolidacion_indicadores, demanda_datos, esfuerzo_requerido_publicar, elementos_requeridos_publicar, fuente_datos_priorizacion, calidad_informacion, flag_excel } = info_fuente
 
   // Funcion para Tomar los datos del Formulario
   const handleChange = (e) => {
@@ -205,6 +205,15 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
         />
       </div>
       <div className="form_info_fuente_fuente">
+        <label htmlFor="flag_renombrar_campos">Renombrar Campos</label>
+        <input 
+          type="checkbox" 
+          name="flag_renombrar_campos"
+          checked={flag_renombrar_campos}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="form_info_fuente_fuente">
         <label htmlFor="flag_aplicar_funciones">Aplicar Funciones</label>
         <input 
           type="checkbox" 
@@ -361,7 +370,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
         />
       </div>
       <div className="form_info_fuente_fuente">
-        <label htmlFor="flag_activo">Actividad de la Fuente</label>
+        <label htmlFor="flag_activo">Fuente Activa</label>
         <input 
           type="checkbox" 
           name="flag_activo"
@@ -369,119 +378,137 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
           onChange={handleChange}
         />
       </div>
-      <div className="form_info_fuente_fuente">
-        <label htmlFor="controlador">* Controlador</label>
-        <input 
-          type="text" 
-          name="controlador"
-          checked={controlador}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form_info_fuente_fuente">
-        <label htmlFor="base_de_datos">* Nombre de la Base de Datos Origen</label>
-        <input 
-          type="text" 
-          name="base_de_datos"
-          checked={base_de_datos}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form_info_fuente_fuente">
-        <label htmlFor="nombre_tabla">* Nombre de la Tabla de Datos Origen</label>
-        <input 
-          type="text" 
-          name="nombre_tabla"
-          checked={nombre_tabla}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form_info_fuente_fuente">
-        <label htmlFor="esquema">* Nombre del Esquema de Datos Origen</label>
-        <input 
-          type="text" 
-          name="esquema"
-          checked={esquema}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form_info_fuente_fuente">
-        <label htmlFor="ruta_archivo">* Ruta del Archivo</label>
-        <input 
-          type="text" 
-          name="ruta_archivo"
-          checked={ruta_archivo}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form_info_fuente_fuente">
-        <label htmlFor="nombre_archivo">* Nombre del Archivo</label>
-        <input 
-          type="text" 
-          name="nombre_archivo"
-          checked={nombre_archivo}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form_info_fuente_fuente">
-        <label htmlFor="delimitador_archivo">* Delimitador del Archivo</label>
-        <select 
-          name="delimitador_archivo"
-          value={delimitador_archivo}
-          onChange={handleChange}
-        >
-          {tipoFuente.map((item) => (
-            <option value={item.value} key={item.id}>
-              {item.name}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="form_info_fuente_fuente">
-        <label htmlFor="flag_encabezado_archivo">Encabezado del Archivo</label>
-        <input 
-          type="checkbox" 
-          name="flag_encabezado_archivo"
-          checked={flag_encabezado_archivo}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form_info_fuente_fuente">
-        <label htmlFor="flag_excel">Archivo Excel</label>
-        <input 
-          type="checkbox" 
-          name="flag_excel"
-          checked={flag_excel}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form_info_fuente_fuente">
-        <label htmlFor="hoja_excel">Hoja Excel</label>
-        <input 
-          type="text" 
-          name="hoja_excel"
-          checked={hoja_excel}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form_info_fuente_fuente">
-        <label htmlFor="rango_columnas">Rango Columnas Excel</label>
-        <input 
-          type="text" 
-          name="rango_columnas"
-          checked={rango_columnas}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form_info_fuente_fuente">
-        <label htmlFor="url_servicio_Web">* URL Servicio Web</label>
-        <input 
-          type="text" 
-          name="url_servicio_Web"
-          checked={url_servicio_Web}
-          onChange={handleChange}
-        />
-      </div>
+      {
+        tipo_fuente_ingesta === "SQL" && (
+          <>
+            <div className="form_info_fuente_fuente">
+              <label htmlFor="controlador">* Controlador</label>
+              <input 
+                type="text" 
+                name="controlador"
+                checked={controlador}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form_info_fuente_fuente">
+              <label htmlFor="base_de_datos">* Nombre de la Base de Datos Origen</label>
+              <input 
+                type="text" 
+                name="base_de_datos"
+                checked={base_de_datos}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form_info_fuente_fuente">
+              <label htmlFor="nombre_tabla">* Nombre de la Tabla de Datos Origen</label>
+              <input 
+                type="text" 
+                name="nombre_tabla"
+                checked={nombre_tabla}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form_info_fuente_fuente">
+              <label htmlFor="esquema">* Nombre del Esquema de Datos Origen</label>
+              <input 
+                type="text" 
+                name="esquema"
+                checked={esquema}
+                onChange={handleChange}
+              />
+            </div>
+          </>
+        )
+      }
+      {
+        tipo_fuente_ingesta === "NAS" || tipo_fuente_ingesta === "HDFS" || tipo_fuente_ingesta === "API" && (
+          <>
+            <div className="form_info_fuente_fuente">
+              <label htmlFor="ruta_archivo">* Ruta del Archivo</label>
+              <input 
+                type="text" 
+                name="ruta_archivo"
+                checked={ruta_archivo}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form_info_fuente_fuente">
+              <label htmlFor="nombre_archivo">* Nombre del Archivo</label>
+              <input 
+                type="text" 
+                name="nombre_archivo"
+                checked={nombre_archivo}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form_info_fuente_fuente">
+              <label htmlFor="delimitador_archivo">* Delimitador del Archivo</label>
+              <select 
+                name="delimitador_archivo"
+                value={delimitador_archivo}
+                onChange={handleChange}
+              >
+                {tipoFuente.map((item) => (
+                  <option value={item.value} key={item.id}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="form_info_fuente_fuente">
+              <label htmlFor="flag_encabezado_archivo">Encabezado del Archivo</label>
+              <input 
+                type="checkbox" 
+                name="flag_encabezado_archivo"
+                checked={flag_encabezado_archivo}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form_info_fuente_fuente">
+              <label htmlFor="flag_excel">Archivo Excel</label>
+              <input 
+                type="checkbox" 
+                name="flag_excel"
+                checked={flag_excel}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form_info_fuente_fuente">
+              <label htmlFor="hoja_excel">Hoja Excel</label>
+              <input 
+                type="text" 
+                name="hoja_excel"
+                checked={hoja_excel}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form_info_fuente_fuente">
+              <label htmlFor="rango_columnas">Rango Columnas Excel</label>
+              <input 
+                type="text" 
+                name="rango_columnas"
+                checked={rango_columnas}
+                onChange={handleChange}
+              />
+            </div>
+          </>
+        )
+      }
+      {
+        tipo_fuente_ingesta === "API" && (
+          <>
+            <div className="form_info_fuente_fuente">
+              <label htmlFor="url_servicio_Web">* URL Servicio Web</label>
+              <input 
+                type="text" 
+                name="url_servicio_Web"
+                checked={url_servicio_Web}
+                onChange={handleChange}
+              />
+            </div>
+          </>
+        )
+      }
       {
         publicable && (
           <>
