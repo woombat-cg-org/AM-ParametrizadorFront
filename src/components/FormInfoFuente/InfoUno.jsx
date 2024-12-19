@@ -2,7 +2,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
 
    // Destructuring
   const { info_fuente } = paramFuente
-  const { nombre_conjunto, tipo_fuente_ingesta, tipo_ingesta, id_dependencia, id_subdependencia, unidad_equipo, descripcion, palabras_clave, id_tematica_mintic, grupo, licencia_uso, fecha_inicio_conjunto, fecha_fin_conjunto, frecuencia_Actualizacion, publicable, flag_anonimizar_campos, flag_renombrar_campos, flag_aplicar_funciones, flag_particionada, directorio_salida_parquet, ambito_geografico, metadatos_geograficos, diccionario_datos, catalogo_objetos, nombre_contacto_proceso, correo_contacto_proceso, nombre_contacto_tecnico, correo_contacto_tecnico, fuente_datos, ambiente, observaciones, flag_activo, controlador, base_de_datos, nombre_tabla, esquema, ruta_archivo, nombre_archivo, delimitador_archivo, flag_encabezado_archivo, hoja_excel, rango_columnas, url_servicio_Web, directorio_salida_publicacion, fecha_publicacion, formato_descarga, tipo_conjunto_datos, informacion_contribuye_crecimiento_economico, generacion_valor_agregado, ambito_impacto, informacion_consolidacion_indicadores, demanda_datos, esfuerzo_requerido_publicar, elementos_requeridos_publicar, fuente_datos_priorizacion, calidad_informacion, flag_excel } = info_fuente
+  const { nombre_conjunto, tipo_fuente_ingesta, tipo_ingesta, id_dependencia, id_subdependencia, unidad_equipo, descripcion, palabras_clave, id_tematica_mintic, grupo, licencia_uso, fecha_inicio_conjunto, fecha_fin_conjunto, frecuencia_Actualizacion, publicable, flag_anonimizar_campos, flag_renombrar_campos, flag_aplicar_funciones, flag_particionada, directorio_salida_parquet, ambito_geografico, metadatos_geograficos, diccionario_datos, catalogo_objetos, nombre_contacto_proceso, correo_contacto_proceso, nombre_contacto_tecnico, correo_contacto_tecnico, fuente_datos, ambiente, observaciones, flag_activo, controlador, base_de_datos, nombre_tabla, esquema, ruta_archivo, nombre_archivo, delimitador_archivo, flag_encabezado_archivo, hoja_excel, rango_columnas, url_servicio_Web, directorio_salida_publicacion, fecha_publicacion, formato_descarga, tipo_conjunto_datos, informacion_contribuye_crecimiento_economico, generacion_valor_agregado, ambito_impacto, informacion_consolidacion_indicadores, demanda_datos, esfuerzo_requerido_publicar, elementos_requeridos_publicar, fuente_datos_priorizacion, calidad_informacion, flag_excel, flag_datos_geograficos } = info_fuente
 
   // Funcion para Tomar los datos del Formulario
   const handleChange = (e) => {
@@ -210,6 +210,15 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
           type="checkbox" 
           name="flag_renombrar_campos"
           checked={flag_renombrar_campos}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="form_info_fuente_fuente">
+        <label htmlFor="flag_datos_geograficos">Datos Geograficos</label>
+        <input 
+          type="checkbox" 
+          name="flag_datos_geograficos"
+          checked={flag_datos_geograficos}
           onChange={handleChange}
         />
       </div>

@@ -39,12 +39,22 @@ const InfoCampos = ({ paramFuente, setParamFuente, datos_campo, setModal, setEdi
         nombre_campo: "",
         tipo_dato_origen: "",
         longitud: 10,
-        descripcion: "",
+        descripcion_campo : "",
         flag_campo_particion: false,
         flag_anonimizar: false,
         funcion: "",
         tipo_dato_destino: "",
-        comentarios: ""
+        comentarios: "",
+        alias: "",
+        nullos: false,
+        geometria_tipo_dato: "",
+        cantidad_elementos: 0,
+        descripcion_datos_geograficos: "",
+        sistema_coordenadas: "",
+        fecha_elaboracion: "",
+        topologia: "",
+        reglas_topologicas: "",
+        excepciones: ""
     }
     const [campo, setCampo] = useState(dataCampo)
 
@@ -116,6 +126,15 @@ const InfoCampos = ({ paramFuente, setParamFuente, datos_campo, setModal, setEdi
             />
         </div>
         <div className="container_campos_campo">
+            <label htmlFor="descripcion_campo">Descripción</label>
+            <input 
+                type="text"
+                name="descripcion_campo"
+                value={campo.descripcion_campo}
+                onChange={handleChange}
+            />
+        </div>
+        <div className="container_campos_campo">
             <label htmlFor="comentarios">Comentarios</label>
             <input 
                 type="text"
@@ -166,6 +185,28 @@ const InfoCampos = ({ paramFuente, setParamFuente, datos_campo, setModal, setEdi
             )
         }
         {
+            (paramFuente.info_fuente.flag_renombrar_campos || paramFuente.info_fuente.flag_datos_geograficos) && (
+                <div className="container_campos_campo">
+                    <label htmlFor="alias">Alias</label>
+                    <input 
+                        type="text"
+                        name="alias"
+                        value={campo.alias}
+                        onChange={handleChange}
+                    />
+                </div>
+            )
+        }
+        <div className="container_campos_campo">
+            <label htmlFor="nullos">Acepta Nulos</label>
+            <input 
+                type="checkbox"
+                name="nullos"
+                value={campo.nullos}    
+                onChange={handleChange}
+            />
+        </div>
+        {
             paramFuente.info_fuente.flag_particionada && (
                 <div className="container_campos_campo">
                     <label htmlFor="flag_campo_particion">Campo Particion</label>
@@ -191,15 +232,6 @@ const InfoCampos = ({ paramFuente, setParamFuente, datos_campo, setModal, setEdi
                 </div>
             )
         }
-        <div className="container_campos_campo">
-            <label htmlFor="descripcion">Descripción</label>
-            <input 
-                type="text"
-                name="descripcion"
-                value={campo.descripcion}
-                onChange={handleChange}
-            />
-        </div>
         {
             paramFuente.info_fuente.flag_aplicar_funciones && (
                 <div className="container_campos_campo">
@@ -210,6 +242,99 @@ const InfoCampos = ({ paramFuente, setParamFuente, datos_campo, setModal, setEdi
                         onChange={handleChange}
                     />
                 </div>
+            )
+        }
+        {
+            paramFuente.info_fuente.flag_datos_geograficos && (
+                <>
+                    <div className="container_campos_campo">
+                        <label htmlFor="geometria_tipo_dato">Geometria Tipo Dato</label>
+                        <select 
+                            name="geometria_tipo_dato"
+                            value={campo.geometria_tipo_dato}
+                            onChange={handleChange}
+                        >
+                            {
+                                tipos_dato.map(item => (
+                                    <option key={item.id} value={item.value}>{item.tipo_dato}</option>
+                                ))
+                            }
+                        </select>
+                    </div>
+                    <div className="container_campos_campo">
+                        <label htmlFor="cantidad_elementos">Cantidad Elementos</label>
+                        <input 
+                            type="number"
+                            name="cantidad_elementos"
+                            value={campo.cantidad_elementos}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="container_campos_campo">
+                        <label htmlFor="descripcion_datos_geograficos">Descripcion Datos Geograficos</label>
+                        <input 
+                            type="text"
+                            name="descripcion_datos_geograficos"
+                            value={campo.descripcion_datos_geograficos}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="container_campos_campo">
+                        <label htmlFor="sistema_coordenadas">Sistema Cordenadas</label>
+                        <select 
+                            name="sistema_coordenadas"
+                            value={campo.sistema_coordenadas}
+                            onChange={handleChange}
+                        >
+                            {
+                                tipos_dato.map(item => (
+                                    <option key={item.id} value={item.value}>{item.tipo_dato}</option>
+                                ))
+                            }
+                        </select>
+                    </div>
+                    <div className="container_campos_campo">
+                        <label htmlFor="fecha_elaboracion">Fecha de Elaboracion</label>
+                        <input 
+                            type="date"
+                            name="fecha_elaboracion"
+                            value={campo.fecha_elaboracion}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="container_campos_campo">
+                        <label htmlFor="topologia">Topologia</label>
+                        <select 
+                            name="topologia"
+                            value={campo.topologia}
+                            onChange={handleChange}
+                        >
+                            {
+                                tipos_dato.map(item => (
+                                    <option key={item.id} value={item.value}>{item.tipo_dato}</option>
+                                ))
+                            }
+                        </select>
+                    </div>
+                    <div className="container_campos_campo">
+                        <label htmlFor="reglas_topologicas">Reglas Topologicas</label>
+                        <input 
+                            type="text"
+                            name="reglas_topologicas"
+                            value={campo.reglas_topologicas}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="container_campos_campo">
+                        <label htmlFor="excepciones">Excepciones</label>
+                        <input 
+                            type="text"
+                            name="excepciones"
+                            value={campo.excepciones}
+                            onChange={handleChange}
+                        />
+                    </div>
+                </>
             )
         }
         <div className="container_campos_bottons">

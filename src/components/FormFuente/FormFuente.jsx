@@ -28,6 +28,7 @@ const FormFuente = () => {
       publicable: false,
       flag_anonimizar_campos: false,
       flag_renombrar_campos: false,
+      flag_datos_geograficos: false,
       flag_aplicar_funciones: false,
       flag_particionada: false,
       directorio_salida_parquet: '',
