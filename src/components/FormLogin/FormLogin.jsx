@@ -4,11 +4,11 @@ import { toast } from 'react-toastify'
 import LogoAM from '../../images/amlogo.png'
 import useUser from '../../hooks/useUser'
 
+import { loginApi } from '../../api/user'
+
 const FormLogin = () => {
 
-  const { info_user } = useUser()
-
-  console.log(info_user)
+  const { info_user, login } = useUser()
 
   const data = {
     user: "",
@@ -24,7 +24,7 @@ const FormLogin = () => {
     })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     if(user.trim() === '' || password.trim() === '') {
@@ -33,6 +33,22 @@ const FormLogin = () => {
     }
 
     // API Conexion
+
+    try {
+      const dataFormat = {
+        username: user,
+        password: password
+      }
+      const response = await loginApi(dataFormat)
+      if(!response.error) {
+        login(response.token)
+        toast.success('Bienvenido a AM Parametrizador.')
+      } else {
+        toast.error('Usuario o Contraseña incorrectos.')
+      }
+    } catch (error) {
+      console.log(error)
+    }
 
     setDataForm(data)
   }

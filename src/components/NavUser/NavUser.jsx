@@ -12,11 +12,11 @@ const NavUser = () => {
         return () => clearInterval(intervalId)
     }, [])
 
-    const { info_user } = useUser()
+    const { info_user, logout } = useUser()
     const { user } = info_user
 
     const handleLogout = () => {
-        console.log("Logout")
+        logout()
     }
 
   return (

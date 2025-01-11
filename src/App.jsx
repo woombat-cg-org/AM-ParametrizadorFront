@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { RouterProvider } from 'react-router-dom'
+import { RouterProvider, Navigate } from 'react-router-dom'
 import WebFont from 'webfontloader'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -7,6 +7,10 @@ import UserContext from './context/UserContext'
 import './sass/index.sass'
 import { router } from './router'
 import { Helmet } from 'react-helmet'
+
+import { getToken, removeToken, hasExpiredToken, setToken } from './api/token'
+import { jwtDecode } from 'jwt-decode';
+
 
 const App = () => {
   useEffect(() => {
@@ -18,26 +22,49 @@ const App = () => {
   }, [])
 
   const [data, setData] = useState(undefined)
+  const [reloadUser, setReloadUser] = useState(false)
 
-  const data2 = {
+  /* const data2 = {
     user: "Jhon Giron",
     rol: "user"
-  }
+  } */
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        setData(data2)
-      } catch (error) {
-        console.log(error)
+    const token = getToken()
+    if(token) {
+      if(hasExpiredToken(token)) {
+        setData(undefined)
+      } else {
+        const dataDecode = jwtDecode(token)
+        const dataTransform = {
+          user: dataDecode.username,
+          rol: dataDecode.rol
+        }
+        setData(dataTransform)
       }
+    } else {
+      setData(undefined)
     }
-    getData()
-  }, [])
+    setReloadUser(false)
+  }, [reloadUser])
+
+  const login = (token) => {
+    setToken(token)
+    setReloadUser(true)
+  }
+
+  const logout = () => {
+    if(data) {
+      removeToken()
+      setData(undefined)
+    }
+  }
 
   const info_user = useMemo(
     () => ({
-      info_user: data
+      info_user: data,
+      logout,
+      login
     }), [data]
   )
 

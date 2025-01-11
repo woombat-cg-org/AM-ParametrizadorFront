@@ -44,7 +44,7 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
         if(tiempo === 1) {
             // InfoUno Validacion de Datos
             if(!nombre_conjunto || !tipo_fuente_ingesta || !tipo_ingesta || !id_dependencia || !id_subdependencia || !unidad_equipo || !descripcion || !palabras_clave || !id_tematica_mintic || !licencia_uso || !fecha_inicio_conjunto || !fecha_fin_conjunto || !frecuencia_actualizacion || !directorio_salida_parquet || !fuente_datos || !ambiente) {
-                toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente.')
+                toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente 3.')
                 return
             }
 

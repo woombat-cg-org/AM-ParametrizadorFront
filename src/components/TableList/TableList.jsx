@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import API from '../../API.json'
 import Filtro from '../Filtro/Filtro'
 import { toast } from 'react-toastify'
+
+import { getFuentesApi, deleteFuenteApi } from '../../api/fuentes'
 
 const TableList = () => {
 
     const navigate = useNavigate()
+    const [refreshData, setRefreshData] = useState(false)
     const [fuentes, setFuentes] = useState(undefined)
     let datoFuente
     if(fuentes === undefined) {
@@ -18,15 +20,18 @@ const TableList = () => {
     const [copiaFuentes, setCopiaFuentes] = useState(datoFuente)
 
     useEffect(() => {
-        const getData = () =>  {
+        const getData = async () =>  {
             try {
-                setFuentes(API)
+                const response = await getFuentesApi()
+                setFuentes(response)
+                setCopiaFuentes(response)
             } catch (error) {
                 console.log(error)
             }
         }
         getData()
-    }, [])
+        setRefreshData(false)
+    }, [refreshData])
 
     const itemsPerPage = 20
     const totalPages = Math.ceil(copiaFuentes.length / itemsPerPage)
@@ -44,8 +49,18 @@ const TableList = () => {
         navigate(`/editar-fuente/${codigo}`)
     }    
 
-    const handleDelete = (fuente) => {
+    const handleDelete = async (fuente) => {
         // ToDo: Peticion DELETE para eliminar la fuente
+        const id_fuente = fuente.id_fuente
+
+        try {
+            await deleteFuenteApi(id_fuente)
+            setRefreshData(true)
+            toast.success(`Fuente ${id_fuente} eliminada correctamente`)
+        } catch (error) {
+            console.log(error)
+        }
+
     }
 
     const handleNuevaFuente = () => {
@@ -54,8 +69,8 @@ const TableList = () => {
 
     const handleFilterFuente = (fuente) => {
         // eslint-disable-next-line
-        const resultFilter = fuentes.fuentes.filter((fuentes) => {
-            if(fuentes.nombre_fuente.toString().toLowerCase().includes(fuente.toLowerCase())) {
+        const resultFilter = fuentes.filter((fuentes) => {
+            if(fuentes.nombre_conjunto.toString().toLowerCase().includes(fuente.toLowerCase())) {
                 return fuentes
             }
         }) 
@@ -70,7 +85,7 @@ const TableList = () => {
     <div className="table_list">
         <div className="table_filter">
             {
-                fuentes && <Filtro 
+                fuentes.length > 0 && <Filtro 
                     handleFilterFuente={handleFilterFuente}
                 />
             }
@@ -84,9 +99,8 @@ const TableList = () => {
             <thead>
                 <tr>
                 <th>Nombre Fuente</th>
-                <th>Ultima Fecha de Modificacion</th>
-                <th>Editada por</th>
-                <th>Creada por</th>
+                <th>Tipo Fuente Ingesta</th>
+                <th>Ambiente</th>
                 <th>Acciones</th>
                 </tr>
             </thead>
@@ -94,11 +108,10 @@ const TableList = () => {
                 {
                     currentItems?.length > 0 && (
                         currentItems.map(item => (
-                            <tr key={item.codigo}>
-                                <td>{item.nombre_fuente}</td>
-                                <td>{item.ultima_modificacion}</td>
-                                <td>{item.modificada_por}</td>
-                                <td>{item.creada_por}</td>
+                            <tr key={item.id_fuente}>
+                                <td>{item.nombre_conjunto}</td>
+                                <td>{item.tipo_fuente_ingesta}</td>
+                                <td>{item.ambiente}</td>
                                 <td>
                                     <span
                                         onClick={() => handleEdit({...item})}
