@@ -4,6 +4,8 @@ import WebFont from 'webfontloader'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import UserContext from './context/UserContext'
+import MetadataContext from './context/MetadataContext'
+import MetData from './METADATA.json'
 import './sass/index.sass'
 import { router } from './router'
 import { Helmet } from 'react-helmet'
@@ -22,12 +24,12 @@ const App = () => {
   }, [])
 
   const [data, setData] = useState(undefined)
+  const [metadatos, setMetadatos] = useState(undefined)
   const [reloadUser, setReloadUser] = useState(false)
 
-  /* const data2 = {
-    user: "Jhon Giron",
-    rol: "user"
-  } */
+  useEffect(() => {
+    setMetadatos(MetData)
+  }, [])
 
   useEffect(() => {
     const token = getToken()
@@ -68,24 +70,32 @@ const App = () => {
     }), [data]
   )
 
+  const metadata = useMemo(
+    () => ({
+      metadatos: metadatos
+    }), [metadatos]
+  )
+
   return (
     <UserContext.Provider value={info_user}>
-      <Helmet>
-        <title>AM Parametrizador</title>
-      </Helmet>
-      <RouterProvider router={router} />
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
+      <MetadataContext.Provider value={metadata}>
+        <Helmet>
+          <title>AM Parametrizador</title>
+        </Helmet>
+        <RouterProvider router={router} />
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+      </MetadataContext.Provider>
     </UserContext.Provider>
   )
 }

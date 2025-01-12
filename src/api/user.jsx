@@ -36,6 +36,26 @@ export async function loginApi(formData) {
         return result     
     } catch (error) {
         console.log(error)
-        return null;
+        return null
+    }
+}
+
+export async function existingUserApi(formData) {
+    try {
+        const url = `${BASE_PATH}/validar-usuario`
+        const params = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        }
+
+        const response = await fetch(url, params)
+        const result = await response.json()
+        return result     
+    } catch (error) {
+        console.log(error)
+        return null
     }
 }

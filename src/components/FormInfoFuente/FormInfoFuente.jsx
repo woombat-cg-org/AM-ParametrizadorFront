@@ -7,10 +7,13 @@ import InfoDos from './InfoDos'
 import InfoTres from './InfoTres'
 import InfoCuatro from './InfoCuatro'
 
+import { existingUserApi } from '../../api/user'
+import { createFuenteApi } from '../../api/fuentes'
+
 const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_info }) => {
 
     const navigate = useNavigate()
-    const { info_user } = useUser()
+    const { info_user, logout } = useUser()
 
     const tipos_fuente = [
         {id: 0, name: "-- Seleccione una Opción --", value: ""},
@@ -24,9 +27,9 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
 
     // Destructuring
     const { info_fuente, campos } = paramFuente
-    const { nombre_conjunto, tipo_fuente_ingesta, tipo_ingesta, id_dependencia, id_subdependencia, unidad_equipo, descripcion, palabras_clave, id_tematica_mintic, licencia_uso, fecha_inicio_conjunto, fecha_fin_conjunto, frecuencia_actualizacion, directorio_salida_parquet, fuente_datos, ambiente, controlador, base_de_datos, nombre_tabla, esquema, ruta_archivo, nombre_archivo, delimitador_archivo, url_servicio_web, directorio_salida_publicacion, formato_descarga, tipo_conjunto_datos, informacion_contribuye_crecimiento_economico, generacion_valor_agregado, ambito_impacto, informacion_consolidacion_indicadores, demanda_datos, esfuerzo_requerido_publicar, elementos_requeridos_publicar, fuente_datos_priorizacion, calidad_informacion, publicable, cron_tab } = info_fuente
+    const { nombre_conjunto, tipo_fuente_ingesta, tipo_ingesta, id_dependencia, id_subdependencia, unidad_equipo, descripcion, palabras_clave, id_tematica_mintic, licencia_uso, fecha_inicio_conjunto, fecha_fin_conjunto, frecuencia_Actualizacion, directorio_salida_parquet, fuente_datos, ambiente, controlador, base_de_datos, nombre_tabla, esquema, ruta_archivo, nombre_archivo, delimitador_archivo, url_servicio_web, directorio_salida_publicacion, formato_descarga, tipo_conjunto_datos, informacion_contribuye_crecimiento_economico, generacion_valor_agregado, ambito_impacto, informacion_consolidacion_indicadores, demanda_datos, esfuerzo_requerido_publicar, elementos_requeridos_publicar, fuente_datos_priorizacion, calidad_informacion, publicable, cron_tab } = info_fuente
 
-    const handleTiempo = (tipo) => {
+    const handleTiempo = async (tipo) => {
 
         // Cancelar la Creacion o Edicion de Fuente
         if(tipo === "cancelar") {
@@ -43,8 +46,8 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
         
         if(tiempo === 1) {
             // InfoUno Validacion de Datos
-            if(!nombre_conjunto || !tipo_fuente_ingesta || !tipo_ingesta || !id_dependencia || !id_subdependencia || !unidad_equipo || !descripcion || !palabras_clave || !id_tematica_mintic || !licencia_uso || !fecha_inicio_conjunto || !fecha_fin_conjunto || !frecuencia_actualizacion || !directorio_salida_parquet || !fuente_datos || !ambiente) {
-                toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente 3.')
+            if(!nombre_conjunto || !tipo_fuente_ingesta || !tipo_ingesta || !id_dependencia || !unidad_equipo || !descripcion || !palabras_clave || !id_tematica_mintic || !licencia_uso || !fecha_inicio_conjunto || !fecha_fin_conjunto || !frecuencia_Actualizacion || !directorio_salida_parquet || !fuente_datos || !ambiente) {
+                toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente.')
                 return
             }
 
@@ -96,11 +99,90 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
         if(tipo === "avanzar") {
             if(tiempo === 4 ) {
                 // Guardar datos
-                setParamFuente({
-                    ...paramFuente,
-                    creado_por: info_user.user,
-                    editado_por: info_user.user
-                })
+
+                // Validar existencia de usuario auth
+                const userData = {
+                    username: info_user.user
+                }
+                const response = await existingUserApi(userData)
+                if(!response.message) {
+                    toast.error('No se pudo validar el usuario, por favor vuelva a iniciar sesion.')
+                    logout()
+                    setParamFuente(param_info)
+                    return
+                }
+                
+                // Guardar Datos de la Fuente
+                // Ordenar la Metadata de la Fuente para enviarla al backend
+                const sourceMapData = {
+                    id_fuente: paramFuente.info_fuente.id_fuente,
+                    nombre_conjunto: paramFuente.info_fuente.nombre_conjunto,
+                    tipo_fuente_ingesta: paramFuente.info_fuente.tipo_fuente_ingesta,
+                    tipo_ingesta: paramFuente.info_fuente.tipo_ingesta,
+                    cron_tab: paramFuente.info_fuente.cron_tab,
+                    id_dependencia: paramFuente.info_fuente.id_dependencia,
+                    id_subdependencia: paramFuente.info_fuente.id_subdependencia,
+                    unidad_equipo: paramFuente.info_fuente.unidad_equipo,
+                    descripcion: paramFuente.info_fuente.descripcion,
+                    palabras_clave: paramFuente.info_fuente.palabras_clave,
+                    id_tematica_mintic: paramFuente.info_fuente.id_tematica_mintic,
+                    grupo: paramFuente.info_fuente.grupo,
+                    licencia_uso: paramFuente.info_fuente.licencia_uso,
+                    fecha_inicio_conjunto: paramFuente.info_fuente.fecha_inicio_conjunto,
+                    fecha_fin_conjunto: paramFuente.info_fuente.fecha_fin_conjunto,
+                    frecuencia_actualizacion: paramFuente.info_fuente.frecuencia_Actualizacion,
+                    publicable: paramFuente.info_fuente.publicable,
+                    flag_anonimizar_campos: paramFuente.info_fuente.flag_anonimizar_campos,
+                    flag_renombrar_campos: paramFuente.info_fuente.flag_renombrar_campos,
+                    flag_datos_geograficos: paramFuente.info_fuente.flag_datos_geograficos,
+                    flag_aplicar_funciones: paramFuente.info_fuente.flag_aplicar_funciones,
+                    flag_particionada: paramFuente.info_fuente.flag_particionada,
+                    directorio_salida_parquet: paramFuente.info_fuente.directorio_salida_parquet,
+                    ambito_geografico: paramFuente.info_fuente.ambito_geografico,
+                    metadatos_geograficos: paramFuente.info_fuente.metadatos_geograficos,
+                    diccionario_datos: paramFuente.info_fuente.diccionario_datos,
+                    catalogo_objetos: paramFuente.info_fuente.catalogo_objetos,
+                    nombre_contacto_proceso: paramFuente.info_fuente.nombre_contacto_proceso,
+                    correo_contacto_proceso: paramFuente.info_fuente.correo_contacto_proceso,
+                    fuente_datos: paramFuente.info_fuente.fuente_datos,
+                    ambiente: paramFuente.info_fuente.ambiente,
+                    observaciones: paramFuente.info_fuente.observaciones,
+                    flag_activo: paramFuente.info_fuente.flag_activo,
+                    controlador: paramFuente.info_fuente.controlador,
+                    condicion_filtro: paramFuente.info_fuente.condicion_filtro,
+                    base_de_datos: paramFuente.info_fuente.base_de_datos,
+                    nombre_tabla: paramFuente.info_fuente.nombre_tabla,
+                    esquema: paramFuente.info_fuente.esquema,
+                    ruta_archivo: paramFuente.info_fuente.ruta_archivo,
+                    nombre_archivo: paramFuente.info_fuente.nombre_archivo,
+                    delimitador_archivo: paramFuente.info_fuente.delimitador_archivo,
+                    flag_encabezado_archivo: paramFuente.info_fuente.flag_encabezado_archivo,
+                    flag_excel: paramFuente.info_fuente.flag_excel,
+                    rango_columnas: paramFuente.info_fuente.rango_columnas,
+                    url_servicio_web: paramFuente.info_fuente.url_servicio_Web,
+                    directorio_salida_publicacion: paramFuente.info_fuente.directorio_salida_publicacion,
+                    fecha_publicacion: paramFuente.info_fuente.fecha_publicacion,
+                    id_publicacion: paramFuente.info_fuente.id_publicacion,
+                    formato_descarga: paramFuente.info_fuente.formato_descarga,
+                    tipo_conjunto_datos: paramFuente.info_fuente.tipo_conjunto_datos,
+                    informacion_contribuye_crecimiento_economico: paramFuente.info_fuente.informacion_contribuye_crecimiento_economico,
+                    generacion_valor_agregado: paramFuente.info_fuente.generacion_valor_agregado,
+                    ambito_impacto: paramFuente.info_fuente.ambito_impacto,
+                    informacion_consolidacion_indicadores: paramFuente.info_fuente.informacion_consolidacion_indicadores,
+                    demanda_datos: paramFuente.info_fuente.demanda_datos,
+                    esfuerzo_requerido_publicar: paramFuente.info_fuente.esfuerzo_requerido_publicar,
+                    elementos_requeridos_publicar: paramFuente.info_fuente.elementos_requeridos_publicar,
+                    fuente_datos_priorizacion: paramFuente.info_fuente.fuente_datos_priorizacion,
+                    calidad_informacion: paramFuente.info_fuente.calidad_informacion,
+                    total_impacto: paramFuente.info_fuente.total_impacto,
+                    total_dificultad: paramFuente.info_fuente.total_dificultad,
+                    calculo_total_criterios_evaluacion: paramFuente.info_fuente.calculo_total_criterios_evaluacion,
+                }
+
+                const sourceResponse = await createFuenteApi(sourceMapData)
+                console.log(sourceResponse)
+
+                // Guardar Campos de la Fuente
                 
             } else {
                 setTiempo(tiempo + 1)

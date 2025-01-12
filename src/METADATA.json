@@ -1,0 +1,1148 @@
+{
+  "tipo_fuente_ingesta": [
+    {
+      "id": 0,
+      "name": "- Selecciona una opción válida -",
+      "value": ""
+    },
+    {
+      "id": 1,
+      "name": "SQL",
+      "value": "SQL"
+    },
+    {
+      "id": 2,
+      "name": "NAS",
+      "value": "NAS"
+    },
+    {
+      "id": 3,
+      "name": "HDFS",
+      "value": "HDFS"
+    },
+    {
+      "id": 4,
+      "name": "API",
+      "value": "API"
+    }
+  ],
+  "tipo_ingesta": [
+    {
+      "id": 0,
+      "name": "- Selecciona una opción válida -",
+      "value": ""
+    },
+    {
+      "id": 1,
+      "name": "Overwrite (O)",
+      "value": "O"
+    },
+    {
+      "id": 2,
+      "name": "Append (A)",
+      "value": "A"
+    }
+  ],
+  "dependencias": [
+    { "id": 0, "value": "", "name": "- Selecciona una opción válida -" },
+    { "id": 1, "value": "01", "name": "DAGRD" },
+    { "id": 2, "value": "02", "name": "DAP" },
+    { "id": 3, "value": "03", "name": "Gerencia del Centro" },
+    { "id": 4, "value": "04", "name": "Gerencia de Corregimientos" },
+    {
+      "id": 5,
+      "value": "05",
+      "name": "Gerencia de Diversidades Sexuales e Identidades de Género"
+    },
+    { "id": 6, "value": "06", "name": "Gerencia de Proyectos Estratégicos" },
+    { "id": 7, "value": "07", "name": "Gerencia Étnica" },
+    { "id": 8, "value": "08", "name": "Comunicaciones" },
+    { "id": 9, "value": "09", "name": "Cultura Ciudadana" },
+    { "id": 10, "value": "10", "name": "Desarrollo Económico" },
+    { "id": 11, "value": "11", "name": "Educación" },
+    { "id": 12, "value": "12", "name": "Evaluación y Control" },
+    { "id": 13, "value": "13", "name": "Gestión Humana y Servicio Ciudadanía" },
+    { "id": 14, "value": "14", "name": "Gestión y Control Territorial" },
+    { "id": 15, "value": "15", "name": "Gobierno y Gestión del Gabinete" },
+    { "id": 16, "value": "16", "name": "Hacienda" },
+    { "id": 17, "value": "17", "name": "Inclusión Social Familia" },
+    { "id": 18, "value": "18", "name": "Infraestructura Física" },
+    { "id": 19, "value": "19", "name": "Innovación Digital" },
+    { "id": 20, "value": "20", "name": "Juventud" },
+    { "id": 21, "value": "21", "name": "Paz y Derechos Humanos" },
+    { "id": 22, "value": "22", "name": "Medio Ambiente" },
+    { "id": 23, "value": "23", "name": "Movilidad" },
+    { "id": 24, "value": "24", "name": "Mujeres" },
+    { "id": 25, "value": "25", "name": "Participación Ciudadana" },
+    { "id": 26, "value": "26", "name": "Salud" },
+    { "id": 27, "value": "27", "name": "Seguridad y Convivencia" },
+    { "id": 28, "value": "28", "name": "Suministros y Servicios" },
+    { "id": 29, "value": "29", "name": "Secretaría General" },
+    { "id": 30, "value": "30", "name": "Privada" },
+    { "id": 31, "value": "31", "name": "Turismo y Entretenimiento" },
+    { "id": 32, "value": "32", "name": "Aeropuerto Olaya Herrera" },
+    {
+      "id": 33,
+      "value": "33",
+      "name": "Agencia Gestión Paisaje y Patrimonio y APP"
+    },
+    { "id": 34, "value": "34", "name": "Biblioteca Pública Piloto" },
+    { "id": 35, "value": "35", "name": "Colegio Mayor de Antioquia" },
+    { "id": 36, "value": "36", "name": "Hospital General" },
+    { "id": 37, "value": "37", "name": "Inder" },
+    { "id": 38, "value": "38", "name": "Isvimed" },
+    { "id": 39, "value": "39", "name": "ITM" },
+    { "id": 40, "value": "40", "name": "Metrosalud" },
+    { "id": 41, "value": "41", "name": "Museo Casa de la Memoria" },
+    { "id": 42, "value": "42", "name": "Pascual Bravo" },
+    { "id": 43, "value": "43", "name": "Sapiencia" },
+    { "id": 44, "value": "44", "name": "EDU" },
+    { "id": 45, "value": "45", "name": "EPM" },
+    { "id": 46, "value": "46", "name": "ESU" },
+    { "id": 47, "value": "47", "name": "Metromed" },
+    { "id": 48, "value": "48", "name": "Metroparques" },
+    { "id": 49, "value": "49", "name": "Metroplús" },
+    { "id": 50, "value": "50", "name": "Plaza Mayor" },
+    { "id": 51, "value": "51", "name": "SAVIA Salud" },
+    { "id": 52, "value": "52", "name": "Terminales" },
+    { "id": 53, "value": "53", "name": "ACI" },
+    { "id": 54, "value": "54", "name": "Bureau" },
+    { "id": 55, "value": "55", "name": "Corp Cuenca Verde" },
+    {
+      "id": 56,
+      "value": "56",
+      "name": "Corp Hospital Infantil Concejo de Medellín"
+    },
+    { "id": 57, "value": "57", "name": "Corp. Parque Arví" },
+    { "id": 58, "value": "58", "name": "Créame" },
+    { "id": 59, "value": "59", "name": "Ferrocarriles de Antioquia" },
+    { "id": 60, "value": "60", "name": "Fondo de Garantías" },
+    { "id": 61, "value": "61", "name": "Fund Jardín Botánico" },
+    { "id": 62, "value": "62", "name": "Parque Explora" },
+    { "id": 63, "value": "63", "name": "Ruta N" },
+    { "id": 64, "value": "64", "name": "Teleantioquia" },
+    { "id": 65, "value": "65", "name": "Telemedellín" },
+    { "id": 66, "value": "66", "name": "Buen Comienzo" }
+  ],
+  "subdependencias": [
+    {
+      "id": 0,
+      "name": "- Selecciona una opción válida -",
+      "value": "",
+      "id_dependencia": "01"
+    },
+    {
+      "id": 1,
+      "name": "Conocimiento y reducción del riesgo",
+      "value": "01",
+      "id_dependencia": "01"
+    },
+    {
+      "id": 2,
+      "name": "Manejo de desastres",
+      "value": "01",
+      "id_dependencia": "01"
+    },
+    {
+      "id": 3,
+      "name": "- Selecciona una opción válida -",
+      "value": "",
+      "id_dependencia": "02"
+    },
+    {
+      "id": 4,
+      "name": "Planeación Social y Económica",
+      "value": "02",
+      "id_dependencia": "02"
+    },
+    {
+      "id": 5,
+      "name": "Prospectiva, Información y Evaluación Estratégica",
+      "value": "02",
+      "id_dependencia": "02"
+    },
+    {
+      "id": 6,
+      "name": "Planeación Territorial y Estratégica de Ciudad",
+      "value": "02",
+      "id_dependencia": "02"
+    },
+    {
+      "id": 7,
+      "name": "- Selecciona una opción válida -",
+      "value": "",
+      "id_dependencia": "09"
+    },
+    {
+      "id": 8,
+      "name": "Ciudadanía Cultural",
+      "value": "09",
+      "id_dependencia": "09"
+    },
+    {
+      "id": 9,
+      "name": "Arte y cultura",
+      "value": "09",
+      "id_dependencia": "09"
+    },
+    {
+      "id": 10,
+      "name": "Biblioteca, Lectura y Patrimonio",
+      "value": "09",
+      "id_dependencia": "09"
+    },
+    {
+      "id": 11,
+      "name": "- Selecciona una opción válida -",
+      "value": "",
+      "id_dependencia": "10"
+    },
+    {
+      "id": 12,
+      "name": "Desarrollo Rural",
+      "value": "10",
+      "id_dependencia": "10"
+    },
+    {
+      "id": 13,
+      "name": "Creación y Fortalecimiento Empresarial",
+      "value": "10",
+      "id_dependencia": "10"
+    },
+    {
+      "id": 14,
+      "name": "- Selecciona una opción válida -",
+      "value": "",
+      "id_dependencia": "11"
+    },
+    {
+      "id": 15,
+      "name": "Administrativa y Financiera",
+      "value": "11",
+      "id_dependencia": "11"
+    },
+    {
+      "id": 16,
+      "name": "Planeación Educativa",
+      "value": "11",
+      "id_dependencia": "11"
+    },
+    {
+      "id": 17,
+      "name": "Prestación del Servicio Educativo",
+      "value": "11",
+      "id_dependencia": "11"
+    },
+    {
+      "id": 18,
+      "name": "Buen Comienzo",
+      "value": "11",
+      "id_dependencia": "11"
+    },
+    {
+      "id": 19,
+      "name": "- Selecciona una opción válida -",
+      "value": "",
+      "id_dependencia": "12"
+    },
+    {
+      "id": 20,
+      "name": "Evaluación y Seguimiento",
+      "value": "12",
+      "id_dependencia": "12"
+    },
+    {
+      "id": 21,
+      "name": "Asesoría y Acompañamiento",
+      "value": "12",
+      "id_dependencia": "12"
+    },
+    {
+      "id": 22,
+      "name": "- Selecciona una opción válida -",
+      "value": "",
+      "id_dependencia": "13"
+    },
+    {
+      "id": 23,
+      "name": "Gestión Humana",
+      "value": "13",
+      "id_dependencia": "13"
+    },
+    {
+      "id": 24,
+      "name": "Servicio a la Ciudadanía",
+      "value": "13",
+      "id_dependencia": "13"
+    },
+    {
+      "id": 25,
+      "name": "Desarrollo Institucional",
+      "value": "13",
+      "id_dependencia": "13"
+    },
+    {
+      "id": 26,
+      "name": "- Selecciona una opción válida -",
+      "value": "",
+      "id_dependencia": "14"
+    },
+    {
+      "id": 27,
+      "name": "Control Urbanístico",
+      "value": "14",
+      "id_dependencia": "14"
+    },
+    { "id": 28, "name": "Catastro", "value": "14", "id_dependencia": "14" },
+    {
+      "id": 29,
+      "name": "Servicios Públicos",
+      "value": "14",
+      "id_dependencia": "14"
+    },
+    {
+      "id": 30,
+      "name": "- Selecciona una opción válida -",
+      "value": "",
+      "id_dependencia": "16"
+    },
+    { "id": 31, "name": "Ingresos", "value": "16", "id_dependencia": "16" },
+    { "id": 32, "name": "Tesorería", "value": "16", "id_dependencia": "16" },
+    {
+      "id": 33,
+      "name": "Presupuesto y Gestión Financiera",
+      "value": "16",
+      "id_dependencia": "16"
+    },
+    { "id": 34, "name": "Fonvalmed", "value": "16", "id_dependencia": "16" },
+    { "id": 35, "name": "APEV", "value": "16", "id_dependencia": "16" },
+    {
+      "id": 36,
+      "name": "- Selecciona una opción válida -",
+      "value": "",
+      "id_dependencia": "17"
+    },
+    {
+      "id": 37,
+      "name": "Grupos Poblacionales",
+      "value": "17",
+      "id_dependencia": "17"
+    },
+    {
+      "id": 38,
+      "name": "Técnica de Inclusión Social",
+      "value": "17",
+      "id_dependencia": "17"
+    },
+    {
+      "id": 39,
+      "name": "Derechos Humanos",
+      "value": "17",
+      "id_dependencia": "17"
+    },
+    {
+      "id": 40,
+      "name": "- Selecciona una opción válida -",
+      "value": "",
+      "id_dependencia": "18"
+    },
+    { "id": 41, "name": "Planeación", "value": "18", "id_dependencia": "18" },
+    {
+      "id": 42,
+      "name": "Construcción y Mantenimiento",
+      "value": "18",
+      "id_dependencia": "18"
+    },
+    {
+      "id": 43,
+      "name": "- Selecciona una opción válida -",
+      "value": "",
+      "id_dependencia": "19"
+    },
+    {
+      "id": 44,
+      "name": "Servicios de Tecnología de la Innovación",
+      "value": "19",
+      "id_dependencia": "19"
+    },
+    {
+      "id": 45,
+      "name": "Ciudad Inteligente",
+      "value": "19",
+      "id_dependencia": "19"
+    },
+    {
+      "id": 46,
+      "name": "- Selecciona una opción válida -",
+      "value": "",
+      "id_dependencia": "21"
+    },
+    {
+      "id": 47,
+      "name": "Justicia Restaurativa",
+      "value": "21",
+      "id_dependencia": "21"
+    },
+    {
+      "id": 48,
+      "name": "Construcción de la Paz Territorial",
+      "value": "21",
+      "id_dependencia": "21"
+    },
+    {
+      "id": 49,
+      "name": "- Selecciona una opción válida -",
+      "value": "",
+      "id_dependencia": "22"
+    },
+    {
+      "id": 50,
+      "name": "Gestión Ambiental",
+      "value": "22",
+      "id_dependencia": "22"
+    },
+    {
+      "id": 51,
+      "name": "Recursos Naturales Renovables",
+      "value": "22",
+      "id_dependencia": "22"
+    },
+    {
+      "id": 52,
+      "name": "Protección y Bienestar Animal",
+      "value": "22",
+      "id_dependencia": "22"
+    },
+    {
+      "id": 53,
+      "name": "- Selecciona una opción válida -",
+      "value": "",
+      "id_dependencia": "23"
+    },
+    {
+      "id": 54,
+      "name": "Seguridad Vial y Control",
+      "value": "23",
+      "id_dependencia": "23"
+    },
+    { "id": 55, "name": "Legal", "value": "23", "id_dependencia": "23" },
+    { "id": 56, "name": "Técnica", "value": "23", "id_dependencia": "23" },
+    {
+      "id": 57,
+      "name": "Gerencia de Movilidad Humana",
+      "value": "23",
+      "id_dependencia": "23"
+    },
+    {
+      "id": 58,
+      "name": "- Selecciona una opción válida -",
+      "value": "",
+      "id_dependencia": "24"
+    },
+    { "id": 59, "name": "Derechos", "value": "24", "id_dependencia": "24" },
+    {
+      "id": 60,
+      "name": "Transversalización",
+      "value": "24",
+      "id_dependencia": "24"
+    },
+    {
+      "id": 61,
+      "name": "- Selecciona una opción válida -",
+      "value": "",
+      "id_dependencia": "25"
+    },
+    {
+      "id": 62,
+      "name": "Formación y Participación Ciudadana",
+      "value": "25",
+      "id_dependencia": "25"
+    },
+    {
+      "id": 63,
+      "name": "Organización Social",
+      "value": "25",
+      "id_dependencia": "25"
+    },
+    {
+      "id": 64,
+      "name": "Planeación Local y Presupuesto Participativo",
+      "value": "25",
+      "id_dependencia": "25"
+    },
+    {
+      "id": 65,
+      "name": "- Selecciona una opción válida -",
+      "value": "",
+      "id_dependencia": "26"
+    },
+    {
+      "id": 66,
+      "name": "Gestión de Servicios de Salud",
+      "value": "26",
+      "id_dependencia": "26"
+    },
+    {
+      "id": 67,
+      "name": "Salud Pública",
+      "value": "26",
+      "id_dependencia": "26"
+    },
+    {
+      "id": 68,
+      "name": "Administrativa y Financiera",
+      "value": "26",
+      "id_dependencia": "26"
+    },
+    {
+      "id": 69,
+      "name": "- Selecciona una opción válida -",
+      "value": "",
+      "id_dependencia": "27"
+    },
+    {
+      "id": 70,
+      "name": "Planeación de la Seguridad",
+      "value": "27",
+      "id_dependencia": "27"
+    },
+    {
+      "id": 71,
+      "name": "Operativa de la Seguridad",
+      "value": "27",
+      "id_dependencia": "27"
+    },
+    {
+      "id": 72,
+      "name": "Gobierno Local y Convivencia",
+      "value": "27",
+      "id_dependencia": "27"
+    },
+    {
+      "id": 73,
+      "name": "Espacio Público",
+      "value": "27",
+      "id_dependencia": "27"
+    },
+    {
+      "id": 74,
+      "name": "- Selecciona una opción válida -",
+      "value": "",
+      "id_dependencia": "28"
+    },
+    {
+      "id": 75,
+      "name": "Planeación y Evaluación",
+      "value": "28",
+      "id_dependencia": "28"
+    },
+    {
+      "id": 76,
+      "name": "Selección de Proveedores",
+      "value": "28",
+      "id_dependencia": "28"
+    },
+    {
+      "id": 77,
+      "name": "Ejecución de la Contratación",
+      "value": "28",
+      "id_dependencia": "28"
+    },
+    {
+      "id": 78,
+      "name": "Gestión de Bienes",
+      "value": "28",
+      "id_dependencia": "28"
+    },
+    {
+      "id": 79,
+      "name": "- Selecciona una opción válida -",
+      "value": "",
+      "id_dependencia": "29"
+    },
+    {
+      "id": 80,
+      "name": "Defensa y Protección de lo Público",
+      "value": "29",
+      "id_dependencia": "29"
+    },
+    {
+      "id": 81,
+      "name": "Secretaría Privada",
+      "value": "29",
+      "id_dependencia": "29"
+    },
+    {
+      "id": 82,
+      "name": "- Selecciona una opción válida -",
+      "value": "",
+      "id_dependencia": "30"
+    },
+    {
+      "id": 83,
+      "name": "Planificación, Control y Competitividad Turística",
+      "value": "30",
+      "id_dependencia": "30"
+    },
+    {
+      "id": 84,
+      "name": "Promoción Turística y Entretenimiento",
+      "value": "30",
+      "id_dependencia": "30"
+    }
+  ],
+  "temas_mintic": [],
+  "licencias": [
+    {
+      "id": 0,
+      "name": "Creative Commons 4.0",
+      "value": "Creative Commons 4.0"
+    }
+  ],
+  "frecuencia_actualizacion": [
+    {
+      "id": 0,
+      "name": "Diario",
+      "value": "Diario"
+    },
+    {
+      "id": 1,
+      "name": "Semanal",
+      "value": "Semanal"
+    },
+    {
+      "id": 2,
+      "name": "Quincenal",
+      "value": "Quincenal"
+    },
+    {
+      "id": 3,
+      "name": "Mensual",
+      "value": "Mensual"
+    },
+    {
+      "id": 4,
+      "name": "Trimestral",
+      "value": "Trimestral"
+    },
+    {
+      "id": 5,
+      "name": "Semestral",
+      "value": "Semestral"
+    },
+    {
+      "id": 6,
+      "name": "Anual",
+      "value": "Anual"
+    },
+    {
+      "id": 7,
+      "name": "Bienal",
+      "value": "Bienal"
+    },
+    {
+      "id": 8,
+      "name": "Trienio",
+      "value": "Trienio"
+    },
+    {
+      "id": 9,
+      "name": "Cuadrienal",
+      "value": "Cuadrienal"
+    },
+    {
+      "id": 10,
+      "name": "Decenal",
+      "value": "Decenal"
+    },
+    {
+      "id": 11,
+      "name": "Sin frecuencia",
+      "value": "Sin frecuencia"
+    }
+  ],
+  "ambito_geografico": [
+    {
+      "id": 0,
+      "name": "Comuna_Corregimiento",
+      "value": "Comuna_Corregimiento"
+    },
+    {
+      "id": 1,
+      "name": "Barrio_Vereda",
+      "value": "Barrio_Vereda"
+    },
+    {
+      "id": 2,
+      "name": "Área Metropolitana",
+      "value": "Área Metropolitana"
+    },
+    {
+      "id": 3,
+      "name": "Distrital",
+      "value": "Distrital"
+    },
+    {
+      "id": 4,
+      "name": "Departamental",
+      "value": "Departamental"
+    },
+    {
+      "id": 5,
+      "name": "Nacional",
+      "value": "Nacional"
+    },
+    {
+      "id": 6,
+      "name": "Internacional",
+      "value": "Internacional"
+    }
+  ],
+  "metadatos_geograficos": [
+    {
+      "id": 0,
+      "name": "Si, archivo XML",
+      "value": "Si, archivo XML"
+    },
+    {
+      "id": 1,
+      "name": "Si, ArcGIS OnLine",
+      "value": "Si, ArcGIS OnLine"
+    },
+    {
+      "id": 2,
+      "name": "No aporta metadatos",
+      "value": "No aporta metadatos"
+    },
+    {
+      "id": 3,
+      "name": "No aplica metadatos",
+      "value": "No aplica metadatos"
+    }
+  ],
+  "diccionario_datos": [
+    {
+      "id": 0,
+      "name": "Si, archivo XLS-XLSX/CSV",
+      "value": "Si, archivo XLS-XLSX/CSV"
+    },
+    {
+      "id": 1,
+      "name": "Si, ArcGIS On Line",
+      "value": "Si, ArcGIS On Line"
+    },
+    {
+      "id": 2,
+      "name": "No aporta diccionario de datos",
+      "value": "No aporta diccionario de datos"
+    }
+  ],
+  "catalogo_objetos": [
+    {
+      "id": 0,
+      "name": "Aporta catálogo",
+      "value": "Aporta catálogo"
+    },
+    {
+      "id": 1,
+      "name": "No aporta catálogo",
+      "value": "No aporta catálogo"
+    },
+    {
+      "id": 2,
+      "name": "No requiere catálogo",
+      "value": "No requiere catálogo"
+    }
+  ],
+  "fuente_datos": [
+    {
+      "id": 0,
+      "name": "GDB Corporativa",
+      "value": "GDB Corporativa"
+    },
+    {
+      "id": 1,
+      "name": "ArcGIS OnLine",
+      "value": "ArcGIS OnLine"
+    },
+    {
+      "id": 2,
+      "name": "NAS-Community",
+      "value": "NAS-Community"
+    },
+    {
+      "id": 3,
+      "name": "Nas-Local",
+      "value": "Nas-Local"
+    },
+    {
+      "id": 4,
+      "name": "Directorio Local",
+      "value": "Directorio Local"
+    },
+    {
+      "id": 5,
+      "name": "Base de Datos",
+      "value": "Base de Datos"
+    },
+    {
+      "id": 6,
+      "name": "Web Service",
+      "value": "Web Service"
+    },
+    {
+      "id": 7,
+      "name": "API",
+      "value": "API"
+    },
+    {
+      "id": 8,
+      "name": "Data Service SAP",
+      "value": "Data Service SAP"
+    }
+  ],
+  "ambiente": [
+    {
+      "id": 0,
+      "name": "Desarrollo",
+      "value": "Desarrollo"
+    },
+    {
+      "id": 1,
+      "name": "Producción",
+      "value": "Producción"
+    }
+  ],
+  "formato_descarga": [
+    {
+      "id": 0,
+      "name": "SHP",
+      "value": "SHP"
+    },
+    {
+      "id": 1,
+      "name": "FGDB",
+      "value": "FGDB"
+    },
+    {
+      "id": 2,
+      "name": "GPKG",
+      "value": "GPKG"
+    },
+    {
+      "id": 3,
+      "name": "Alfanumérico (xlsx/csv)",
+      "value": "Alfanumérico (xlsx/csv)"
+    }
+  ],
+  "tipo_conjunto_datos": [
+    {
+      "id": 0,
+      "name": "Alfanumérico",
+      "value": "Alfanumerico"
+    },
+    {
+      "id": 1,
+      "name": "Geográfico",
+      "value": "Geografico"
+    }
+  ],
+  "informacion_contribuye_crecimiento_economico": [
+    {
+      "id": 0,
+      "name": "Contribuye al crecimiento económico integral del entorno regional/metropolitano",
+      "value": 1
+    },
+    {
+      "id": 1,
+      "name": "Contribuye al crecimiento económico integral de la ciudad",
+      "value": 0.75
+    },
+    {
+      "id": 2,
+      "name": "Contribuye al crecimiento de un sector económico específico",
+      "value": 0.5
+    },
+    {
+      "id": 3,
+      "name": "No contribuye al crecimiento económico",
+      "value": 0
+    }
+  ],
+  "generacion_valor_agregado": [
+    {
+      "id": 0,
+      "name": "Genera valor agregado para grupos de interés y dependencias alcaldía",
+      "value": 1
+    },
+    {
+      "id": 1,
+      "name": "Genera valor agregado para grupos de interés",
+      "value": 0.75
+    },
+    {
+      "id": 2,
+      "name": "Genera valor agregado para dependencias alcaldía",
+      "value": 0.5
+    },
+    {
+      "id": 3,
+      "name": "No se ha contemplado el valor agregado",
+      "value": 0
+    }
+  ],
+  "ambito_impacto": {
+    "Alfanumerico": [
+      {
+        "id": 0,
+        "name": "Regional/Metropolitano",
+        "value": 1
+      },
+      {
+        "id": 1,
+        "name": "Municipal",
+        "value": 0.75
+      },
+      {
+        "id": 2,
+        "name": "Comunal/Barrial",
+        "value": 0.5
+      },
+      {
+        "id": 3,
+        "name": "No se ha identificado",
+        "value": 0
+      }
+    ],
+    "Geografico": [
+      {
+        "id": 0,
+        "name": "Es un dato fundamental",
+        "value": 1
+      },
+      {
+        "id": 1,
+        "name": "Es una capa del POT según Decreto 824 de 2021 y/o el Modelo LADM POT",
+        "value": 1
+      },
+      {
+        "id": 2,
+        "name": "Es un objeto territorial según la ICDE (Infraestructura Colombiana de Datos)",
+        "value": 0.75
+      },
+      {
+        "id": 3,
+        "name": "Es un dato de alto valor potencial para análisis sociales, económicos y ambientales del territorio",
+        "value": 0.25
+      },
+      {
+        "id": 4,
+        "name": "No contribuye a los procesos de planificación del territorio",
+        "value": 0
+      }
+    ]
+  },
+  "informacion_consolidacion_indicadores": [
+    {
+      "id": 0,
+      "name": "Indicadores del Plan de Desarrollo / Plan Ordenamiento",
+      "value": 1
+    },
+    {
+      "id": 1,
+      "name": "Indicadores Agendas de Interés municipal",
+      "value": 0.75
+    },
+    {
+      "id": 2,
+      "name": "Otros indicadores",
+      "value": 0.25
+    },
+    {
+      "id": 3,
+      "name": "Ninguno",
+      "value": 0
+    }
+  ],
+  "demanda_datos": [
+    {
+      "id": 0,
+      "name": "Demanda interna y ciudadanía",
+      "value": 1
+    },
+    {
+      "id": 1,
+      "name": "Demanda interna",
+      "value": 0.75
+    },
+    {
+      "id": 2,
+      "name": "Demanda ciudadanía",
+      "value": 0.5
+    },
+    {
+      "id": 3,
+      "name": "No se ha identificado una demanda concreta",
+      "value": 0
+    }
+  ],
+  "esfuerzo_requerido_publicar": {
+    "Alfanumerico": [
+      {
+        "id": 0,
+        "name": "La información está consolidada",
+        "value": 1
+      },
+      {
+        "id": 1,
+        "name": "Es necesario consolidar la información desde diferentes fuentes antes de publicar",
+        "value": 0
+      }
+    ],
+    "Geografico": [
+      {
+        "id": 0,
+        "name": "La información está estructurada (Sin duplicados o datos redundantes)",
+        "value": 1
+      },
+      {
+        "id": 1,
+        "name": "Es necesario estructurar la información.",
+        "value": 0
+      }
+    ]
+  },
+  "elementos_requeridos_publicar": {
+    "Alfanumerico": [
+      {
+        "id": 0,
+        "name": "La información está lista para publicar",
+        "value": 1
+      },
+      {
+        "id": 1,
+        "name": "La información tiene todos los elementos definidos menos el licenciamiento de uso y catálogo de objetos",
+        "value": 0.5
+      },
+      {
+        "id": 2,
+        "name": "La información tiene todos los elementos definidos menos el licenciamiento de uso, catálogo de objetos y diccionario de datos",
+        "value": 0.25
+      },
+      {
+        "id": 3,
+        "name": "Es necesario validar todos los elementos de la información",
+        "value": 0
+      }
+    ],
+    "Geografico": [
+      {
+        "id": 0,
+        "name": "La información es libre",
+        "value": 1
+      },
+      {
+        "id": 1,
+        "name": "La información es semilibre",
+        "value": 0.5
+      },
+      {
+        "id": 2,
+        "name": "La información es privada",
+        "value": 0
+      }
+    ]
+  },
+  "fuente_datos_priorizacion": {
+    "Alfanumerico": [
+      {
+        "id": 0,
+        "name": "Se encuentra en un servidor del Municipio",
+        "value": 1
+      },
+      {
+        "id": 1,
+        "name": "Se encuentra en un servidor externo",
+        "value": 0.75
+      },
+      {
+        "id": 2,
+        "name": "Se encuentra en archivos semiestructurados (Access, Excel, CSV)",
+        "value": 0.25
+      },
+      {
+        "id": 3,
+        "name": "Se encuentra totalmente desestructurada (Word, PDF)",
+        "value": 0
+      }
+    ],
+    "Geografico": [
+      {
+        "id": 0,
+        "name": "Tiene todos los descriptores de datos (Diccionario de Datos y Metadatos)",
+        "value": 1
+      },
+      {
+        "id": 1,
+        "name": "Sólo tiene Diccionario de Datos",
+        "value": 0.5
+      },
+      {
+        "id": 2,
+        "name": "Sólo tiene Metadatos",
+        "value": 0.5
+      },
+      {
+        "id": 3,
+        "name": "No tiene descriptores de datos.",
+        "value": 0
+      }
+    ]
+  },
+  "calidad_informacion": {
+    "Alfanumerico": [
+      {
+        "id": 0,
+        "name": "Cumple con todos los elementos de calidad (alfanuméricos y/o geográficos)",
+        "value": 1
+      },
+      {
+        "id": 1,
+        "name": "Cumple parcialmente calidad alfanumérica (estructuración/ contenido base datos)",
+        "value": 0.75
+      },
+      {
+        "id": 2,
+        "name": "Cumple parcialmente calidad geográfica (faltan descriptores)",
+        "value": 0.75
+      },
+      {
+        "id": 3,
+        "name": "No tiene procesos de calidad",
+        "value": 0
+      }
+    ],
+    "Geografico": [
+      {
+        "id": 0,
+        "name": "Cumple con todos los elementos de calidad (Completitud y Totalidad)",
+        "value": 1
+      },
+      {
+        "id": 1,
+        "name": "Cumple Completitud (los atributos deben estar completos, debe existir coherencia de datos, clasificación y relaciones)",
+        "value": 0.5
+      },
+      {
+        "id": 2,
+        "name": "Cumple Totalidad (entidades sin exceso o faltantes, de acuerdo al límite del proyecto)",
+        "value": 0.5
+      },
+      {
+        "id": 3,
+        "name": "No tiene procesos de calidad",
+        "value": 0
+      }
+    ]
+  }
+}

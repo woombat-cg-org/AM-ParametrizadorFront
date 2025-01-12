@@ -1,8 +1,12 @@
+import useMetadata from '../../hooks/useMetadata'
+
 const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
 
    // Destructuring
   const { info_fuente } = paramFuente
   const { nombre_conjunto, tipo_fuente_ingesta, tipo_ingesta, id_dependencia, id_subdependencia, unidad_equipo, descripcion, palabras_clave, id_tematica_mintic, grupo, licencia_uso, fecha_inicio_conjunto, fecha_fin_conjunto, frecuencia_Actualizacion, publicable, flag_anonimizar_campos, flag_renombrar_campos, flag_aplicar_funciones, flag_particionada, directorio_salida_parquet, ambito_geografico, metadatos_geograficos, diccionario_datos, catalogo_objetos, nombre_contacto_proceso, correo_contacto_proceso, nombre_contacto_tecnico, correo_contacto_tecnico, fuente_datos, ambiente, observaciones, flag_activo, controlador, base_de_datos, nombre_tabla, esquema, ruta_archivo, nombre_archivo, delimitador_archivo, flag_encabezado_archivo, hoja_excel, rango_columnas, url_servicio_Web, directorio_salida_publicacion, fecha_publicacion, formato_descarga, tipo_conjunto_datos, informacion_contribuye_crecimiento_economico, generacion_valor_agregado, ambito_impacto, informacion_consolidacion_indicadores, demanda_datos, esfuerzo_requerido_publicar, elementos_requeridos_publicar, fuente_datos_priorizacion, calidad_informacion, flag_excel, flag_datos_geograficos } = info_fuente
+
+  const { metadatos } = useMetadata()
 
   // Funcion para Tomar los datos del Formulario
   const handleChange = (e) => {
@@ -16,6 +20,13 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
         [name]: type === "checkbox" ? checked : value
       }
     })
+  }
+
+  let subdependencias = [];
+
+  if(id_dependencia) {
+    const subDependencias = metadatos.subdependencias.filter(item => item.id_dependencia === id_dependencia)
+    subdependencias = subDependencias
   }
 
   return (
@@ -36,7 +47,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
           value={tipo_fuente_ingesta}
           onChange={handleChange}
         >
-          {tipoFuente.map((item) => (
+          {metadatos.tipo_fuente_ingesta.map((item) => (
             <option value={item.value} key={item.id}>
               {item.name}
             </option>
@@ -50,7 +61,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
           value={tipo_ingesta}
           onChange={handleChange}
         >
-          {tipoFuente.map((item) => (
+          {metadatos.tipo_ingesta.map((item) => (
             <option value={item.value} key={item.id}>
               {item.name}
             </option>
@@ -64,27 +75,31 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
           value={id_dependencia}
           onChange={handleChange}
         >
-          {tipoFuente.map((item) => (
+          {metadatos.dependencias.map((item) => (
             <option value={item.value} key={item.id}>
-              {item.name}
+              {item.value} {item.name}
             </option>
           ))}
         </select>
       </div>
-      <div className="form_info_fuente_fuente">
-        <label htmlFor="id_subdependencia">* ID Subdependencia</label>
-        <select 
-          name="id_subdependencia"
-          value={id_subdependencia}
-          onChange={handleChange}
-        >
-          {tipoFuente.map((item) => (
-            <option value={item.value} key={item.id}>
-              {item.name}
-            </option>
-          ))}
-        </select>
-      </div>
+      {
+        id_dependencia && subdependencias.length > 0 ? (
+          <div className="form_info_fuente_fuente">
+            <label htmlFor="id_subdependencia">* ID Subdependencia</label>
+            <select 
+              name="id_subdependencia"
+              value={id_subdependencia}
+              onChange={handleChange}
+            >
+              {subdependencias.map((item) => (
+                <option value={item.id} key={item.id}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        ) : null
+      }
       <div className="form_info_fuente_fuente">
         <label htmlFor="unidad_equipo">* Nombre del Equipo o Unidad Responsable</label>
         <input 
@@ -187,6 +202,43 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
         </select>
       </div>
       <div className="form_info_fuente_fuente">
+        <label htmlFor="directorio_salida_parquet">* Ruta Salida del Parquet en HDFS</label>
+        <input 
+          type="text" 
+          name="directorio_salida_parquet"
+          checked={directorio_salida_parquet}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="form_info_fuente_fuente">
+        <label htmlFor="fuente_datos">* Origen de los Datos</label>
+        <select 
+          name="fuente_datos"
+          value={fuente_datos}
+          onChange={handleChange}
+        >
+          {tipoFuente.map((item) => (
+            <option value={item.value} key={item.id}>
+              {item.name}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="form_info_fuente_fuente">
+        <label htmlFor="ambiente">* Ambiente</label>
+        <select 
+          name="ambiente"
+          value={ambiente}
+          onChange={handleChange}
+        >
+          {tipoFuente.map((item) => (
+            <option value={item.value} key={item.id}>
+              {item.name}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="form_info_fuente_fuente">
         <label htmlFor="publicable">Publicacion en MEData</label>
         <input 
           type="checkbox" 
@@ -237,15 +289,6 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
           type="checkbox" 
           name="flag_particionada"
           checked={flag_particionada}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="form_info_fuente_fuente">
-        <label htmlFor="directorio_salida_parquet">* Ruta Salida del Parquet en HDFS</label>
-        <input 
-          type="text" 
-          name="directorio_salida_parquet"
-          checked={directorio_salida_parquet}
           onChange={handleChange}
         />
       </div>
@@ -340,34 +383,6 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
           checked={correo_contacto_tecnico}
           onChange={handleChange}
         />
-      </div>
-      <div className="form_info_fuente_fuente">
-        <label htmlFor="fuente_datos">* Origen de los Datos</label>
-        <select 
-          name="fuente_datos"
-          value={fuente_datos}
-          onChange={handleChange}
-        >
-          {tipoFuente.map((item) => (
-            <option value={item.value} key={item.id}>
-              {item.name}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="form_info_fuente_fuente">
-        <label htmlFor="ambiente">* Ambiente</label>
-        <select 
-          name="ambiente"
-          value={ambiente}
-          onChange={handleChange}
-        >
-          {tipoFuente.map((item) => (
-            <option value={item.value} key={item.id}>
-              {item.name}
-            </option>
-          ))}
-        </select>
       </div>
       <div className="form_info_fuente_fuente">
         <label htmlFor="observaciones">Observaciones</label>

@@ -1,7 +1,7 @@
 const InfoCuatro = ({ paramFuente }) => {
 
   const { info_fuente, campos } = paramFuente
-  const { nombre_conjunto, tipo_fuente_ingesta, directorio_salida_parquet, flag_particionada, cron_tab, frecuencia_actualizacion } = info_fuente
+  const { nombre_conjunto, tipo_fuente_ingesta, directorio_salida_parquet, flag_particionada, cron_tab, frecuencia_Actualizacion } = info_fuente
 
   const campos_particion = flag_particionada
   ? campos
@@ -21,7 +21,7 @@ const InfoCuatro = ({ paramFuente }) => {
         )
       }
       <p>Cron-tab: <span>{cron_tab}</span></p>
-      <p>Periodicidad: <span>{frecuencia_actualizacion}</span></p>
+      <p>Periodicidad: <span>{frecuencia_Actualizacion}</span></p>
       <p>Total Campos: <span>{campos.length}</span></p>
     </div>
   )
