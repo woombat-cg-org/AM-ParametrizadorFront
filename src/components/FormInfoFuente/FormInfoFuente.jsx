@@ -8,7 +8,8 @@ import InfoTres from './InfoTres'
 import InfoCuatro from './InfoCuatro'
 
 import { existingUserApi } from '../../api/user'
-import { createFuenteApi } from '../../api/fuentes'
+import { createFuenteApi, getIdPublicacionApi } from '../../api/fuentes'
+
 
 const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_info }) => {
 
@@ -111,6 +112,21 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
                     setParamFuente(param_info)
                     return
                 }
+
+                
+
+                // Obtener el id publicacion maximo
+                function formatNumberWithLeadingZeros(num, totalLength) {
+                    return num.toString().padStart(totalLength, '0')
+                }
+
+                const responseId = await getIdPublicacionApi()
+                if(responseId === null) {
+                    toast.info("Ha ocurrido un error al obtener el id_publicacion.")
+                    return
+                }
+                const nuevoId = Number(responseId) + 1
+                const id_total_final = formatNumberWithLeadingZeros(nuevoId, 6)
                 
                 // Guardar Datos de la Fuente
                 // Ordenar la Metadata de la Fuente para enviarla al backend
@@ -120,12 +136,12 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
                     tipo_fuente_ingesta: paramFuente.info_fuente.tipo_fuente_ingesta,
                     tipo_ingesta: paramFuente.info_fuente.tipo_ingesta,
                     cron_tab: paramFuente.info_fuente.cron_tab,
-                    id_dependencia: paramFuente.info_fuente.id_dependencia,
-                    id_subdependencia: paramFuente.info_fuente.id_subdependencia,
+                    id_dependencia: Number(paramFuente.info_fuente.id_dependencia),
+                    id_subdependencia: Number(paramFuente.info_fuente.id_subdependencia),
                     unidad_equipo: paramFuente.info_fuente.unidad_equipo,
                     descripcion: paramFuente.info_fuente.descripcion,
                     palabras_clave: paramFuente.info_fuente.palabras_clave,
-                    id_tematica_mintic: paramFuente.info_fuente.id_tematica_mintic,
+                    id_tematica_mintic: Number(paramFuente.info_fuente.id_tematica_mintic),
                     grupo: paramFuente.info_fuente.grupo,
                     licencia_uso: paramFuente.info_fuente.licencia_uso,
                     fecha_inicio_conjunto: paramFuente.info_fuente.fecha_inicio_conjunto,
@@ -162,7 +178,7 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
                     url_servicio_web: paramFuente.info_fuente.url_servicio_Web,
                     directorio_salida_publicacion: paramFuente.info_fuente.directorio_salida_publicacion,
                     fecha_publicacion: paramFuente.info_fuente.fecha_publicacion,
-                    id_publicacion: paramFuente.info_fuente.id_publicacion,
+                    id_publicacion: publicable ? `1-0${paramFuente.info_fuente.id_dependencia}-${paramFuente.info_fuente.id_tematica_mintic}-${id_total_final}` : "",
                     formato_descarga: paramFuente.info_fuente.formato_descarga,
                     tipo_conjunto_datos: paramFuente.info_fuente.tipo_conjunto_datos,
                     informacion_contribuye_crecimiento_economico: paramFuente.info_fuente.informacion_contribuye_crecimiento_economico,
@@ -174,15 +190,57 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
                     elementos_requeridos_publicar: paramFuente.info_fuente.elementos_requeridos_publicar,
                     fuente_datos_priorizacion: paramFuente.info_fuente.fuente_datos_priorizacion,
                     calidad_informacion: paramFuente.info_fuente.calidad_informacion,
-                    total_impacto: paramFuente.info_fuente.total_impacto,
-                    total_dificultad: paramFuente.info_fuente.total_dificultad,
-                    calculo_total_criterios_evaluacion: paramFuente.info_fuente.calculo_total_criterios_evaluacion,
+                    total_impacto: parseFloat((
+                        Number(paramFuente.info_fuente.informacion_contribuye_crecimiento_economico) +
+                        Number(paramFuente.info_fuente.generacion_valor_agregado) +
+                        Number(paramFuente.info_fuente.ambito_impacto) +
+                        Number(paramFuente.info_fuente.informacion_consolidacion_indicadores) +
+                        Number(paramFuente.info_fuente.informacion_consolidacion_indicadores)
+                      ) * 4 / 5).toFixed(3),
+                    total_dificultad: parseFloat((
+                        Number(paramFuente.info_fuente.esfuerzo_requerido_publicar) +
+                        Number(paramFuente.info_fuente.elementos_requeridos_publicar) +
+                        Number(paramFuente.info_fuente.fuente_datos_priorizacion) +
+                        Number(paramFuente.info_fuente.calidad_informacion)
+                      ) * 5 / 4).toFixed(3),
+                    calculo_total_criterios_evaluacion: (() => {
+                        const totalImpacto = parseFloat((
+                          Number(paramFuente.info_fuente.informacion_contribuye_crecimiento_economico) +
+                          Number(paramFuente.info_fuente.generacion_valor_agregado) +
+                          Number(paramFuente.info_fuente.ambito_impacto) +
+                          Number(paramFuente.info_fuente.informacion_consolidacion_indicadores) +
+                          Number(paramFuente.info_fuente.informacion_consolidacion_indicadores)
+                        ) * 4 / 5).toFixed(3);
+                    
+                        const totalDificultad = parseFloat((
+                          Number(paramFuente.info_fuente.esfuerzo_requerido_publicar) +
+                          Number(paramFuente.info_fuente.elementos_requeridos_publicar) +
+                          Number(paramFuente.info_fuente.fuente_datos_priorizacion) +
+                          Number(paramFuente.info_fuente.calidad_informacion)
+                        ) * 5 / 4).toFixed(3);
+                    
+                        if (totalImpacto > 2) {
+                          return totalDificultad > 2 ? "Victoria Temprana" : "Mediano Plazo"
+                        } else {
+                          return totalDificultad > 2 ? "Largo Plazo" : "No aporta valor"
+                        }
+                      })()
                 }
 
-                const sourceResponse = await createFuenteApi(sourceMapData)
-                console.log(sourceResponse)
+                /* const sourceResponse = await createFuenteApi(sourceMapData)
+                if(sourceResponse.message === "La fuente ya existe.") {
+                    toast.error(sourceResponse.message)
+                    return
+                } else if(sourceResponse.message === "Error al crear la fuente.") {
+                    toast.error(sourceResponse.message)
+                    return
+                } 
+
+                toast.success(sourceResponse.message) */
 
                 // Guardar Campos de la Fuente
+                // console.log(paramFuente.campos)
+
                 
             } else {
                 setTiempo(tiempo + 1)

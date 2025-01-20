@@ -1,12 +1,31 @@
 import useMetadata from '../../hooks/useMetadata'
+import { getControladorApi } from '../../api/controlador'
+import { useEffect, useState } from 'react'
 
 const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
+
+  const [controladores, setControladores] = useState([])
 
    // Destructuring
   const { info_fuente } = paramFuente
   const { nombre_conjunto, tipo_fuente_ingesta, tipo_ingesta, id_dependencia, id_subdependencia, unidad_equipo, descripcion, palabras_clave, id_tematica_mintic, grupo, licencia_uso, fecha_inicio_conjunto, fecha_fin_conjunto, frecuencia_Actualizacion, publicable, flag_anonimizar_campos, flag_renombrar_campos, flag_aplicar_funciones, flag_particionada, directorio_salida_parquet, ambito_geografico, metadatos_geograficos, diccionario_datos, catalogo_objetos, nombre_contacto_proceso, correo_contacto_proceso, nombre_contacto_tecnico, correo_contacto_tecnico, fuente_datos, ambiente, observaciones, flag_activo, controlador, base_de_datos, nombre_tabla, esquema, ruta_archivo, nombre_archivo, delimitador_archivo, flag_encabezado_archivo, hoja_excel, rango_columnas, url_servicio_Web, directorio_salida_publicacion, fecha_publicacion, formato_descarga, tipo_conjunto_datos, informacion_contribuye_crecimiento_economico, generacion_valor_agregado, ambito_impacto, informacion_consolidacion_indicadores, demanda_datos, esfuerzo_requerido_publicar, elementos_requeridos_publicar, fuente_datos_priorizacion, calidad_informacion, flag_excel, flag_datos_geograficos } = info_fuente
 
   const { metadatos } = useMetadata()
+
+  useEffect(() => {
+  if (tipo_fuente_ingesta === "SQL") {
+    const fetchControladores = async () => {
+      try {
+        const response = await getControladorApi()
+        setControladores(response)
+      } catch (error) {
+        console.error('Error:', error)
+      }
+    };
+
+    fetchControladores()
+  }
+}, [tipo_fuente_ingesta])
 
   // Funcion para Tomar los datos del Formulario
   const handleChange = (e) => {
@@ -27,6 +46,12 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
   if(id_dependencia) {
     const subDependencias = metadatos.subdependencias.filter(item => item.id_dependencia === id_dependencia)
     subdependencias = subDependencias
+  }
+
+  let grupo_mintic = [];
+  if(id_tematica_mintic) {
+    const grupoMintic = metadatos.temas_mintic.filter(item => item.value === id_tematica_mintic)
+    grupo_mintic = grupoMintic
   }
 
   return (
@@ -134,27 +159,33 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
           value={id_tematica_mintic}
           onChange={handleChange}
         >
-          {tipoFuente.map((item) => (
+          {metadatos.temas_mintic.map((item) => (
             <option value={item.value} key={item.id}>
-              {item.name}
+              {item.value} {item.name}
             </option>
           ))}
         </select>
       </div>
-      <div className="form_info_fuente_fuente">
-        <label htmlFor="grupo">Grupo Tematica MinTIC</label>
-        <select 
-          name="grupo"
-          value={grupo}
-          onChange={handleChange}
-        >
-          {tipoFuente.map((item) => (
-            <option value={item.value} key={item.id}>
-              {item.name}
-            </option>
-          ))}
-        </select>
-      </div>
+      {
+        id_tematica_mintic && grupo_mintic.length > 0 ? (
+          <div className="form_info_fuente_fuente">
+            <label htmlFor="grupo">Grupo Tematica MinTIC</label>
+            <select 
+              name="grupo"
+              value={grupo}
+              onChange={handleChange}
+            >
+              {grupo_mintic.map((item) => (
+                item.grupos.map((grupoItem, index) => (
+                  <option value={grupoItem.value} key={`${item.id}-${index}`}>
+                    {grupoItem.name}
+                  </option>
+                ))
+              ))}
+            </select>
+          </div>
+        ): null
+      }
       <div className="form_info_fuente_fuente">
         <label htmlFor="licencia_uso">* Licencia de Uso</label>
         <select 
@@ -162,7 +193,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
           value={licencia_uso}
           onChange={handleChange}
         >
-          {tipoFuente.map((item) => (
+          {metadatos.licencias.map((item) => (
             <option value={item.value} key={item.id}>
               {item.name}
             </option>
@@ -194,7 +225,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
           value={frecuencia_Actualizacion}
           onChange={handleChange}
         >
-          {tipoFuente.map((item) => (
+          {metadatos.frecuencia_actualizacion.map((item) => (
             <option value={item.value} key={item.id}>
               {item.name}
             </option>
@@ -206,7 +237,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
         <input 
           type="text" 
           name="directorio_salida_parquet"
-          checked={directorio_salida_parquet}
+          value={directorio_salida_parquet}
           onChange={handleChange}
         />
       </div>
@@ -217,7 +248,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
           value={fuente_datos}
           onChange={handleChange}
         >
-          {tipoFuente.map((item) => (
+          {metadatos.fuente_datos.map((item) => (
             <option value={item.value} key={item.id}>
               {item.name}
             </option>
@@ -231,7 +262,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
           value={ambiente}
           onChange={handleChange}
         >
-          {tipoFuente.map((item) => (
+          {metadatos.ambiente.map((item) => (
             <option value={item.value} key={item.id}>
               {item.name}
             </option>
@@ -299,7 +330,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
           value={ambito_geografico}
           onChange={handleChange}
         >
-          {tipoFuente.map((item) => (
+          {metadatos.ambito_geografico.map((item) => (
             <option value={item.value} key={item.id}>
               {item.name}
             </option>
@@ -313,7 +344,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
           value={metadatos_geograficos}
           onChange={handleChange}
         >
-          {tipoFuente.map((item) => (
+          {metadatos.metadatos_geograficos.map((item) => (
             <option value={item.value} key={item.id}>
               {item.name}
             </option>
@@ -327,7 +358,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
           value={diccionario_datos}
           onChange={handleChange}
         >
-          {tipoFuente.map((item) => (
+          {metadatos.diccionario_datos.map((item) => (
             <option value={item.value} key={item.id}>
               {item.name}
             </option>
@@ -341,7 +372,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
           value={catalogo_objetos}
           onChange={handleChange}
         >
-          {tipoFuente.map((item) => (
+          {metadatos.catalogo_objetos.map((item) => (
             <option value={item.value} key={item.id}>
               {item.name}
             </option>
@@ -353,7 +384,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
         <input 
           type="text" 
           name="nombre_contacto_proceso"
-          checked={nombre_contacto_proceso}
+          value={nombre_contacto_proceso}
           onChange={handleChange}
         />
       </div>
@@ -362,7 +393,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
         <input 
           type="text" 
           name="correo_contacto_proceso"
-          checked={correo_contacto_proceso}
+          value={correo_contacto_proceso}
           onChange={handleChange}
         />
       </div>
@@ -371,7 +402,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
         <input 
           type="text" 
           name="nombre_contacto_tecnico"
-          checked={nombre_contacto_tecnico}
+          value={nombre_contacto_tecnico}
           onChange={handleChange}
         />
       </div>
@@ -380,7 +411,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
         <input 
           type="text" 
           name="correo_contacto_tecnico"
-          checked={correo_contacto_tecnico}
+          value={correo_contacto_tecnico}
           onChange={handleChange}
         />
       </div>
@@ -389,7 +420,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
         <input 
           type="text" 
           name="observaciones"
-          checked={observaciones}
+          value={observaciones}
           onChange={handleChange}
         />
       </div>
@@ -403,23 +434,28 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
         />
       </div>
       {
-        tipo_fuente_ingesta === "SQL" && (
+        tipo_fuente_ingesta === "SQL" && controladores.length > 0 ? (
           <>
-            <div className="form_info_fuente_fuente">
+          <div className="form_info_fuente_fuente">
               <label htmlFor="controlador">* Controlador</label>
-              <input 
-                type="text" 
+              <select 
                 name="controlador"
-                checked={controlador}
+                value={controlador}
                 onChange={handleChange}
-              />
+              >
+                {controladores.map((item) => (
+                  <option value={item.controlador} key={item.id_controlador}>
+                    {item.controlador}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="form_info_fuente_fuente">
               <label htmlFor="base_de_datos">* Nombre de la Base de Datos Origen</label>
               <input 
                 type="text" 
                 name="base_de_datos"
-                checked={base_de_datos}
+                value={base_de_datos}
                 onChange={handleChange}
               />
             </div>
@@ -428,7 +464,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
               <input 
                 type="text" 
                 name="nombre_tabla"
-                checked={nombre_tabla}
+                value={nombre_tabla}
                 onChange={handleChange}
               />
             </div>
@@ -437,22 +473,22 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
               <input 
                 type="text" 
                 name="esquema"
-                checked={esquema}
+                value={esquema}
                 onChange={handleChange}
               />
             </div>
           </>
-        )
+        ) : null
       }
       {
-        tipo_fuente_ingesta === "NAS" || tipo_fuente_ingesta === "HDFS" || tipo_fuente_ingesta === "API" && (
+        (tipo_fuente_ingesta === "NAS" || tipo_fuente_ingesta === "HDFS" || tipo_fuente_ingesta === "API") && (
           <>
             <div className="form_info_fuente_fuente">
               <label htmlFor="ruta_archivo">* Ruta del Archivo</label>
               <input 
                 type="text" 
                 name="ruta_archivo"
-                checked={ruta_archivo}
+                value={ruta_archivo}
                 onChange={handleChange}
               />
             </div>
@@ -461,7 +497,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
               <input 
                 type="text" 
                 name="nombre_archivo"
-                checked={nombre_archivo}
+                value={nombre_archivo}
                 onChange={handleChange}
               />
             </div>
@@ -502,7 +538,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
               <input 
                 type="text" 
                 name="hoja_excel"
-                checked={hoja_excel}
+                value={hoja_excel}
                 onChange={handleChange}
               />
             </div>
@@ -511,7 +547,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
               <input 
                 type="text" 
                 name="rango_columnas"
-                checked={rango_columnas}
+                value={rango_columnas}
                 onChange={handleChange}
               />
             </div>
@@ -526,7 +562,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
               <input 
                 type="text" 
                 name="url_servicio_Web"
-                checked={url_servicio_Web}
+                value={url_servicio_Web}
                 onChange={handleChange}
               />
             </div>
@@ -541,7 +577,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
               <input 
                 type="text" 
                 name="directorio_salida_publicacion"
-                checked={directorio_salida_publicacion}
+                value={directorio_salida_publicacion}
                 onChange={handleChange}
               />
             </div>
@@ -561,7 +597,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
                 value={formato_descarga}
                 onChange={handleChange}
               >
-                {tipoFuente.map((item) => (
+                {metadatos.formato_descarga.map((item) => (
                   <option value={item.value} key={item.id}>
                     {item.name}
                   </option>
@@ -578,7 +614,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
           value={tipo_conjunto_datos}
           onChange={handleChange}
         >
-          {tipoFuente.map((item) => (
+          {metadatos.tipo_conjunto_datos.map((item) => (
             <option value={item.value} key={item.id}>
               {item.name}
             </option>
@@ -592,7 +628,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
           value={informacion_contribuye_crecimiento_economico}
           onChange={handleChange}
         >
-          {tipoFuente.map((item) => (
+          {metadatos.informacion_contribuye_crecimiento_economico.map((item) => (
             <option value={item.value} key={item.id}>
               {item.name}
             </option>
@@ -606,27 +642,49 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
           value={generacion_valor_agregado}
           onChange={handleChange}
         >
-          {tipoFuente.map((item) => (
+          {metadatos.generacion_valor_agregado.map((item) => (
             <option value={item.value} key={item.id}>
               {item.name}
             </option>
           ))}
         </select>
       </div>
-      <div className="form_info_fuente_fuente">
-        <label htmlFor="ambito_impacto">* Ambito de Impacto</label>
-        <select 
-          name="ambito_impacto"
-          value={ambito_impacto}
-          onChange={handleChange}
-        >
-          {tipoFuente.map((item) => (
-            <option value={item.value} key={item.id}>
-              {item.name}
-            </option>
-          ))}
-        </select>
-      </div>
+      {
+        tipo_conjunto_datos === "Alfanumerico" && (
+          <div className="form_info_fuente_fuente">
+            <label htmlFor="ambito_impacto">* Ambito de Impacto</label>
+            <select 
+              name="ambito_impacto"
+              value={ambito_impacto}
+              onChange={handleChange}
+            >
+              {metadatos.ambito_impacto.Alfanumerico.map((item) => (
+                <option value={item.value} key={item.id}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )
+      }
+      {
+        tipo_conjunto_datos === "Geografico" && (
+          <div className="form_info_fuente_fuente">
+            <label htmlFor="ambito_impacto">* Ambito de Impacto</label>
+            <select 
+              name="ambito_impacto"
+              value={ambito_impacto}
+              onChange={handleChange}
+            >
+              {metadatos.ambito_impacto.Geografico.map((item) => (
+                <option value={item.value} key={item.id}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )
+      }
       <div className="form_info_fuente_fuente">
         <label htmlFor="informacion_consolidacion_indicadores">* Informacion Consolidacion Indicadores</label>
         <select 
@@ -634,7 +692,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
           value={informacion_consolidacion_indicadores}
           onChange={handleChange}
         >
-          {tipoFuente.map((item) => (
+          {metadatos.informacion_consolidacion_indicadores.map((item) => (
             <option value={item.value} key={item.id}>
               {item.name}
             </option>
@@ -648,69 +706,157 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
           value={demanda_datos}
           onChange={handleChange}
         >
-          {tipoFuente.map((item) => (
+          {metadatos.demanda_datos.map((item) => (
             <option value={item.value} key={item.id}>
               {item.name}
             </option>
           ))}
         </select>
       </div>
-      <div className="form_info_fuente_fuente">
-        <label htmlFor="esfuerzo_requerido_publicar">* Esfuerzo Requerido Publicar</label>
-        <select 
-          name="esfuerzo_requerido_publicar"
-          value={esfuerzo_requerido_publicar}
-          onChange={handleChange}
-        >
-          {tipoFuente.map((item) => (
-            <option value={item.value} key={item.id}>
-              {item.name}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="form_info_fuente_fuente">
-        <label htmlFor="elementos_requeridos_publicar">* Elementos Requeridos Publicar</label>
-        <select 
-          name="elementos_requeridos_publicar"
-          value={elementos_requeridos_publicar}
-          onChange={handleChange}
-        >
-          {tipoFuente.map((item) => (
-            <option value={item.value} key={item.id}>
-              {item.name}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="form_info_fuente_fuente">
-        <label htmlFor="fuente_datos_priorizacion">* Fuente de Datos Priorizacion</label>
-        <select 
-          name="fuente_datos_priorizacion"
-          value={fuente_datos_priorizacion}
-          onChange={handleChange}
-        >
-          {tipoFuente.map((item) => (
-            <option value={item.value} key={item.id}>
-              {item.name}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="form_info_fuente_fuente">
-        <label htmlFor="calidad_informacion">* Calidad de la Informacion</label>
-        <select 
-          name="calidad_informacion"
-          value={calidad_informacion}
-          onChange={handleChange}
-        >
-          {tipoFuente.map((item) => (
-            <option value={item.value} key={item.id}>
-              {item.name}
-            </option>
-          ))}
-        </select>
-      </div>
+      {
+        tipo_conjunto_datos === "Alfanumerico" && (
+          <div className="form_info_fuente_fuente">
+            <label htmlFor="esfuerzo_requerido_publicar">* Esfuerzo Requerido Publicar</label>
+            <select 
+              name="esfuerzo_requerido_publicar"
+              value={esfuerzo_requerido_publicar}
+              onChange={handleChange}
+            >
+              {metadatos.esfuerzo_requerido_publicar.Alfanumerico.map((item) => (
+                <option value={item.value} key={item.id}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )
+      }
+      {
+        tipo_conjunto_datos === "Geografico" && (
+          <div className="form_info_fuente_fuente">
+            <label htmlFor="esfuerzo_requerido_publicar">* Esfuerzo Requerido Publicar</label>
+            <select 
+              name="esfuerzo_requerido_publicar"
+              value={esfuerzo_requerido_publicar}
+              onChange={handleChange}
+            >
+              {metadatos.esfuerzo_requerido_publicar.Geografico.map((item) => (
+                <option value={item.value} key={item.id}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )
+      }
+      {
+        tipo_conjunto_datos === "Alfanumerico" && (
+          <div className="form_info_fuente_fuente">
+            <label htmlFor="elementos_requeridos_publicar">* Elementos Requeridos Publicar</label>
+            <select 
+              name="elementos_requeridos_publicar"
+              value={elementos_requeridos_publicar}
+              onChange={handleChange}
+            >
+              {metadatos.elementos_requeridos_publicar.Alfanumerico.map((item) => (
+                <option value={item.value} key={item.id}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )
+      }
+      {
+        tipo_conjunto_datos === "Geografico" && (
+          <div className="form_info_fuente_fuente">
+            <label htmlFor="elementos_requeridos_publicar">* Elementos Requeridos Publicar</label>
+            <select 
+              name="elementos_requeridos_publicar"
+              value={elementos_requeridos_publicar}
+              onChange={handleChange}
+            >
+              {metadatos.elementos_requeridos_publicar.Geografico.map((item) => (
+                <option value={item.value} key={item.id}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )
+      }
+      {
+        tipo_conjunto_datos === "Alfanumerico" && (
+          <div className="form_info_fuente_fuente">
+            <label htmlFor="fuente_datos_priorizacion">* Fuente de Datos Priorizacion</label>
+            <select 
+              name="fuente_datos_priorizacion"
+              value={fuente_datos_priorizacion}
+              onChange={handleChange}
+            >
+              {metadatos.fuente_datos_priorizacion.Alfanumerico.map((item) => (
+                <option value={item.value} key={item.id}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )
+      }
+      {
+        tipo_conjunto_datos === "Geografico" && (
+          <div className="form_info_fuente_fuente">
+            <label htmlFor="fuente_datos_priorizacion">* Fuente de Datos Priorizacion</label>
+            <select 
+              name="fuente_datos_priorizacion"
+              value={fuente_datos_priorizacion}
+              onChange={handleChange}
+            >
+              {metadatos.fuente_datos_priorizacion.Geografico.map((item) => (
+                <option value={item.value} key={item.id}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )
+      }
+      {
+        tipo_conjunto_datos === "Alfanumerico" && (
+          <div className="form_info_fuente_fuente">
+            <label htmlFor="calidad_informacion">* Calidad de la Informacion</label>
+            <select 
+              name="calidad_informacion"
+              value={calidad_informacion}
+              onChange={handleChange}
+            >
+              {metadatos.calidad_informacion.Alfanumerico.map((item) => (
+                <option value={item.value} key={item.id}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )
+      }
+      {
+        tipo_conjunto_datos === "Geografico" && (
+          <div className="form_info_fuente_fuente">
+            <label htmlFor="calidad_informacion">* Calidad de la Informacion</label>
+            <select 
+              name="calidad_informacion"
+              value={calidad_informacion}
+              onChange={handleChange}
+            >
+              {metadatos.calidad_informacion.Geografico.map((item) => (
+                <option value={item.value} key={item.id}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )
+      }
     </div>
   )
 }

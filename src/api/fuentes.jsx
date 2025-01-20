@@ -12,6 +12,18 @@ export async function getFuentesApi() {
     }
 }
 
+export async function getIdPublicacionApi() {
+    try {
+        const url = `${BASE_PATH}/fuentes/id_publicacion`
+        const response = await fetch(url)
+        const result = await response.json()
+        return result
+    } catch (error) {
+        console.log(error)
+        return null
+    }
+}
+
 export async function createFuenteApi(data) {
     try {
         const url = `${BASE_PATH}/fuentes`

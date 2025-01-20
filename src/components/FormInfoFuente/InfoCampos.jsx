@@ -1,35 +1,10 @@
 import { useState, useEffect } from 'react'
+import useMetadata from '../../hooks/useMetadata'
 import { toast } from 'react-toastify'
 
 const InfoCampos = ({ paramFuente, setParamFuente, datos_campo, setModal, setEditCampo }) => {
 
-    const tipos_dato = [
-        {
-            id: 0,
-            tipo_dato: "-- Seleccione una Opción --", 
-            value: ""
-        },
-        {
-            id: 1,
-            tipo_dato: "STRING",
-            value: "STRING"
-        },
-        {
-            id: 2,
-            tipo_dato: "INT",
-            value: "INT"
-        },
-        {
-            id: 3,
-            tipo_dato: "FLOAT",
-            value: "FLOAT"
-        },
-        {
-            id: 4,
-            tipo_dato: "TIMESTAMP",
-            value: "TIMESTAMP"
-        }
-    ]
+    const { metadatos } = useMetadata()
 
     // Destructuring
     const { info_fuente } = paramFuente
@@ -38,15 +13,15 @@ const InfoCampos = ({ paramFuente, setParamFuente, datos_campo, setModal, setEdi
     const dataCampo = {
         nombre_campo: "",
         tipo_dato_origen: "",
-        longitud: 10,
-        descripcion_campo : "",
-        flag_campo_particion: false,
-        flag_anonimizar: false,
-        funcion: "",
-        tipo_dato_destino: "",
-        comentarios: "",
+        longitud: 0,
         alias: "",
-        nullos: false,
+        tipo_dato_destino: "",
+        acepta_nulos: false,
+        flag_anonimizar: false,
+        flag_campo_particion: false,
+        funcion: "",
+        descripcion_campo : "",
+        observaciones: "",
         geometria_tipo_dato: "",
         cantidad_elementos: 0,
         descripcion_datos_geograficos: "",
@@ -87,7 +62,7 @@ const InfoCampos = ({ paramFuente, setParamFuente, datos_campo, setModal, setEdi
         }
 
         if(datos_campo) { 
-            const nuevos_campos = paramFuente.campos.map(item => item.consecutivo === datos_campo.consecutivo ? {...item, ...campo, nombre_campo: campo.nombre_campo.toUpperCase()} : item)
+            const nuevos_campos = paramFuente.campos.map(item => item.consecutivo_campo === datos_campo.consecutivo_campo ? {...item, ...campo, nombre_campo: campo.nombre_campo.toUpperCase()} : item)
             setParamFuente({
                 ...paramFuente,
                 campos: nuevos_campos
@@ -98,14 +73,14 @@ const InfoCampos = ({ paramFuente, setParamFuente, datos_campo, setModal, setEdi
         }
 
         const maxConsecutivo = paramFuente.campos.length > 0 
-            ? paramFuente.campos.reduce((max, item) => (item.consecutivo > max ? item.consecutivo : max), 0) 
+            ? paramFuente.campos.reduce((max, item) => (item.consecutivo_campo > max ? item.consecutivo_campo : max), 0) 
             : 0
 
         setParamFuente({
             ...paramFuente,
             campos: [
                 ...paramFuente.campos,
-                { ...campo, consecutivo: maxConsecutivo + 1, id_fuente: id_fuente, nombre_campo: campo.nombre_campo.toUpperCase() }
+                { ...campo, consecutivo_campo: maxConsecutivo + 1, id_fuente: id_fuente, nombre_campo: campo.nombre_campo.toUpperCase() }
             ]
         })
 
@@ -126,24 +101,6 @@ const InfoCampos = ({ paramFuente, setParamFuente, datos_campo, setModal, setEdi
             />
         </div>
         <div className="container_campos_campo">
-            <label htmlFor="descripcion_campo">Descripción</label>
-            <input 
-                type="text"
-                name="descripcion_campo"
-                value={campo.descripcion_campo}
-                onChange={handleChange}
-            />
-        </div>
-        <div className="container_campos_campo">
-            <label htmlFor="comentarios">Comentarios</label>
-            <input 
-                type="text"
-                name="comentarios"
-                value={campo.comentarios}
-                onChange={handleChange}
-            />
-        </div>
-        <div className="container_campos_campo">
             <label htmlFor="tipo_dato_origen">* Tipo de Dato Origen</label>
             <select 
                 name="tipo_dato_origen"
@@ -151,11 +108,29 @@ const InfoCampos = ({ paramFuente, setParamFuente, datos_campo, setModal, setEdi
                 onChange={handleChange}
             >
                 {
-                    tipos_dato.map(item => (
-                        <option key={item.id} value={item.value}>{item.tipo_dato}</option>
+                    metadatos.tipo_dato_origen.map(item => (
+                        <option key={item.id} value={item.value}>{item.name}</option>
                     ))
                 }
             </select>
+        </div>
+        <div className="container_campos_campo">
+            <label htmlFor="longitud">Logitud Campo</label>
+            <input 
+                type="number"
+                name="longitud"
+                value={campo.longitud}
+                onChange={handleChange}
+            />
+        </div>
+        <div className="container_campos_campo">
+            <label htmlFor="alias">Alias</label>
+            <input 
+                type="text"
+                name="alias"
+                value={campo.alias}
+                onChange={handleChange}
+            />
         </div>
         <div className="container_campos_campo">
             <label htmlFor="tipo_dato_destino">* Tipo de Dato Destino</label>
@@ -165,60 +140,21 @@ const InfoCampos = ({ paramFuente, setParamFuente, datos_campo, setModal, setEdi
                 onChange={handleChange}
             >
                 {
-                    tipos_dato.map(item => (
-                        <option key={item.id} value={item.value}>{item.tipo_dato}</option>
+                    metadatos.tipo_dato_origen.map(item => (
+                        <option key={item.id} value={item.value}>{item.name}</option>
                     ))
                 }
             </select>
         </div>
-        {
-            campo.tipo_dato_origen != "" && campo.tipo_dato_destino != "" && (
-                <div className="container_campos_campo">
-                    <label htmlFor="longitud">Logitud Campo</label>
-                    <input 
-                        type="number"
-                        name="longitud"
-                        value={campo.longitud}
-                        onChange={handleChange}
-                    />
-                </div>
-            )
-        }
-        {
-            (paramFuente.info_fuente.flag_renombrar_campos || paramFuente.info_fuente.flag_datos_geograficos) && (
-                <div className="container_campos_campo">
-                    <label htmlFor="alias">Alias</label>
-                    <input 
-                        type="text"
-                        name="alias"
-                        value={campo.alias}
-                        onChange={handleChange}
-                    />
-                </div>
-            )
-        }
         <div className="container_campos_campo">
-            <label htmlFor="nullos">Acepta Nulos</label>
+            <label htmlFor="acepta_nulos">Acepta Nulos</label>
             <input 
                 type="checkbox"
-                name="nullos"
-                value={campo.nullos}    
+                name="acepta_nulos"
+                value={campo.acepta_nulos}    
                 onChange={handleChange}
             />
         </div>
-        {
-            paramFuente.info_fuente.flag_particionada && (
-                <div className="container_campos_campo">
-                    <label htmlFor="flag_campo_particion">Campo Particion</label>
-                    <input 
-                        type="checkbox"
-                        name="flag_campo_particion"
-                        checked={campo.flag_campo_particion}
-                        onChange={handleChange}
-                    />
-                </div>
-            )
-        }
         {
             paramFuente.info_fuente.flag_anonimizar_campos && (
                 <div className="container_campos_campo">
@@ -227,6 +163,19 @@ const InfoCampos = ({ paramFuente, setParamFuente, datos_campo, setModal, setEdi
                         type="checkbox"
                         name="flag_anonimizar"
                         value={campo.flag_anonimizar}    
+                        onChange={handleChange}
+                    />
+                </div>
+            )
+        }
+        {
+            paramFuente.info_fuente.flag_particionada && (
+                <div className="container_campos_campo">
+                    <label htmlFor="flag_campo_particion">Campo Particion</label>
+                    <input 
+                        type="checkbox"
+                        name="flag_campo_particion"
+                        checked={campo.flag_campo_particion}
                         onChange={handleChange}
                     />
                 </div>
@@ -244,6 +193,24 @@ const InfoCampos = ({ paramFuente, setParamFuente, datos_campo, setModal, setEdi
                 </div>
             )
         }
+        <div className="container_campos_campo">
+            <label htmlFor="descripcion_campo">Descripción Campo</label>
+            <input 
+                type="text"
+                name="descripcion_campo"
+                value={campo.descripcion_campo}
+                onChange={handleChange}
+            />
+        </div>
+        <div className="container_campos_campo">
+            <label htmlFor="observaciones">Observaciones</label>
+            <input 
+                type="text"
+                name="observaciones"
+                value={campo.observaciones}
+                onChange={handleChange}
+            />
+        </div>
         {
             paramFuente.info_fuente.flag_datos_geograficos && (
                 <>
@@ -255,8 +222,8 @@ const InfoCampos = ({ paramFuente, setParamFuente, datos_campo, setModal, setEdi
                             onChange={handleChange}
                         >
                             {
-                                tipos_dato.map(item => (
-                                    <option key={item.id} value={item.value}>{item.tipo_dato}</option>
+                                metadatos.geometria_tipo_dato.map(item => (
+                                    <option key={item.id} value={item.value}>{item.name}</option>
                                 ))
                             }
                         </select>
@@ -287,8 +254,8 @@ const InfoCampos = ({ paramFuente, setParamFuente, datos_campo, setModal, setEdi
                             onChange={handleChange}
                         >
                             {
-                                tipos_dato.map(item => (
-                                    <option key={item.id} value={item.value}>{item.tipo_dato}</option>
+                                metadatos.sistema_coordenadas.map(item => (
+                                    <option key={item.id} value={item.value}>{item.name}</option>
                                 ))
                             }
                         </select>
@@ -310,8 +277,8 @@ const InfoCampos = ({ paramFuente, setParamFuente, datos_campo, setModal, setEdi
                             onChange={handleChange}
                         >
                             {
-                                tipos_dato.map(item => (
-                                    <option key={item.id} value={item.value}>{item.tipo_dato}</option>
+                                metadatos.topologia.map(item => (
+                                    <option key={item.id} value={item.value}>{item.name}</option>
                                 ))
                             }
                         </select>

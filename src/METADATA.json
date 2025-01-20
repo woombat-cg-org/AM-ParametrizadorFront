@@ -591,15 +591,424 @@
       "id_dependencia": "30"
     }
   ],
-  "temas_mintic": [],
+  "temas_mintic": [
+    {
+      "id": 0,
+      "value": "",
+      "name": "- Selecciona una opción válida -"
+    },
+    {
+      "id": 1,
+      "value": "01",
+      "name": "Agricultura y Desarrollo Rural",
+      "grupos": [
+        { "name": "- Selecciona una opción válida -", "value": "" },
+        { "name": "Cultivos", "value": "Cultivos" },
+        { "name": "Pecuario", "value": "Pecuario" },
+        {
+          "name": "Infraestructura Agropecuaria",
+          "value": "Infraestructura Agropecuaria"
+        },
+        { "name": "Desarrollo Rural", "value": "Desarrollo Rural" },
+        {
+          "name": "Caracterización Socio-Económica",
+          "value": "Caracterización Socio-Económica"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "value": "02",
+      "name": "Ambiente y Desarrollo Sostenible",
+      "grupos": [
+        { "name": "- Selecciona una opción válida -", "value": "" },
+        { "name": "Gestión Ambiental", "value": "Gestión Ambiental" },
+        {
+          "name": "Recursos Naturales Renovables",
+          "value": "Recursos Naturales Renovables"
+        },
+        {
+          "name": "Ordenamiento Ambiental del Territorio",
+          "value": "Ordenamiento Ambiental del Territorio"
+        },
+        { "name": "Gestión del Riesgo", "value": "Gestión del Riesgo" },
+        { "name": "Residuos", "value": "Residuos" },
+        { "name": "Contaminación", "value": "Contaminación" }
+      ]
+    },
+    {
+      "id": 3,
+      "value": "03",
+      "name": "Ciencia Tecnología e Innovación",
+      "grupos": [
+        { "name": "- Selecciona una opción válida -", "value": "" },
+        {
+          "name": "Puntos de Conexión Wifi",
+          "value": "Puntos de Conexión Wifi"
+        },
+        { "name": "Red Wifi", "value": "Red Wifi" },
+        {
+          "name": "Proyectos de Ciencia, Tecnología e Innovación",
+          "value": "Proyectos de Ciencia, Tecnología e Innovación"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "value": "04",
+      "name": "Comercio Industria y Turismo",
+      "grupos": [
+        { "name": "- Selecciona una opción válida -", "value": "" },
+        {
+          "name": "Actividad Comercial y Empresarial",
+          "value": "Actividad Comercial y Empresarial"
+        },
+        { "name": "Turismo", "value": "Turismo" }
+      ]
+    },
+    {
+      "id": 5,
+      "value": "05",
+      "name": "Cultura",
+      "grupos": [
+        { "name": "- Selecciona una opción válida -", "value": "" },
+        {
+          "name": "Patrimonio Cultural Tangible",
+          "value": "Patrimonio Cultural Tangible"
+        },
+        {
+          "name": "Patrimonio Cultural Intangible",
+          "value": "Patrimonio Cultural Intangible"
+        },
+        {
+          "name": "Bienes de Interés Cultural-Patrimonial",
+          "value": "Bienes de Interés Cultural-Patrimonial"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "value": "06",
+      "name": "Deporte y Recreación",
+      "grupos": [
+        { "name": "- Selecciona una opción válida -", "value": "" },
+        {
+          "name": "Infraestructura Deportiva y de Recreación",
+          "value": "Infraestructura Deportiva y de Recreación"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "value": "07",
+      "name": "Economía y Finanzas",
+      "grupos": [
+        { "name": "- Selecciona una opción válida -", "value": "" },
+        {
+          "name": "Fortalecimiento Empresarial",
+          "value": "Fortalecimiento Empresarial"
+        },
+        {
+          "name": "Indicadores Económicos-Financieros",
+          "value": "Indicadores Económicos-Financieros"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "value": "08",
+      "name": "Educación",
+      "grupos": [
+        { "name": "- Selecciona una opción válida -", "value": "" },
+        { "name": "Sedes", "value": "Sedes" },
+        { "name": "Indicadores Educativos", "value": "Indicadores Educativos" }
+      ]
+    },
+    {
+      "id": 9,
+      "value": "09",
+      "name": "Estadísticas Nacionales",
+      "grupos": [
+        { "name": "- Selecciona una opción válida -", "value": "" },
+        { "name": "Censos", "value": "Censos" }
+      ]
+    },
+    {
+      "id": 10,
+      "value": "10",
+      "name": "Función Pública",
+      "grupos": [
+        { "name": "- Selecciona una opción válida -", "value": "" },
+        {
+          "name": "Gestión de la Entidad y los Servidores Públicos",
+          "value": "Gestión de la Entidad y los Servidores Públicos"
+        },
+        {
+          "name": "Puntos de Atención Ciudadana",
+          "value": "Puntos de Atención Ciudadana"
+        },
+        { "name": "PQRS", "value": "PQRS" }
+      ]
+    },
+    {
+      "id": 11,
+      "value": "11",
+      "name": "Gastos Gubernamentales",
+      "grupos": [
+        { "name": "- Selecciona una opción válida -", "value": "" },
+        {
+          "name": "Gestión Bienes-Servicios por parte de la Entidad Municipal",
+          "value": "Gestión Bienes-Servicios por parte de la Entidad Municipal"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "value": "12",
+      "name": "Hacienda y Crédito Público",
+      "grupos": [
+        { "name": "- Selecciona una opción válida -", "value": "" },
+        {
+          "name": "Seguimiento a Gastos e Ingresos",
+          "value": "Seguimiento a Gastos e Ingresos"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "value": "13",
+      "name": "Inclusión Social y Reconciliación",
+      "grupos": [
+        { "name": "- Selecciona una opción válida -", "value": "" },
+        { "name": "Centros de Atención", "value": "Centros de Atención" },
+        { "name": "Pobreza", "value": "Pobreza" },
+        { "name": "Grupos Vulnerables", "value": "Grupos Vulnerables" },
+        {
+          "name": "Víctimas del Conflicto Armado",
+          "value": "Víctimas del Conflicto Armado"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "value": "14",
+      "name": "Justicia y Derecho",
+      "grupos": [
+        { "name": "- Selecciona una opción válida -", "value": "" },
+        {
+          "name": "Gestión Carcelaria y Penitencial",
+          "value": "Gestión Carcelaria y Penitencial"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "value": "15",
+      "name": "Mapas Nacionales",
+      "grupos": [
+        { "name": "- Selecciona una opción válida -", "value": "" },
+        { "name": "Catastro", "value": "Catastro" },
+        {
+          "name": "Cobertura y uso del suelo",
+          "value": "Cobertura y uso del suelo"
+        },
+        { "name": "Dirección", "value": "Dirección" },
+        {
+          "name": "Distribución poblacional",
+          "value": "Distribución poblacional"
+        },
+        { "name": "Hidrografía", "value": "Hidrografía" },
+        { "name": "Imágenes", "value": "Imágenes" },
+        { "name": "Infraestructura Física", "value": "Infraestructura Física" },
+        {
+          "name": "Límites Político Administrativos",
+          "value": "Límites Político Administrativos"
+        },
+        { "name": "Nombres geográficos", "value": "Nombres geográficos" },
+        { "name": "Relieve", "value": "Relieve" },
+        {
+          "name": "Sistema de Referencia Geodésica",
+          "value": "Sistema de Referencia Geodésica"
+        },
+        { "name": "Transporte", "value": "Transporte" }
+      ]
+    },
+    {
+      "id": 16,
+      "value": "16",
+      "name": "Minas y Energías",
+      "grupos": [
+        { "name": "- Selecciona una opción válida -", "value": "" },
+        {
+          "name": "Gestión y Explotación Recursos Minero",
+          "value": "Gestión y Explotación Recursos Minero"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "value": "17",
+      "name": "Ordenamiento Territorial",
+      "grupos": [
+        { "name": "- Selecciona una opción válida -", "value": "" },
+        {
+          "name": "Uso, Aprovechamiento y Ocupación del Territorio",
+          "value": "Uso, Aprovechamiento y Ocupación del Territorio"
+        },
+        {
+          "name": "Instrumentos de Gestión y Planificación",
+          "value": "Instrumentos de Gestión y Planificación"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "value": "18",
+      "name": "Organismos de Control",
+      "grupos": [
+        { "name": "- Selecciona una opción válida -", "value": "" },
+        { "name": "Control Disciplinario", "value": "Control Disciplinario" },
+        { "name": "Defensoría del Pueblo", "value": "Defensoría del Pueblo" }
+      ]
+    },
+    {
+      "id": 19,
+      "value": "19",
+      "name": "Participación Ciudadana",
+      "grupos": [
+        { "name": "- Selecciona una opción válida -", "value": "" },
+        {
+          "name": "Organizaciones Sociales y Comunales",
+          "value": "Organizaciones Sociales y Comunales"
+        },
+        {
+          "name": "Procesos de Participación Pública",
+          "value": "Procesos de Participación Pública"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "value": "20",
+      "name": "Presupuestos Gubernamentales",
+      "grupos": [
+        { "name": "- Selecciona una opción válida -", "value": "" },
+        { "name": "Rendición de Cuentas", "value": "Rendición de Cuentas" },
+        {
+          "name": "Presupuesto Participativo",
+          "value": "Presupuesto Participativo"
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "value": "21",
+      "name": "Resultados Electorales",
+      "grupos": [
+        { "name": "- Selecciona una opción válida -", "value": "" },
+        { "name": "Resultados Electorales", "value": "Resultados Electorales" }
+      ]
+    },
+    {
+      "id": 22,
+      "value": "22",
+      "name": "Salud y Protección Social",
+      "grupos": [
+        { "name": "- Selecciona una opción válida -", "value": "" },
+        { "name": "Instituciones de Salud", "value": "Instituciones de Salud" },
+        {
+          "name": "Datos de Atención Sanitaria",
+          "value": "Datos de Atención Sanitaria"
+        },
+        {
+          "name": "Datos sobre Enfermedades",
+          "value": "Datos sobre Enfermedades"
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "value": "23",
+      "name": "Seguridad y Defensa",
+      "grupos": [
+        { "name": "- Selecciona una opción válida -", "value": "" },
+        {
+          "name": "Instalaciones e Infraestructura de Seguridad",
+          "value": "Instalaciones e Infraestructura de Seguridad"
+        },
+        {
+          "name": "Indicadores de Seguridad y Defensa",
+          "value": "Indicadores de Seguridad y Defensa"
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "value": "24",
+      "name": "Trabajo",
+      "grupos": [
+        { "name": "- Selecciona una opción válida -", "value": "" },
+        { "name": "Empleo", "value": "Empleo" },
+        { "name": "Protección Social", "value": "Protección Social" },
+        {
+          "name": "Riesgos y Subsidios Laborales",
+          "value": "Riesgos y Subsidios Laborales"
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "value": "25",
+      "name": "Transporte",
+      "grupos": [
+        { "name": "- Selecciona una opción válida -", "value": "" },
+        {
+          "name": "Infraestructura y Gestión del Transporte",
+          "value": "Infraestructura y Gestión del Transporte"
+        },
+        {
+          "name": "Infraestructura y Gestión del Tránsito",
+          "value": "Infraestructura y Gestión del Tránsito"
+        },
+        {
+          "name": "Gestión de la Movilidad y Seguridad Vial",
+          "value": "Gestión de la Movilidad y Seguridad Vial"
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "value": "26",
+      "name": "Vivienda Ciudad y Territorio",
+      "grupos": [
+        { "name": "- Selecciona una opción válida -", "value": "" },
+        {
+          "name": "Desarrollo Territorial y Urbano Planificado",
+          "value": "Desarrollo Territorial y Urbano Planificado"
+        },
+        { "name": "Vivienda", "value": "Vivienda" },
+        { "name": "Servicios Públicos", "value": "Servicios Públicos" }
+      ]
+    }
+  ],
   "licencias": [
     {
       "id": 0,
+      "name": "- Selecciona una opción válida -",
+      "value": ""
+    },
+    {
+      "id": 1,
       "name": "Creative Commons 4.0",
       "value": "Creative Commons 4.0"
     }
   ],
   "frecuencia_actualizacion": [
+    {
+      "id": 900,
+      "name": "- Selecciona una opción válida -",
+      "value": ""
+    },
     {
       "id": 0,
       "name": "Diario",
@@ -663,14 +1072,19 @@
   ],
   "ambito_geografico": [
     {
+      "id": 900,
+      "name": "- Selecciona una opción válida -",
+      "value": ""
+    },
+    {
       "id": 0,
-      "name": "Comuna_Corregimiento",
-      "value": "Comuna_Corregimiento"
+      "name": "Comuna Corregimiento",
+      "value": "Comuna Corregimiento"
     },
     {
       "id": 1,
-      "name": "Barrio_Vereda",
-      "value": "Barrio_Vereda"
+      "name": "Barrio Vereda",
+      "value": "Barrio Vereda"
     },
     {
       "id": 2,
@@ -700,6 +1114,11 @@
   ],
   "metadatos_geograficos": [
     {
+      "id": 900,
+      "name": "- Selecciona una opción válida -",
+      "value": ""
+    },
+    {
       "id": 0,
       "name": "Si, archivo XML",
       "value": "Si, archivo XML"
@@ -722,6 +1141,11 @@
   ],
   "diccionario_datos": [
     {
+      "id": 900,
+      "name": "- Selecciona una opción válida -",
+      "value": ""
+    },
+    {
       "id": 0,
       "name": "Si, archivo XLS-XLSX/CSV",
       "value": "Si, archivo XLS-XLSX/CSV"
@@ -739,6 +1163,11 @@
   ],
   "catalogo_objetos": [
     {
+      "id": 900,
+      "name": "- Selecciona una opción válida -",
+      "value": ""
+    },
+    {
       "id": 0,
       "name": "Aporta catálogo",
       "value": "Aporta catálogo"
@@ -755,6 +1184,11 @@
     }
   ],
   "fuente_datos": [
+    {
+      "id": 900,
+      "name": "- Selecciona una opción válida -",
+      "value": ""
+    },
     {
       "id": 0,
       "name": "GDB Corporativa",
@@ -803,6 +1237,11 @@
   ],
   "ambiente": [
     {
+      "id": 900,
+      "name": "- Selecciona una opción válida -",
+      "value": ""
+    },
+    {
       "id": 0,
       "name": "Desarrollo",
       "value": "Desarrollo"
@@ -814,6 +1253,11 @@
     }
   ],
   "formato_descarga": [
+    {
+      "id": 900,
+      "name": "- Selecciona una opción válida -",
+      "value": ""
+    },
     {
       "id": 0,
       "name": "SHP",
@@ -837,6 +1281,11 @@
   ],
   "tipo_conjunto_datos": [
     {
+      "id": 900,
+      "name": "- Selecciona una opción válida -",
+      "value": ""
+    },
+    {
       "id": 0,
       "name": "Alfanumérico",
       "value": "Alfanumerico"
@@ -848,6 +1297,11 @@
     }
   ],
   "informacion_contribuye_crecimiento_economico": [
+    {
+      "id": 900,
+      "name": "- Selecciona una opción válida -",
+      "value": ""
+    },
     {
       "id": 0,
       "name": "Contribuye al crecimiento económico integral del entorno regional/metropolitano",
@@ -870,6 +1324,11 @@
     }
   ],
   "generacion_valor_agregado": [
+    {
+      "id": 900,
+      "name": "- Selecciona una opción válida -",
+      "value": ""
+    },
     {
       "id": 0,
       "name": "Genera valor agregado para grupos de interés y dependencias alcaldía",
@@ -894,6 +1353,11 @@
   "ambito_impacto": {
     "Alfanumerico": [
       {
+        "id": 900,
+        "name": "- Selecciona una opción válida -",
+        "value": ""
+      },
+      {
         "id": 0,
         "name": "Regional/Metropolitano",
         "value": 1
@@ -915,6 +1379,11 @@
       }
     ],
     "Geografico": [
+      {
+        "id": 900,
+        "name": "- Selecciona una opción válida -",
+        "value": ""
+      },
       {
         "id": 0,
         "name": "Es un dato fundamental",
@@ -944,6 +1413,11 @@
   },
   "informacion_consolidacion_indicadores": [
     {
+      "id": 900,
+      "name": "- Selecciona una opción válida -",
+      "value": ""
+    },
+    {
       "id": 0,
       "name": "Indicadores del Plan de Desarrollo / Plan Ordenamiento",
       "value": 1
@@ -965,6 +1439,11 @@
     }
   ],
   "demanda_datos": [
+    {
+      "id": 900,
+      "name": "- Selecciona una opción válida -",
+      "value": ""
+    },
     {
       "id": 0,
       "name": "Demanda interna y ciudadanía",
@@ -989,6 +1468,11 @@
   "esfuerzo_requerido_publicar": {
     "Alfanumerico": [
       {
+        "id": 900,
+        "name": "- Selecciona una opción válida -",
+        "value": ""
+      },
+      {
         "id": 0,
         "name": "La información está consolidada",
         "value": 1
@@ -1000,6 +1484,11 @@
       }
     ],
     "Geografico": [
+      {
+        "id": 900,
+        "name": "- Selecciona una opción válida -",
+        "value": ""
+      },
       {
         "id": 0,
         "name": "La información está estructurada (Sin duplicados o datos redundantes)",
@@ -1014,6 +1503,11 @@
   },
   "elementos_requeridos_publicar": {
     "Alfanumerico": [
+      {
+        "id": 900,
+        "name": "- Selecciona una opción válida -",
+        "value": ""
+      },
       {
         "id": 0,
         "name": "La información está lista para publicar",
@@ -1037,6 +1531,11 @@
     ],
     "Geografico": [
       {
+        "id": 900,
+        "name": "- Selecciona una opción válida -",
+        "value": ""
+      },
+      {
         "id": 0,
         "name": "La información es libre",
         "value": 1
@@ -1055,6 +1554,11 @@
   },
   "fuente_datos_priorizacion": {
     "Alfanumerico": [
+      {
+        "id": 900,
+        "name": "- Selecciona una opción válida -",
+        "value": ""
+      },
       {
         "id": 0,
         "name": "Se encuentra en un servidor del Municipio",
@@ -1077,6 +1581,11 @@
       }
     ],
     "Geografico": [
+      {
+        "id": 900,
+        "name": "- Selecciona una opción válida -",
+        "value": ""
+      },
       {
         "id": 0,
         "name": "Tiene todos los descriptores de datos (Diccionario de Datos y Metadatos)",
@@ -1102,6 +1611,11 @@
   "calidad_informacion": {
     "Alfanumerico": [
       {
+        "id": 900,
+        "name": "- Selecciona una opción válida -",
+        "value": ""
+      },
+      {
         "id": 0,
         "name": "Cumple con todos los elementos de calidad (alfanuméricos y/o geográficos)",
         "value": 1
@@ -1124,6 +1638,11 @@
     ],
     "Geografico": [
       {
+        "id": 900,
+        "name": "- Selecciona una opción válida -",
+        "value": ""
+      },
+      {
         "id": 0,
         "name": "Cumple con todos los elementos de calidad (Completitud y Totalidad)",
         "value": 1
@@ -1144,5 +1663,108 @@
         "value": 0
       }
     ]
-  }
+  },
+  "tipo_dato_origen": [
+    {
+      "id": 900,
+      "name": "- Selecciona una opción válida -",
+      "value": ""
+    },
+    {
+      "id": 1,
+      "name": "Texto",
+      "value": "String"
+    },
+    {
+      "id": 2,
+      "name": "Entero",
+      "value": "Integer"
+    },
+    {
+      "id": 3,
+      "name": "Doble",
+      "value": "Double"
+    },
+    {
+      "id": 4,
+      "name": "Fecha",
+      "value": "Date"
+    },
+    {
+      "id": 5,
+      "name": "Booleano",
+      "value": "Boolean"
+    }
+  ],
+  "geometria_tipo_dato": [
+    {
+      "id": 900,
+      "name": "- Selecciona una opción válida -",
+      "value": ""
+    },
+    {
+      "id": 1,
+      "name": "Punto",
+      "value": "Punto"
+    },
+    {
+      "id": 2,
+      "name": "Línea",
+      "value": "Linea"
+    },
+    {
+      "id": 3,
+      "name": "Polígono",
+      "value": "Poligono"
+    },
+    {
+      "id": 4,
+      "name": "Tablas",
+      "value": "Tablas"
+    }
+  ],
+  "sistema_coordenadas": [
+    {
+      "id": 900,
+      "name": "- Selecciona una opción válida -",
+      "value": ""
+    },
+    {
+      "id": 1,
+      "name": "MAGNA Medellin Antioquia 2010",
+      "value": "MAGNA_Medellin_Antioquia_2010"
+    },
+    {
+      "id": 2,
+      "name": "WGS84",
+      "value": "WGS84"
+    },
+    {
+      "id": 3,
+      "name": "Otro",
+      "value": "Otro"
+    },
+    {
+      "id": 4,
+      "name": "Desconocido",
+      "value": "Desconocido"
+    }
+  ],
+  "topologia": [
+    {
+      "id": 900,
+      "name": "- Selecciona una opción válida -",
+      "value": ""
+    },
+    {
+      "id": 1,
+      "name": "Si",
+      "value": true
+    },
+    {
+      "id": 2,
+      "name": "No",
+      "value": false
+    }
+  ]
 }

@@ -50,7 +50,7 @@ const InfoTable = ({ paramFuente, setParamFuente }) => {
     }
 
     const handleDelete = (campo) => {
-        const newData = currentItems.filter(item => item.consecutivo !== campo.consecutivo)
+        const newData = currentItems.filter(item => item.consecutivo_campo !== campo.consecutivo_campo)
         setParamFuente({
             ...paramFuente,
             campos: newData
@@ -122,8 +122,8 @@ const InfoTable = ({ paramFuente, setParamFuente }) => {
                     {
                         currentItems?.length > 0 && (
                             currentItems.map(item => (
-                                <tr key={item.consecutivo}>
-                                    <td>{item.consecutivo}</td>
+                                <tr key={item.consecutivo_campo}>
+                                    <td>{item.consecutivo_campo}</td>
                                     <td>{item.nombre_campo}</td>
                                     <td>{item.tipo_dato_destino}</td>
                                     <td>{item.longitud}</td>
