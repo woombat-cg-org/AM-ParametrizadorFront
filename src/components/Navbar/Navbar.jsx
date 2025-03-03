@@ -1,10 +1,13 @@
 import AMLogo from '../../images/amlogo.png'
 import { Link, useLocation } from 'react-router-dom'
+import useUser from '../../hooks/useUser'
 
 const Navbar = () => {
   const location = useLocation()
 
   const isActive = (path) => location.pathname === path ? 'active' : ''
+
+  const { info_user } = useUser()
 
   return (
     <div className="section-nav-bar">
@@ -21,7 +24,11 @@ const Navbar = () => {
           )
         }
         <Link to="/" className={isActive('/')}> <ion-icon name="library-outline" style={{ marginRight: '8px', fontSize: '20px' }}></ion-icon> Tabla de Fuentes</Link>
-        <Link to="/configuraciones" className={isActive('/configuraciones')}> <ion-icon name="cog-outline" style={{ marginRight: '8px', fontSize: '20px' }}></ion-icon> Configuraciones</Link>
+        {
+          info_user.rol === 'admin' && (
+            <Link to="/configuraciones" className={isActive('/configuraciones')}> <ion-icon name="cog-outline" style={{ marginRight: '8px', fontSize: '20px' }}></ion-icon> Configuraciones</Link>
+          )
+        }
       </nav>
     </div>
   )

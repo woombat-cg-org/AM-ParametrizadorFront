@@ -27,7 +27,7 @@ const InfoCampos = ({ paramFuente, setParamFuente, datos_campo, setModal, setEdi
         descripcion_datos_geograficos: "",
         sistema_coordenadas: "",
         fecha_elaboracion: "",
-        topologia: "",
+        topologia: false,
         reglas_topologicas: "",
         excepciones: ""
     }
@@ -67,8 +67,10 @@ const InfoCampos = ({ paramFuente, setParamFuente, datos_campo, setModal, setEdi
                 ...paramFuente,
                 campos: nuevos_campos
             })
-            setModal(false)
+            toast.success("Campo editado correctamente.")
             setCampo(dataCampo)
+            setEditCampo(undefined)
+            setModal(false)
             return
         }
 
@@ -84,8 +86,10 @@ const InfoCampos = ({ paramFuente, setParamFuente, datos_campo, setModal, setEdi
             ]
         })
 
+        toast.success("Campo creado correctamente.")
         setModal(false)
         setCampo(dataCampo)
+        setEditCampo(undefined)
     }
 
   return (
@@ -151,7 +155,7 @@ const InfoCampos = ({ paramFuente, setParamFuente, datos_campo, setModal, setEdi
             <input 
                 type="checkbox"
                 name="acepta_nulos"
-                value={campo.acepta_nulos}    
+                checked={campo.acepta_nulos}    
                 onChange={handleChange}
             />
         </div>
@@ -162,7 +166,7 @@ const InfoCampos = ({ paramFuente, setParamFuente, datos_campo, setModal, setEdi
                     <input 
                         type="checkbox"
                         name="flag_anonimizar"
-                        value={campo.flag_anonimizar}    
+                        checked={campo.flag_anonimizar}    
                         onChange={handleChange}
                     />
                 </div>

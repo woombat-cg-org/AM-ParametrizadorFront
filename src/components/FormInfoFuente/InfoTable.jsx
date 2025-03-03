@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import Modal from 'react-modal'
-import API from '../../API.json'
 import Filtro from '../Filtro/Filtro'
 import InfoCampos from './InfoCampos'
+import PopUp from './PopUp'
 
 const InfoTable = ({ paramFuente, setParamFuente }) => {
 
@@ -11,6 +11,7 @@ const InfoTable = ({ paramFuente, setParamFuente }) => {
     const { campos } = paramFuente
     const [fuentes, setFuentes] = useState(undefined)
     const [editCampo, setEditCampo] = useState(undefined)
+    const [stateAPI, setstateAPI] = useState(false)
     const [modal, setModal] = useState(false)
     let datoFuente
     if(fuentes === undefined) {
@@ -88,8 +89,13 @@ const InfoTable = ({ paramFuente, setParamFuente }) => {
         }
     }
 
-    if(!fuentes) return <h1>Hola</h1>
+    const handleCamposAPI = () => {
+        setModal(true)
+        setstateAPI(true)
+    }
 
+    if(!fuentes) return <h1>Hola</h1>
+    
   return (
     <>
         <div className="info_table_list">
@@ -100,10 +106,25 @@ const InfoTable = ({ paramFuente, setParamFuente }) => {
                         handleFilterFuente={handleFilterFuente}
                     />
                 }
-                <button
-                    type="button"
-                    onClick={() => setModal(true)}
-                >Agregar Nuevo Campo</button>
+                
+                <div className="info_table_filter_boton">
+                {
+                    paramFuente.info_fuente.tipo_fuente_ingesta === ('SQL' || 'NAS') && (
+                        <button
+                            type="button"
+                            onClick={() => setModal(true)}
+                        >Agregar Nuevo Campo</button>
+                    )
+                }
+                {
+                    paramFuente.info_fuente.tipo_fuente_ingesta === ('SQL' || 'NAS' || 'WEBSERVICE') && (
+                        <button
+                            type="button"
+                            onClick={() => handleCamposAPI()}
+                        >Campos via API</button>
+                    )
+                }
+                </div>
             </div>
             <div className="info-table-wrapper">
                 <table className="fl-table">
@@ -111,7 +132,7 @@ const InfoTable = ({ paramFuente, setParamFuente }) => {
                     <tr>
                         <th>Consecutivo</th>
                         <th>Nombre Campo</th>
-                        <th>Tipo de Dato</th>
+                        <th>Tipo de Dato Destino</th>
                         <th>Longitud</th>
                         <th>Campo Particion</th>
                         <th>Anonimizar</th>
@@ -163,13 +184,24 @@ const InfoTable = ({ paramFuente, setParamFuente }) => {
             isOpen={modal}
             style={customStyles}
         >
-            <InfoCampos 
-                paramFuente={paramFuente}
-                setParamFuente={setParamFuente}
-                setModal={setModal}
-                datos_campo={editCampo}
-                setEditCampo={setEditCampo}
-            />
+            {
+                stateAPI ? (
+                    <PopUp 
+                        setModal={setModal}
+                        paramFuente={paramFuente}
+                        setstateAPI={setstateAPI}
+                        setParamFuente={setParamFuente}
+                    />
+                ) : (
+                    <InfoCampos 
+                        paramFuente={paramFuente}
+                        setParamFuente={setParamFuente}
+                        setModal={setModal}
+                        datos_campo={editCampo}
+                        setEditCampo={setEditCampo}
+                    />
+                )
+            }
         </Modal>
     </>
   )

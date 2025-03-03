@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import useUser from '../../hooks/useUser'
 import { toast } from 'react-toastify'
 import InfoUno from './InfoUno'
@@ -8,10 +8,13 @@ import InfoTres from './InfoTres'
 import InfoCuatro from './InfoCuatro'
 
 import { existingUserApi } from '../../api/user'
-import { createFuenteApi, getIdPublicacionApi } from '../../api/fuentes'
-
+import { createFuenteApi, getIdPublicacionApi, updateFuenteByIdApi } from '../../api/fuentes'
+import { createCamposApi, updateCamposByIdApi } from '../../api/campos'
+import { generateCSVAPI } from '../../api/generate_csv'
 
 const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_info }) => {
+
+    const { id } = useParams()
 
     const navigate = useNavigate()
     const { info_user, logout } = useUser()
@@ -25,6 +28,7 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
     ]
 
     const [tipoFuente, setTipoFuente] = useState(tipos_fuente)
+    const [modal, setModal] = useState(false)
 
     // Destructuring
     const { info_fuente, campos } = paramFuente
@@ -48,24 +52,25 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
         if(tiempo === 1) {
             // InfoUno Validacion de Datos
             if(!nombre_conjunto || !tipo_fuente_ingesta || !tipo_ingesta || !id_dependencia || !unidad_equipo || !descripcion || !palabras_clave || !id_tematica_mintic || !licencia_uso || !fecha_inicio_conjunto || !fecha_fin_conjunto || !frecuencia_Actualizacion || !directorio_salida_parquet || !fuente_datos || !ambiente) {
-                toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente.')
+                console.log(nombre_conjunto, tipo_fuente_ingesta, tipo_ingesta, id_dependencia, unidad_equipo, descripcion, palabras_clave, id_tematica_mintic, licencia_uso, fecha_inicio_conjunto, fecha_fin_conjunto, frecuencia_Actualizacion, directorio_salida_parquet, fuente_datos, ambiente);
+                toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente. 1')
                 return
             }
 
             // InfoUno Validacion Tipo de Fuente Ingesta
             if(tipo_fuente_ingesta === 'SQL') {
                 if(!controlador || !base_de_datos || !nombre_tabla || !esquema) {
-                    toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente.')
+                    toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente. 2')
                     return
                 }
             } else if(tipo_fuente_ingesta === 'NAS' || tipo_fuente_ingesta === 'HDFS' || tipo_fuente_ingesta === 'API') {
                 if(!ruta_archivo || !nombre_archivo || !delimitador_archivo) {
-                    toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente.')
+                    toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente. 3')
                     return
                 }
-            } else if(tipo_fuente_ingesta === 'API') {
+            } else if(tipo_fuente_ingesta === 'WEBSERVICE') {
                 if(!url_servicio_web) {
-                    toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente.')
+                    toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente. 4')
                     return
                 }
             }
@@ -73,14 +78,14 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
             // InfoUno Validacion Informacion Publicable
             if(publicable) {
                 if(!directorio_salida_publicacion || !formato_descarga) {
-                    toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente.')
+                    toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente. 5')
                     return
                 }
             }
 
             // InfoUno Validacion Priorizacion
             if(!tipo_conjunto_datos || !informacion_contribuye_crecimiento_economico || !generacion_valor_agregado || !ambito_impacto || !informacion_consolidacion_indicadores || !demanda_datos || !esfuerzo_requerido_publicar || !elementos_requeridos_publicar || !fuente_datos_priorizacion || !calidad_informacion) {
-                toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente.')
+                toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente. 6')
                 return
             }
 
@@ -99,7 +104,9 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
         // Logica de Paginacion
         if(tipo === "avanzar") {
             if(tiempo === 4 ) {
+
                 // Guardar datos
+                setModal(true)
 
                 // Validar existencia de usuario auth
                 const userData = {
@@ -110,10 +117,9 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
                     toast.error('No se pudo validar el usuario, por favor vuelva a iniciar sesion.')
                     logout()
                     setParamFuente(param_info)
+                    setModal(false)
                     return
                 }
-
-                
 
                 // Obtener el id publicacion maximo
                 function formatNumberWithLeadingZeros(num, totalLength) {
@@ -136,12 +142,12 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
                     tipo_fuente_ingesta: paramFuente.info_fuente.tipo_fuente_ingesta,
                     tipo_ingesta: paramFuente.info_fuente.tipo_ingesta,
                     cron_tab: paramFuente.info_fuente.cron_tab,
-                    id_dependencia: Number(paramFuente.info_fuente.id_dependencia),
-                    id_subdependencia: Number(paramFuente.info_fuente.id_subdependencia),
+                    id_dependencia: paramFuente.info_fuente.id_dependencia,
+                    id_subdependencia: paramFuente.info_fuente.id_subdependencia,
                     unidad_equipo: paramFuente.info_fuente.unidad_equipo,
                     descripcion: paramFuente.info_fuente.descripcion,
                     palabras_clave: paramFuente.info_fuente.palabras_clave,
-                    id_tematica_mintic: Number(paramFuente.info_fuente.id_tematica_mintic),
+                    id_tematica_mintic: paramFuente.info_fuente.id_tematica_mintic,
                     grupo: paramFuente.info_fuente.grupo,
                     licencia_uso: paramFuente.info_fuente.licencia_uso,
                     fecha_inicio_conjunto: paramFuente.info_fuente.fecha_inicio_conjunto,
@@ -160,6 +166,8 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
                     catalogo_objetos: paramFuente.info_fuente.catalogo_objetos,
                     nombre_contacto_proceso: paramFuente.info_fuente.nombre_contacto_proceso,
                     correo_contacto_proceso: paramFuente.info_fuente.correo_contacto_proceso,
+                    correo_contacto_tecnico: paramFuente.info_fuente.correo_contacto_tecnico,
+                    nombre_contacto_tecnico: paramFuente.info_fuente.nombre_contacto_tecnico,
                     fuente_datos: paramFuente.info_fuente.fuente_datos,
                     ambiente: paramFuente.info_fuente.ambiente,
                     observaciones: paramFuente.info_fuente.observaciones,
@@ -174,6 +182,7 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
                     delimitador_archivo: paramFuente.info_fuente.delimitador_archivo,
                     flag_encabezado_archivo: paramFuente.info_fuente.flag_encabezado_archivo,
                     flag_excel: paramFuente.info_fuente.flag_excel,
+                    hoja_excel: paramFuente.info_fuente.hoja_excel,
                     rango_columnas: paramFuente.info_fuente.rango_columnas,
                     url_servicio_web: paramFuente.info_fuente.url_servicio_Web,
                     directorio_salida_publicacion: paramFuente.info_fuente.directorio_salida_publicacion,
@@ -227,21 +236,104 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
                       })()
                 }
 
-                /* const sourceResponse = await createFuenteApi(sourceMapData)
-                if(sourceResponse.message === "La fuente ya existe.") {
-                    toast.error(sourceResponse.message)
-                    return
-                } else if(sourceResponse.message === "Error al crear la fuente.") {
-                    toast.error(sourceResponse.message)
-                    return
-                } 
+                let sourceResponse
 
-                toast.success(sourceResponse.message) */
+                if(id) {
+                    sourceResponse = await updateFuenteByIdApi(id, sourceMapData)
+                    if(sourceResponse.message === "La fuente no existe.") {
+                        toast.error(sourceResponse.message)
+                        return
+                    } else if(sourceResponse.message === "Error al actualizar la fuente.") {
+                        toast.error(sourceResponse.message)
+                        return
+                    }
+
+                    toast.success(sourceResponse.message)
+                } else {
+                    sourceResponse = await createFuenteApi(sourceMapData)
+                    if(sourceResponse.message === "La fuente ya existe.") {
+                        toast.error(sourceResponse.message)
+                        return
+                    } else if(sourceResponse.message === "Error al crear la fuente.") {
+                        toast.error(sourceResponse.message)
+                        return
+                    }
+
+                    toast.success(sourceResponse.message)
+                }
 
                 // Guardar Campos de la Fuente
-                // console.log(paramFuente.campos)
+                const dataCampos = paramFuente.campos.map((item) => ({
+                    id_fuente: item.id_fuente,
+                    consecutivo_campo: item.consecutivo_campo,
+                    nombre_campo: item.nombre_campo,
+                    tipo_dato_origen: item.tipo_dato_origen,
+                    longitud: item.longitud,
+                    alias: item.alias,
+                    tipo_dato_destino: item.tipo_dato_destino,
+                    acepta_nulos: item.acepta_nulos,
+                    flag_anonimizar: item.flag_anonimizar,
+                    flag_campo_particion: item.flag_campo_particion,
+                    funcion: item.funcion,
+                    descripcion_campo: item.descripcion_campo,
+                    observaciones: item.observaciones,
+                    geometria_tipo_dato: item.geometria_tipo_dato,
+                    cantidad_elementos: item.cantidad_elementos,
+                    descripcion_datos_geograficos: item.descripcion_datos_geograficos,
+                    sistema_coordenadas: item.sistema_coordenadas,
+                    fecha_elaboracion: item.fecha_elaboracion,
+                    topologia: item.topologia,
+                    reglas_topologicas: item.reglas_topologicas,
+                    excepciones: item.excepciones
+                }))
 
-                
+                let camposResponse
+                if(id) {
+                    camposResponse = await updateCamposByIdApi(id, dataCampos)
+                    if(camposResponse.message === "Error al actualizar los campos.") {
+                        toast.error(camposResponse.message)
+                        return
+                    } 
+
+                    toast.success(camposResponse.message)
+
+                    
+                    if(camposResponse.message !== "Campos actualizados exitosamente." && sourceResponse.message !== "Fuente actualizada exitosamente.") {
+                        toast.error("Ha ocurrido un error al guardar la informacion de la fuente.")
+                        return
+                    }
+                } else {
+                    camposResponse = await createCamposApi(dataCampos)
+                    if(camposResponse.message === "Error al crear los campos.") {
+                        toast.error(camposResponse.message)
+                        return
+                    } 
+
+                    toast.success(camposResponse.message)
+
+                    if(camposResponse.message !== "Campos creados con éxito." && sourceResponse.message !== "Fuente creada con éxito.") {
+                        toast.error("Ha ocurrido un error al guardar la informacion de la fuente.")
+                        return
+                    }
+                }
+
+                const gen_csv = await generateCSVAPI()
+
+                if(gen_csv.status === "error") {
+                    toast.error(gen_csv.message)
+                    setModal(false)
+                    return
+                }
+
+                if(gen_csv.status === "success") {
+                    toast.success(gen_csv.message)
+                }
+
+                setModal(false)
+                navigate('/')
+                setParamFuente(param_info)
+                setTiempo(1)
+
             } else {
                 setTiempo(tiempo + 1)
             }
@@ -294,6 +386,7 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
                     <h2>Información General Fuente</h2>
                     <InfoCuatro 
                         paramFuente={paramFuente}
+                        modal={modal}
                     />
                 </>
             )

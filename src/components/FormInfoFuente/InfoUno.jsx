@@ -481,7 +481,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
         ) : null
       }
       {
-        (tipo_fuente_ingesta === "NAS" || tipo_fuente_ingesta === "HDFS" || tipo_fuente_ingesta === "API") && (
+        (tipo_fuente_ingesta === "NAS" || tipo_fuente_ingesta === "HDFS" || tipo_fuente_ingesta === "WEBSERVICE") && (
           <>
             <div className="form_info_fuente_fuente">
               <label htmlFor="ruta_archivo">* Ruta del Archivo</label>
@@ -555,7 +555,7 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
         )
       }
       {
-        tipo_fuente_ingesta === "API" && (
+        tipo_fuente_ingesta === ("WEBSERVICE" || "LINK") && (
           <>
             <div className="form_info_fuente_fuente">
               <label htmlFor="url_servicio_Web">* URL Servicio Web</label>

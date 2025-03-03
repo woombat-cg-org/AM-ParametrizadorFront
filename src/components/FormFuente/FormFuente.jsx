@@ -1,25 +1,28 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import FormNavegacion from '../FormNavegacion/FormNavegacion'
 import FormInfoFuente from '../FormInfoFuente/FormInfoFuente'
 
-const FormFuente = () => {
+import { getFuenteByIdApi } from '../../api/fuentes'
+import { getCamposByIdApi } from '../../api/campos'
+
+const FormFuente =  ({ id }) => {
 
   const [tiempo, setTiempo] = useState(1)
 
-  const param_info = {
+  let param_info = {
     info_fuente: {
       id_fuente: uuidv4(),
       nombre_conjunto: '',
       tipo_fuente_ingesta: '',
       tipo_ingesta: '',
       cron_tab: '',
-      id_dependencia: 0,
-      id_subdependencia: 0,
+      id_dependencia: '',
+      id_subdependencia: '',
       unidad_equipo: '',
       descripcion: '',
       palabras_clave: '',
-      id_tematica_mintic: 0,
+      id_tematica_mintic: '',
       grupo: '',
       licencia_uso: '',
       fecha_inicio_conjunto: '',
@@ -79,6 +82,27 @@ const FormFuente = () => {
   }
 
   const [paramFuente, setParamFuente] = useState(param_info)
+
+  useEffect(() => {
+    const getData = async () =>  {
+        try {
+            const responseFuente = await getFuenteByIdApi(id)
+            const responseCampos = await getCamposByIdApi(id)
+            setParamFuente({
+              campos: responseCampos,
+              info_fuente: {
+                ...responseFuente,
+                frecuencia_Actualizacion: responseFuente.frecuencia_actualizacion
+              }
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    if(id !== undefined) {
+      getData()
+    }
+  }, [])
 
   return (
     <div className="table_list">

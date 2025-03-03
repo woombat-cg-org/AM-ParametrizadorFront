@@ -45,8 +45,8 @@ const TableList = () => {
     }
 
     const handleEdit = (fuente) => {
-        const { codigo } = fuente
-        navigate(`/editar-fuente/${codigo}`)
+        const { id_fuente } = fuente
+        navigate(`/editar-fuente/${id_fuente}`)
     }    
 
     const handleDelete = async (fuente) => {

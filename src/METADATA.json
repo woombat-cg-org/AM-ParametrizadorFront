@@ -22,8 +22,12 @@
     },
     {
       "id": 4,
-      "name": "API",
-      "value": "API"
+      "name": "WEBSERVICE",
+      "value": "WEBSERVICE"
+    },{
+      "id": 5,
+      "name": "LINK",
+      "value": "LINK"
     }
   ],
   "tipo_ingesta": [

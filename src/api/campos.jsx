@@ -1,32 +1,8 @@
 import { BASE_PATH } from '../utils/variables'
 
-export async function getFuentesApi() {
+export async function createCamposApi(data) {
     try {
-        const url = `${BASE_PATH}/fuentes`
-        const response = await fetch(url)
-        const result = await response.json()
-        return result
-    } catch (error) {
-        console.log(error)
-        return null
-    }
-}
-
-export async function getIdPublicacionApi() {
-    try {
-        const url = `${BASE_PATH}/fuentes/id_publicacion`
-        const response = await fetch(url)
-        const result = await response.json()
-        return result
-    } catch (error) {
-        console.log(error)
-        return null
-    }
-}
-
-export async function createFuenteApi(data) {
-    try {
-        const url = `${BASE_PATH}/fuentes`
+        const url = `${BASE_PATH}/campos`
         const params = {
             method: 'POST',
             headers: {
@@ -43,11 +19,11 @@ export async function createFuenteApi(data) {
     }
 }
 
-export async function deleteFuenteApi(id_fuente) {
+export async function getCamposByIdApi(id_fuente) {
     try {
-        const url = `${BASE_PATH}/fuentes/${id_fuente}`
+        const url = `${BASE_PATH}/fuentes/${id_fuente}/campos`
         const params = {
-            method: 'DELETE',
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -61,27 +37,9 @@ export async function deleteFuenteApi(id_fuente) {
     }
 }
 
-export async function getFuenteByIdApi(id_fuente) {
+export async function updateCamposByIdApi(id_fuente, data) {
     try {
-        const url = `${BASE_PATH}/fuentes/${id_fuente}`
-        const params = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-        const response = await fetch(url, params)
-        const result = await response.json()
-        return result[0]
-    } catch (error) {
-        console.log(error)
-        return null
-    }
-}
-
-export async function updateFuenteByIdApi(id_fuente, data) {
-    try {
-        const url = `${BASE_PATH}/fuentes/${id_fuente}`
+        const url = `${BASE_PATH}/campos/${id_fuente}`
         const params = {
             method: 'PUT',
             headers: {
@@ -95,5 +53,24 @@ export async function updateFuenteByIdApi(id_fuente, data) {
     } catch (error) {
         console.log(error)
         return null
+    }
+}
+
+export async function getCamposByAPINiFi (data) {
+    try {
+        const url = `http://34.30.16.84:7005/`
+        const params = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }
+        const response = await fetch(url, params)
+        const result = await response.json()
+        return result
+    } catch (error) {
+        console.log(error)
+        return []
     }
 }

@@ -200,6 +200,12 @@
       justify-content: space-between
       align-items: center
 
+      &_boton
+        button
+          &:nth-child(1)
+            margin-right: 10px
+            
+
       button
         padding: 10px
         border-radius: 5px
@@ -403,3 +409,50 @@
         border-radius: 4px
         border: none
         font-size: 10px
+
+.popup
+  width: 100%
+
+  h2
+    color: #324960
+    font-weight: bold
+    text-align: center
+    margin-bottom: 10px
+    
+  p
+    font-size: 15px
+    text-align: center
+ 
+
+  &_item
+    margin-top: 10px
+    background-color: #324960
+    color: white
+    padding: 10px
+    border-radius: 8px
+    cursor: pointer
+
+    &:hover
+      background-color: #203143
+
+    p
+      font-size: 14px
+
+      span
+        font-size: 15px
+        font-weight: bold
+
+    &_selected
+      background-color: #203143
+      color: white
+      padding: 10px
+      border-radius: 8px
+      cursor: pointer
+      margin-top: 10px
+
+      p
+        font-size: 14px
+
+      span
+        font-size: 15px
+        font-weight: bold
