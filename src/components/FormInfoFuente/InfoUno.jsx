@@ -2,7 +2,7 @@ import useMetadata from '../../hooks/useMetadata'
 import { getControladorApi } from '../../api/controlador'
 import { useEffect, useState } from 'react'
 
-const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
+const InfoUno = ({ paramFuente, setParamFuente }) => {
 
   const [controladores, setControladores] = useState([])
 
@@ -503,17 +503,12 @@ const InfoUno = ({ tipoFuente, paramFuente, setParamFuente }) => {
             </div>
             <div className="form_info_fuente_fuente">
               <label htmlFor="delimitador_archivo">* Delimitador del Archivo</label>
-              <select 
+              <input 
+                type="text"
                 name="delimitador_archivo"
                 value={delimitador_archivo}
                 onChange={handleChange}
-              >
-                {tipoFuente.map((item) => (
-                  <option value={item.value} key={item.id}>
-                    {item.name}
-                  </option>
-                ))}
-              </select>
+              />
             </div>
             <div className="form_info_fuente_fuente">
               <label htmlFor="flag_encabezado_archivo">Encabezado del Archivo</label>

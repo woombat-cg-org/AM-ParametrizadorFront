@@ -1770,5 +1770,42 @@
       "name": "No",
       "value": false
     }
+  ],
+  "tipos_db": [
+    {
+      "id": 900,
+      "name": "- Selecciona una opción válida -",
+      "value": ""
+    },
+    {
+      "id": 1,
+      "name": "PostgreSQL",
+      "value": "PostgreSQL"
+    },
+    {
+      "id": 2,
+      "name": "MariaDB",
+      "value": "MariaDB"
+    },
+    {
+      "id": 3,
+      "name": "SQL Server",
+      "value": "SQL Server"
+    },
+    {
+      "id": 4,
+      "name": "Oracle",
+      "value": "Oracle"
+    },
+    {
+      "id": 5,
+      "name": "MySQL",
+      "value": "MySQL"
+    },
+    {
+      "id": 6,
+      "name": "CrateDB",
+      "value": "CrateDB"
+    }
   ]
 }

@@ -53,24 +53,24 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
             // InfoUno Validacion de Datos
             if(!nombre_conjunto || !tipo_fuente_ingesta || !tipo_ingesta || !id_dependencia || !unidad_equipo || !descripcion || !palabras_clave || !id_tematica_mintic || !licencia_uso || !fecha_inicio_conjunto || !fecha_fin_conjunto || !frecuencia_Actualizacion || !directorio_salida_parquet || !fuente_datos || !ambiente) {
                 console.log(nombre_conjunto, tipo_fuente_ingesta, tipo_ingesta, id_dependencia, unidad_equipo, descripcion, palabras_clave, id_tematica_mintic, licencia_uso, fecha_inicio_conjunto, fecha_fin_conjunto, frecuencia_Actualizacion, directorio_salida_parquet, fuente_datos, ambiente);
-                toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente. 1')
+                toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente.')
                 return
             }
 
             // InfoUno Validacion Tipo de Fuente Ingesta
             if(tipo_fuente_ingesta === 'SQL') {
                 if(!controlador || !base_de_datos || !nombre_tabla || !esquema) {
-                    toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente. 2')
+                    toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente.')
                     return
                 }
             } else if(tipo_fuente_ingesta === 'NAS' || tipo_fuente_ingesta === 'HDFS' || tipo_fuente_ingesta === 'API') {
                 if(!ruta_archivo || !nombre_archivo || !delimitador_archivo) {
-                    toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente. 3')
+                    toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente.')
                     return
                 }
             } else if(tipo_fuente_ingesta === 'WEBSERVICE') {
                 if(!url_servicio_web) {
-                    toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente. 4')
+                    toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente.')
                     return
                 }
             }
@@ -78,14 +78,14 @@ const FormInfoFuente = ({ tiempo, setTiempo, paramFuente, setParamFuente, param_
             // InfoUno Validacion Informacion Publicable
             if(publicable) {
                 if(!directorio_salida_publicacion || !formato_descarga) {
-                    toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente. 5')
+                    toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente.')
                     return
                 }
             }
 
             // InfoUno Validacion Priorizacion
             if(!tipo_conjunto_datos || !informacion_contribuye_crecimiento_economico || !generacion_valor_agregado || !ambito_impacto || !informacion_consolidacion_indicadores || !demanda_datos || !esfuerzo_requerido_publicar || !elementos_requeridos_publicar || !fuente_datos_priorizacion || !calidad_informacion) {
-                toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente. 6')
+                toast.error('Los campos que tienen * son obligatorios, revisalos nuevamente. ')
                 return
             }
 

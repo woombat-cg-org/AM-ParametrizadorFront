@@ -3,6 +3,8 @@ import Modal from 'react-modal'
 import Filtro from '../Filtro/Filtro'
 import InfoCampos from './InfoCampos'
 import PopUp from './PopUp'
+import * as XLSX from 'xlsx'
+import { toast } from 'react-toastify'
 
 const InfoTable = ({ paramFuente, setParamFuente }) => {
 
@@ -94,6 +96,94 @@ const InfoTable = ({ paramFuente, setParamFuente }) => {
         setstateAPI(true)
     }
 
+    const handleFileUpload = (event) => {
+        const file = event.target.files?.[0]
+        if (!file) return
+
+        const reader = new FileReader()
+        reader.onload = (e) => {
+            const data = new Uint8Array(e.target.result)
+            const workbook = XLSX.read(data, { type: "array" })
+
+            const sheetName = workbook.SheetNames[0]
+            const sheet = workbook.Sheets[sheetName]
+            
+            // Get headers from the first row
+            const range = XLSX.utils.decode_range(sheet['!ref'])
+            const headers = []
+            for (let C = range.s.c; C <= range.e.c; C++) {
+                const cell = sheet[XLSX.utils.encode_cell({ r: 0, c: C })]
+                if (cell && cell.v) {
+                    headers.push(cell.v.toString().trim())
+                }
+            }
+
+            // Required headers
+            const requiredHeaders = [
+                'nombre_campo', 'tipo_dato_origen', 'longitud', 'descripcion_campo',
+                'acepta_nulos', 'observaciones', 'alias', 'geometria_tipo_dato',
+                'cantidad_elementos', 'descripcion_datos_geograficos', 'sistema_coordenadas',
+                'fecha_elaboracion', 'topologia', 'reglas_topologicas', 'excepciones'
+            ]
+
+            const missingHeaders = requiredHeaders.filter(header => !headers.includes(header))
+
+            if (missingHeaders.length > 0) {
+                toast.error(`Columnas requeridas faltantes: ${missingHeaders.join(', ')}`)
+                event.target.value = ''
+                return
+            }
+
+            const parsedData = XLSX.utils.sheet_to_json(sheet)
+
+            const toBoolean = (value) => {
+                if (typeof value === "boolean") return value
+                if (typeof value === "string") {
+                    return value.trim().toLowerCase() === "true"
+                }
+                return false
+            }
+
+            const maxConsecutivo = paramFuente.campos.length > 0 
+                ? paramFuente.campos.reduce((max, item) => (item.consecutivo_campo > max ? item.consecutivo_campo : max), 0) 
+                : 0
+
+            const transformedData = parsedData.map((row, index) => ({
+                id_fuente: paramFuente.info_fuente.id_fuente,
+                consecutivo_campo: maxConsecutivo > 0 ? maxConsecutivo + index + 1 : index + 1,
+                acepta_nulos: toBoolean(row["acepta_nulos"]) || false,
+                alias: row["alias"] || "",
+                cantidad_elementos: Number(row["cantidad_elementos"]) || 0,
+                descripcion_campo: row["descripcion_campo"] || "",
+                descripcion_datos_geograficos: row["descripcion_datos_geograficos"] || "",
+                excepciones: row["excepciones"] || "",
+                fecha_elaboracion: row["fecha_elaboracion"] || "",
+                flag_anonimizar: false,
+                flag_campo_particion: false,
+                funcion: "",
+                geometria_tipo_dato: row["geometria_tipo_dato"] || "",
+                longitud: Number(row["longitud"]) || 0,
+                nombre_campo: row["nombre_campo"].toUpperCase() || "",
+                observaciones: row["observaciones"] || "",
+                reglas_topologicas: row["reglas_topologicas"] || "",
+                sistema_coordenadas: row["sistema_coordenadas"] || "",
+                tipo_dato_destino: "",
+                tipo_dato_origen: row["tipo_dato_origen"],
+                topologia: toBoolean(row["topologia"]) || false
+            }))
+
+            setParamFuente({
+                ...paramFuente,
+                campos: [...paramFuente.campos, ...transformedData]
+            })
+            
+            event.target.value = ''
+            toast.success('Archivo procesado correctamente')
+        }
+
+        reader.readAsArrayBuffer(file)
+    }
+
     if(!fuentes) return <h1>Hola</h1>
     
   return (
@@ -124,6 +214,12 @@ const InfoTable = ({ paramFuente, setParamFuente }) => {
                         >Campos via API</button>
                     )
                 }
+                <input
+                    type="file"
+                    accept=".xlsx, .xls"
+                    onChange={handleFileUpload}
+                    placeholder="Seleccione un archivo Excel"
+                />
                 </div>
             </div>
             <div className="info-table-wrapper">

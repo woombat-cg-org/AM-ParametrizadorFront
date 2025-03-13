@@ -96,9 +96,6 @@ const FormLogin = () => {
       
       <button className="login">Iniciar Sesión</button>
       
-      <div className="footer">
-        <span>¿Olvidaste tu Contraseña?</span>
-      </div>
     </form>
   )
 }

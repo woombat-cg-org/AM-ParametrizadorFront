@@ -48,6 +48,7 @@ const PopUp = ({ setModal, paramFuente, setParamFuente, setstateAPI }) => {
 
     const handleCancelar = () => {
         setModal(false)
+        setstateAPI(false)
     }
 
     const toggleCampo = (item) => {
