@@ -1,10 +1,12 @@
 import useMetadata from '../../hooks/useMetadata'
 import { getControladorApi } from '../../api/controlador'
+import { getRutasApi } from '../../api/rutas_hdfs'
 import { useEffect, useState } from 'react'
 
 const InfoUno = ({ paramFuente, setParamFuente }) => {
 
   const [controladores, setControladores] = useState([])
+  const [rutasHDFS, setRutasHDFS] = useState([])
 
    // Destructuring
   const { info_fuente } = paramFuente
@@ -26,6 +28,18 @@ const InfoUno = ({ paramFuente, setParamFuente }) => {
     fetchControladores()
   }
 }, [tipo_fuente_ingesta])
+
+  useEffect(() => {
+    const fetchRutasHDFS = async () => {
+      try {
+        const response = await getRutasApi()
+        setRutasHDFS(response)
+      } catch (error) {
+        console.error('Error:', error)
+      }
+    }
+    fetchRutasHDFS()
+  }, [])
 
   // Funcion para Tomar los datos del Formulario
   const handleChange = (e) => {
@@ -234,12 +248,17 @@ const InfoUno = ({ paramFuente, setParamFuente }) => {
       </div>
       <div className="form_info_fuente_fuente">
         <label htmlFor="directorio_salida_parquet">* Ruta Salida del Parquet en HDFS</label>
-        <input 
-          type="text" 
+        <select 
           name="directorio_salida_parquet"
           value={directorio_salida_parquet}
           onChange={handleChange}
-        />
+        >
+          {rutasHDFS.map((item) => (
+            <option value={item.ruta_hdfs} key={item.id_ruta}>
+              {item.ruta_hdfs}
+            </option>
+          ))}
+        </select>
       </div>
       <div className="form_info_fuente_fuente">
         <label htmlFor="fuente_datos">* Origen de los Datos</label>

@@ -4,6 +4,7 @@ import useUser from '../../hooks/useUser'
 import Modal from 'react-modal'
 import { useState } from 'react'
 import Config from '../Config/Config'
+import DirHDFS from '../Config/DirHDFS'
 
 const Navbar = () => {
   const location = useLocation()
@@ -13,6 +14,7 @@ const Navbar = () => {
   const { info_user } = useUser()
 
   const [modal, setModal] = useState(false)
+  const [confgNum, setConfgNum] = useState(undefined)
 
   const customStyles = {
       overlay: {
@@ -58,9 +60,24 @@ const Navbar = () => {
               <a onClick={(e) => {
                 e.preventDefault()
                 setModal(true)
+                setConfgNum(1)
               }} className={isActive('/configuraciones')}> 
                 <ion-icon name="cog-outline" style={{ marginRight: '8px', fontSize: '20px' }}></ion-icon> 
                 Controladores
+              </a>
+            )
+          }
+          {
+            info_user.rol === 'admin' && 
+            !location.pathname.startsWith('/nueva-fuente') && 
+            !location.pathname.startsWith('/editar-fuente') && (
+              <a onClick={(e) => {
+                e.preventDefault()
+                setModal(true)
+                setConfgNum(2)
+              }} className={isActive('/rutas-hdfs')}> 
+                <ion-icon name="share-social-outline" style={{ marginRight: '8px', fontSize: '20px' }}></ion-icon> 
+                Directorio HDFS
               </a>
             )
           }
@@ -70,9 +87,16 @@ const Navbar = () => {
         isOpen={modal}
         style={customStyles}
       >
-        <Config 
-          setModal={setModal}
-        />
+        {
+          confgNum === 1 && (
+            <Config setModal={setModal} setConfgNum={setConfgNum} confgNum={confgNum} />
+          )
+        }
+        {
+          confgNum === 2 && (
+            <DirHDFS setModal={setModal} setConfgNum={setConfgNum} confgNum={confgNum} />
+          )
+        }
       </Modal>
     </>
   )

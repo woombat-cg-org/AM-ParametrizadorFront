@@ -5,7 +5,7 @@ import useMetadata from '../../hooks/useMetadata'
 import { toast } from 'react-toastify'
 import { v4 as uuidv4 } from 'uuid'
 
-const Config = ({ setModal }) => {
+const Config = ({ setModal, setConfgNum }) => {
 
     const { metadatos } = useMetadata()
 
@@ -55,6 +55,7 @@ const Config = ({ setModal }) => {
       }
 
       setModal(false)
+      setConfgNum(undefined)
       setData({
         nombre_controlador: "",
         nombre_servidor: "",
@@ -99,6 +100,7 @@ const Config = ({ setModal }) => {
 
       setReload(true)
       seteditControlador(false)
+      setConfgNum(undefined)
       setData({
         nombre_controlador: "",
         nombre_servidor: "",
