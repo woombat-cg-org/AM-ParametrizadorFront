@@ -5,6 +5,7 @@ import InfoCampos from './InfoCampos'
 import PopUp from './PopUp'
 import * as XLSX from 'xlsx'
 import { toast } from 'react-toastify'
+import { MdOutlineRestoreFromTrash, MdEdit } from "react-icons/md"
 
 const InfoTable = ({ paramFuente, setParamFuente }) => {
 
@@ -249,10 +250,10 @@ const InfoTable = ({ paramFuente, setParamFuente }) => {
                                     <td>
                                         <span
                                             onClick={() => handleEdit({...item})}
-                                        ><ion-icon name="create-outline"></ion-icon></span>
+                                        ><MdEdit style={{ fontSize: '17px' }}/></span>
                                         <span
                                             onClick={() => handleDelete({...item})}
-                                        ><ion-icon name="trash-outline"></ion-icon></span>
+                                        ><MdOutlineRestoreFromTrash style={{ fontSize: '17px' }}/></span>
                                     </td>
                                 </tr>
                             ))

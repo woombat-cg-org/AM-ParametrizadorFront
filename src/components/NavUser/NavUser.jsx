@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import useUser from "../../hooks/useUser"
+import { MdLogout } from "react-icons/md"
 
 const NavUser = () => {
     const [hora, setHora] = useState(new Date())
@@ -30,7 +31,7 @@ const NavUser = () => {
                 type="button"
                 onClick={() => handleLogout()}
             >
-                <ion-icon name="log-out-outline" style={{ fontSize: '20px'}}></ion-icon>
+                <MdLogout style={{ fontSize: '20px'}}/>
             </button>
         </div>
     </div>

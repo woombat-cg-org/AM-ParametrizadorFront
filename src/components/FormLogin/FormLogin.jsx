@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import LogoAM from '../../images/amlogo.png'
 import useUser from '../../hooks/useUser'
+import { MdEmail } from "react-icons/md"
 
 import { loginApi } from '../../api/user'
 
@@ -67,7 +68,6 @@ const FormLogin = () => {
       <div className="email">
         <label htmlFor="email">Usuario</label>
         <div className="sec-2">
-          <ion-icon name="mail-outline"></ion-icon>
           <input 
             type="text" 
             name="user" 
@@ -82,7 +82,6 @@ const FormLogin = () => {
       <div className="password">
         <label htmlFor="password">Contraseña</label>
         <div className="sec-2">
-          <ion-icon name="lock-closed-outline"></ion-icon>
           <input 
             className="pas" 
             type="password" 

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Filtro from '../Filtro/Filtro'
 import { toast } from 'react-toastify'
+import { MdOutlineRestoreFromTrash, MdEdit } from "react-icons/md"
 
 import { getFuentesApi, deleteFuenteApi } from '../../api/fuentes'
 
@@ -115,10 +116,10 @@ const TableList = () => {
                                 <td>
                                     <span
                                         onClick={() => handleEdit({...item})}
-                                    ><ion-icon name="create-outline"></ion-icon></span>
+                                    ><MdEdit style={{ fontSize: '20px' }}/></span>
                                     <span
                                         onClick={() => handleDelete({...item})}
-                                    ><ion-icon name="trash-outline"></ion-icon></span>
+                                    ><MdOutlineRestoreFromTrash style={{ fontSize: '20px' }}/></span>
                                 </td>
                             </tr>
                         ))

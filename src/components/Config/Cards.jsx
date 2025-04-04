@@ -1,5 +1,6 @@
 import { deleteControladorApi } from '../../api/controlador'
 import { toast } from 'react-toastify'
+import { MdOutlineRestoreFromTrash, MdEdit } from "react-icons/md"
 
 const Cards = ({controlador, setReload, seteditControlador, setData}) => {
 
@@ -43,10 +44,10 @@ const Cards = ({controlador, setReload, seteditControlador, setData}) => {
         <div className="card_sec3">
         <span
             onClick={() => editControlador(controlador)}
-        ><ion-icon name="create-outline"></ion-icon></span>
+        ><MdEdit style={{ fontSize: '20px' }}/></span>
         <span
             onClick={() => deleteControlador(controlador.id_controlador)}
-        ><ion-icon name="trash-outline"></ion-icon></span>
+        ><MdOutlineRestoreFromTrash style={{ fontSize: '20px' }}/></span>
         </div>
     </div>
   )

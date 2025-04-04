@@ -5,6 +5,7 @@ import Modal from 'react-modal'
 import { useState } from 'react'
 import Config from '../Config/Config'
 import DirHDFS from '../Config/DirHDFS'
+import { MdFileCopy, MdOutlineTableView, MdOutlineSettingsSuggest, MdFolderCopy } from "react-icons/md"
 
 const Navbar = () => {
   const location = useLocation()
@@ -49,10 +50,10 @@ const Navbar = () => {
         <nav className="nav-bar-links">
           {
             location.pathname === "/nueva-fuente" && (
-              <Link to="/" className={isActive('/nueva-fuente')}> <ion-icon name="newspaper-outline" style={{ marginRight: '8px', fontSize: '20px' }}></ion-icon> Fuente Nueva</Link>
+              <Link to="/" className={isActive('/nueva-fuente')}><MdFileCopy style={{ marginRight: '8px', fontSize: '20px' }}/> Fuente Nueva</Link>
             )
           }
-          <Link to="/" className={isActive('/')}> <ion-icon name="library-outline" style={{ marginRight: '8px', fontSize: '20px' }}></ion-icon> Tabla de Fuentes</Link>
+          <Link to="/" className={isActive('/')}><MdOutlineTableView style={{ marginRight: '8px', fontSize: '20px' }}/> Tabla de Fuentes</Link>
           {
             info_user.rol === 'admin' && 
             !location.pathname.startsWith('/nueva-fuente') && 
@@ -62,7 +63,7 @@ const Navbar = () => {
                 setModal(true)
                 setConfgNum(1)
               }} className={isActive('/configuraciones')}> 
-                <ion-icon name="cog-outline" style={{ marginRight: '8px', fontSize: '20px' }}></ion-icon> 
+                <MdOutlineSettingsSuggest style={{ marginRight: '8px', fontSize: '20px' }}/>
                 Controladores
               </a>
             )
@@ -76,7 +77,7 @@ const Navbar = () => {
                 setModal(true)
                 setConfgNum(2)
               }} className={isActive('/rutas-hdfs')}> 
-                <ion-icon name="share-social-outline" style={{ marginRight: '8px', fontSize: '20px' }}></ion-icon> 
+                <MdFolderCopy style={{ marginRight: '8px', fontSize: '20px' }}/>
                 Directorio HDFS
               </a>
             )

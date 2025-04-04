@@ -1,5 +1,6 @@
 import { deleteRutasApi } from '../../api/rutas_hdfs'
 import { toast } from 'react-toastify'
+import { MdOutlineRestoreFromTrash, MdEdit } from "react-icons/md"
 
 const CardsRutas = ({controlador, setReload, seteditControlador, setData, index}) => {
 
@@ -38,10 +39,10 @@ const CardsRutas = ({controlador, setReload, seteditControlador, setData, index}
         <div className="card_sec3">
         <span
             onClick={() => editControlador(controlador)}
-        ><ion-icon name="create-outline"></ion-icon></span>
+        ><MdEdit style={{ fontSize: '20px' }}/></span>
         <span
             onClick={() => deleteControlador(controlador.id_ruta)}
-        ><ion-icon name="trash-outline"></ion-icon></span>
+        ><MdOutlineRestoreFromTrash style={{ fontSize: '20px' }}/></span>
         </div>
     </div>
   )
